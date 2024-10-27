@@ -42,11 +42,6 @@
     <h1 class="text-center" style="color: white;">Find My Rommies</h1>
     <h2 class="text-center" style="color: white; width: 200px;">Find my Roomies is a roommate finder web application to help new and current NC State find the ideal roommate</h2>
   </div> -->
-
-<h4 style="text-align:center; color: #cc0000; background-color: white;"><b style="font-size: 3.5rem;">{{user_count}}</b>
-  Wolves signed up and
-  counting...
-</h4>
 {% if user.is_authenticated %}
 <div class="hero-overlay-block">
   <div class="container hero-container w-container">
@@ -60,18 +55,7 @@
 
 {% else %}
 
-<div class="hero-overlay-block">
-  <div class="container hero-container w-container">
-    <h2 data-ix="fade-in-on-load" style="color:white; line-height: 1.2;">Find My Roomie</h2>
-    <h5 data-ix="fade-in-on-load-2" style="color: white; text-justify: auto;">FindMyRoomies is a roommate
-      finder web application to help new and current NC State students find their ideal roommate.</h5>
-  </div>
-  <div class="container-2 w-container">
-    <a href="{% url 'login' %}" class="button-5 w-button">Sign In</a>
-    <a href="{% url 'signup' %}" class="button-4 w-button">Sign Up</a>
-  </div>
-</div>
-</div>
+{% include './pages/landing_page.html' %}
 
 {% endif %}
 
