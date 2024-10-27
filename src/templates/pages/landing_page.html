@@ -1,0 +1,67 @@
+
+{% load static %}
+
+{% block content %}
+<div class="font-sans">
+    <!-- Hero Section -->
+    <section class="text-center py-10 bg-gray-100">
+        <img src="{% static 'img/logo.png' %}" alt="PackFinder Logo" class="w-48 mx-auto mb-4"/>
+        <h1 class="text-4xl font-bold text-red-600">Welcome to PackFinder</h1>
+        <p class="mt-2 text-lg text-gray-700">Find the perfect roommate and create lasting connections!</p>
+        <a href="{% url 'signup' %}" class="mt-4 inline-block bg-red-600 text-white px-6 py-3 rounded-md hover:bg-red-700 transition">
+            Sign Up Now
+        </a>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-8">
+        <div class="max-w-5xl mx-auto text-center">
+            <h2 class="text-3xl font-bold text-red-600 mb-6">Why Choose PackFinder?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800">Easy Search</h3>
+                    <p class="text-gray-600">Customize your roommate search with filters tailored to your lifestyle and preferences.</p>
+                </div>
+                <div class="bg-white rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800">Connect Seamlessly</h3>
+                    <p class="text-gray-600">Easily browse profiles and connect with potential roommates who match your criteria.</p>
+                </div>
+                <div class="bg-white rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800">Build Community</h3>
+                    <p class="text-gray-600">Join a network of NC State students and form friendships that last beyond your college years.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-16 bg-gray-100">
+        <div class="max-w-5xl mx-auto text-center">
+            <h2 class="text-3xl font-bold text-red-600 mb-6">What Our Users Say</h2>
+            <div class="flex flex-col space-y-6 md:space-y-0 md:flex-row md:space-x-6">
+                <div class="bg-white rounded-lg p-6 flex-1">
+                    <p class="text-gray-600 italic">"PackFinder made it so easy to find my ideal roommate! The filters helped me connect with someone who shares my study habits."</p>
+                    <p class="mt-4 font-bold">- Yash, NC State Student</p>
+                </div>
+                <div class="bg-white rounded-lg p-6 flex-1">
+                    <p class="text-gray-600 italic">"I never thought finding a roommate could be this straightforward. Thanks to PackFinder, I found a great match!"</p>
+                    <p class="mt-4 font-bold">- Chaitralee, NC State Student</p>
+                </div>
+                <div class="bg-white rounded-lg p-6 flex-1">
+                    <p class="text-gray-600 italic">"The community feel of PackFinder is incredible! I've made some great friends through this platform."</p>
+                    <p class="mt-4 font-bold">- Ananya, NC State Student</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="py-16 text-center">
+        <h2 class="text-3xl font-bold text-red-600 mb-4">Ready to Find Your Roommate?</h2>
+        <p class="text-lg text-gray-700 mb-4">Join thousands of NC State students who have found their perfect match!</p>
+        <a href="{% url 'signup' %}" class="bg-red-600 text-white px-6 py-3 rounded-md hover:bg-red-700 transition">
+            Sign Up Today
+        </a>
+    </section>
+</div>
+{% endblock %}
