@@ -1,106 +1,60 @@
-<!--
- Created on Sun Oct 09 2022
-
- The MIT License (MIT)
- Copyright (c) 2022 Rohit Geddam, Arun Kumar, Teja Varma, Kiron Jayesh, Shandler Mason
-
- Permission is hereby granted, free of charge, to any person obtaining a copy of this software
- and associated documentation files (the "Software"), to deal in the Software without restriction,
- including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
- and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
- subject to the following conditions:
-
- The above copyright notice and this permission notice shall be included in all copies or substantial
- portions of the Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
- TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
- TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
--->
-
 {% extends 'base.html' %}
 {% load static %}
 
+<div class="flex flex-col min-h-screen bg-white font-sans">
+    <!-- Logo Section -->
+    <div class="text-center py-5">
+        <img src="{% static 'img/logo.png' %}" alt="PackFinder Logo" class="w-48 mx-auto"/>
+    </div>
 
-<img src="{% static " img/logo.png" %}" alt="My image" />
+    {% block title %}
+    <h1 class="text-center text-red-600 text-4xl mb-5">🐺 PackFinder</h1>
+    {% endblock %}
 
-{% block title %}
+    {% block content %}
 
-🐺 Find My Roomie
-
-{% endblock %}
-
-{% block content %}
-
-<!-- <div data-autoplay="true" data-loop="true" data-wf-ignore="true" data-video-urls="videos/For_Wes-transcode.mp4,videos/For_Wes-transcode.webm" class="hero-video w-background-video w-background-video-atom"><video id="28ee08b8-0c5b-ee03-a57d-02f2b0d97bc3-video" autoplay="" loop="" muted="" playsinline="" data-wf-ignore="true" data-object-fit="cover">
-    <source src="videos/For_Wes-transcode.mp4" data-wf-ignore="true">
-    <source src="videos/For_Wes-transcode.webm" data-wf-ignore="true">
-  </video> -->
-
-<!-- <div class="d-flex flex-column align-content-center" id="homepage__container">
-    <h1 class="text-center" style="color: white;">Find My Rommies</h1>
-    <h2 class="text-center" style="color: white; width: 200px;">Find my Roomies is a roommate finder web application to help new and current NC State find the ideal roommate</h2>
-  </div> -->
-
-<h4 style="text-align:center; color: #cc0000; background-color: white;"><b style="font-size: 3.5rem;">{{user_count}}</b>
-    <b style="font-size: 3.5rem;">A</b>bout <b style="font-size: 3.5rem;">F</b>ind<b style="font-size: 1.5rem;">M</b>y<b
-        style="font-size: 1.5rem;">R</b>oomie
-</h4>
-
-<div class="hero-overlay-block">
-    <div class="container hero-container w-container">
-        <!-- <h2 data-ix="fade-in-on-load" style="color:white; line-height: 1.2;">Find My Roomie</h2> -->
-        <h5 data-ix="fade-in-on-load-2" style="color: white;" align="justify">FindMyRoomie is a Web
-            Application
-            that provides a platform for lonely wolves (NC State students) to find roommates of their preference. The
-            stakes are high when it comes to finding your best roommate because this relationship starts with a living
-            relationship 😅. We understand how stressful this can be, especially if you are moving to a new city or
-            country. FindMyRoomie is a one-stop solution to your roommate finding needs. Our software has
-            functionalities that allow you to filter and choose your ideal roommate. But if that is too much work for
-            you, we also provide roommate suggestions based on your preferences! Any NC State student could sign up with
-            their NC State Email address from any corner of the world on our website and begin searching for roommates.
-        </h5>
-
-        <div style="color: white; font-size: 24px;"><b>Support Email:</b> ncsu.findmyroomie@gmail.com</div>
-        <div style="display: flex; flex-direction: column; color: white;">
-            <div style="font-size: 24px; text-decoration: underline;">Contributors</div>
-            <div>
-                <div>
-                    <p style="display:inline; margin-right: 8px;">Shandler Mason</p>
-                    <p style="display:inline;">smason@ncsu.edu</p>
-
-                </div>
-                <div>
-                    <p style="display:inline; margin-right: 8px;">Teja Varma</p>
-                    <p style="display:inline;">smanthe@ncsu.edu
-                    </p>
-                </div>
-                <div>
-                    <p style="display:inline; margin-right: 8px;">Kiron Jayesh</p>
-                    <p style="display:inline;">kjayesh@ncsu.edu</p>
-                </div>
-                <div>
-                    <p style="display:inline; margin-right: 8px;">Arun Kumar</p>
-                    <p style="display:inline;">arames25@ncsu.edu</p>
-                </div>
-                <div>
-                    <p style="display:inline; margin-right: 8px;">Saigirishwar Rohit Geddam</p>
-                    <p style="display:inline;">sgeddam2@ncsu.edu</p>
-                </div>
-            </div>
+    <!-- Single Card Section -->
+    <div class="max-w-2xl mx-auto bg-gray-100 rounded-lg p-6 mb-6 mt-2">
+        <div class="text-gray-800 mb-4">
+            <h5 class="text-red-600 text-xl font-semibold">About</h5>
+            <p class="text-lg leading-7 text-gray-800 text-justify">
+                Finding the right roommate can make all the difference in creating a positive living experience. 
+                <b>PackFinder</b> is designed specifically for NC State students, offering a seamless platform to connect with potential roommates who share similar interests, lifestyles, and preferences. Our user-friendly interface allows students to customize their search with filters tailored to their unique needs—be it quiet study habits, social lifestyles, or specific living arrangements. 
+                Whether you are moving across town or relocating from another city or country, our platform simplifies the roommate search process, ensuring you can find the best match from the comfort of your own home. With <b>PackFinder</b>, you can easily browse profiles, connect with potential roommates, and make informed decisions based on your compatibility. 
+                Join us in fostering a community of NC State students who not only find a place to live but also form lasting friendships and connections. Sign up today using your NC State email and embark on your journey to find the perfect roommate!
+            </p>
         </div>
 
-        <a href="https://findmyroomie.readthedocs.io/en/latest/" style="margin-top: 24px;" class="btn btn-primary">Read
-            Documentation</a>
-        <div style="color: white; margin-top: 24px;">
-            @Copyright FindMyRoomate 2022
+        <!-- Support Email -->
+        <div class="text-gray-800 mb-4">
+            <h5 class="text-red-600 text-xl font-semibold">Support</h5>
+            <b>Email:</b> <span class="text-red-600">ncsu.packfinder@gmail.com</span>
+        </div>
+
+        <!-- Contributors Section -->
+        <div class="mb-4">
+            <h5 class="text-red-600 text-xl font-semibold mb-2">Contributors</h5>
+            <ul class="list-none text-gray-800 space-y-1">
+                <li><b>Shandler Mason</b> - smason@ncsu.edu</li>
+                <li><b>Teja Varma</b> - smanthe@ncsu.edu</li>
+                <li><b>Kiron Jayesh</b> - kjayesh@ncsu.edu</li>
+                <li><b>Arun Kumar</b> - arames25@ncsu.edu</li>
+                <li><b>Saigirishwar Rohit Geddam</b> - sgeddam2@ncsu.edu</li>
+                <li class="text-red-500"><b>Ananya Patankar</b> - apatank@ncsu.edu</li>
+                <li class="text-red-500"><b>Chaitralee Datar</b> - cdatar2@ncsu.edu</li>
+                <li class="text-red-500"><b>Yash Shah</b> - yshah5@ncsu.edu</li>
+            </ul>
+        </div>
+
+        <!-- Documentation Link -->
+        <div>
+            <h5 class="text-red-600 text-xl font-semibold mb-2">Documentation</h5>
+            <a href="https://findmyroomie.readthedocs.io/en/latest/" 
+               class="bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700 transition">
+                Read Documentation
+            </a>
         </div>
     </div>
+
+    {% endblock %}
 </div>
-</div>
-
-
-
-
-{% endblock %}
