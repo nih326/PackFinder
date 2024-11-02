@@ -5,13 +5,13 @@ with open("README.md", "r") as readme_file:
 
 
 setup(
-    name="FindMyRoomie",
+    name="PackFinder",
     version="3.0",
     description="Django app to find roommates built for NCSU students",
     long_description=long_description,
-    author="Rohit Geddam, Shandler Mason, Arun kumar, Kiron Jayesh, Teja Varma",
+    author="Ananya Patankar, Chaitralee Datar, Yash Shah"
     license="MIT",
-    keywords="FindMyRoomie roommate finder",
+    keywords="PackFinder roommate finder",
     packages=find_packages(),
     install_requires=[],
 )
