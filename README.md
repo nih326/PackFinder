@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 [![Test](https://github.com/rohitgeddam/FindMyRoomie/actions/workflows/Unit_Tests.yml/badge.svg)](https://github.com/rohitgeddam/FindMyRoomie/actions/workflows/Unit_Tests.yml)
 [![codecov](https://codecov.io/gh/rohitgeddam/FindMyRoomie/branch/main/graph/badge.svg?token=PCOHJETYCD)](https://codecov.io/gh/rohitgeddam/FindMyRoomie)
 [![Test](https://github.com/rohitgeddam/FindMyRoomie/actions/workflows/Linting.yml/badge.svg)](https://github.com/rohitgeddam/FinMyRoomie/actions/workflows/Linting.yml)
@@ -14,13 +14,17 @@
 
 ![fmr](https://user-images.githubusercontent.com/73664200/194788342-99dac017-b22c-40cc-911a-32bbf8826f5d.png)
 
-# FindMyRoomie
+#PackFinder
 <p align = "justify">
-<b>FindMyRoomie</b> is a Web Application that provides a platform for lonely wolves (NC State students) to find roommates of their preference. The stakes are high when it comes to finding your best roommate because this relationship starts with a living relationship :sweat_smile:. We understand how stressful this can be, especially if you are moving to a new city or country. FindMyRoomie is a one-stop solution to your roommate finding needs. Our software has functionalities that allow you to filter and choose your ideal roommate. But if that is too much work for you, we also provide roommate suggestions based on your preferences! Any <b> NC State student </b> could sign up with their NC State Email address from any corner of the world on our website and begin searching for roommates. 
+<b>PackFinder</b> PackFinder is an innovative web application tailored for NC State students seeking the perfect roommate. We know that finding a compatible roommate can be a daunting task, especially when relocating to a new city or country. That’s why PackFinder is here to simplify the process.
+
+Our platform allows users to filter potential roommates based on specific preferences, ensuring you find someone who truly fits your lifestyle. If you’re looking for a hassle-free experience, we also offer curated roommate suggestions based on your unique interests.
+
+All NC State students can easily sign up with their university email, no matter where they are in the world, and embark on their quest for the ideal roommate.
 </p>
 
 <p align = "center">
-<img width = "400", src = "https://user-images.githubusercontent.com/52373569/194727868-201a036a-c400-46c4-b359-98777a92ce86.gif">
+<img width = "400", src = "[https://user-images.githubusercontent.com/52373569/194727868-201a036a-c400-46c4-b359-98777a92ce86.gif](https://media.giphy.com/media/dAzGWRxVXUGbWjw9QX/giphy.gif?cid=ecf05e470ujzwqwe0kdnlksqqa41l3h9p535lvyc7vrs7hbb&ep=v1_gifs_related&rid=giphy.gif&ct=g)">
 </p>
 
 <sub>GIF from [Tenor](https://tenor.com/view/roommate-rachel-monica-friends-gif-7920313).<sub>
