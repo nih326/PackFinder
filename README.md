@@ -24,7 +24,7 @@ All NC State students can easily sign up with their university email, no matter 
 </p>
 
 <p align = "center">
-<img width = "400", src = "https://user-images.githubusercontent.com/52373569/194727868-201a036a-c400-46c4-b359-98777a92ce86.gif](https://media.giphy.com/media/dAzGWRxVXUGbWjw9QX/giphy.gif?cid=ecf05e470ujzwqwe0kdnlksqqa41l3h9p535lvyc7vrs7hbb&ep=v1_gifs_related&rid=giphy.gif&ct=g">
+<img width = "400", src = "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjU4cmtzdG9taGNxY2ppaDczbXl6NTlrM3VrMjU4c3lkdWR1MHA1ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qNdpIRcyY7uAuyuCqI/giphy.gif">
 </p>
 
 <sub>GIF from [Tenor](https://tenor.com/view/roommate-rachel-monica-friends-gif-7920313).<sub>
