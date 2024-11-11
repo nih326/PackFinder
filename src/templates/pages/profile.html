@@ -1,8 +1,8 @@
 <!--
- Created on Sun Oct 09 2022
+ Created on Sun Nov 04 2024
 
  The MIT License (MIT)
- Copyright (c) 2022 Rohit Geddam, Arun Kumar, Teja Varma, Kiron Jayesh, Shandler Mason
+ Copyright (c) 2024 Chaitralee Datar, Ananya Patankar, Yash Shah
 
  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  and associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -52,40 +52,47 @@ My Profile
         </div>
     </div>
 
-    <div id="section-left" style="width: 80%">
-        <div class="container">
-            <div class="card">
-                <div class="card-body">
-                    <p class="card-text"><b>Bio: </b>{{profile.bio}}</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><b>Hometown: </b>{{profile.hometown}}</li>
-                    <li class="list-group-item"><b>Country: </b>{{profile.country.name}}</li>
-                    <li class="list-group-item"><b>DOB: </b>{{profile.birth_date}}</li>
-                    <li class="list-group-item"><b>Gender: </b>{{profile.gender}}</li>
-
-                    <li class="list-group-item"><b>Degree: </b>{{profile.degree}}</li>
-
-
-                    <li class="list-group-item"><b>Course: </b>{{profile.course}}</li>
-                    <li class="list-group-item"><b>Visible in search: </b>{{profile.visibility}}</li>
-                </ul>
+    <div id="section-left" style="width: 80%; padding-left: 20px;">
+        <div class="card">
+            <div class="card-header">
+                <h4>About Me</h4>
             </div>
-
-            <div class="card" style="margin-top: 32px;">
-                <div class="card-body">
-                    <div class="card-title"><b>Preferences</b></div>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><b>Preferred Gender: </b>{{profile.preference_gender}}</li>
-                    <li class="list-group-item"><b>Preferred Degree: </b>{{profile.preference_degree}}</li>
-                    <li class="list-group-item"><b>Preferred Course: </b>{{profile.preference_course}}</li>
-                    <li class="list-group-item"><b>Preferred Diet: </b>{{profile.preference_diet}}</li>
-                    <li class="list-group-item"><b>Preferred Country: </b>{{profile.preference_country.name}}</li>
-                </ul>
+            <div class="card-body">
+                <p>{{profile.bio}}</p>
             </div>
         </div>
 
+        <div class="card mt-4">
+            <div class="card-header">
+                <h4>Roommate Preferences</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Sleep Schedule</h5>
+                        <p>{{ profile.get_sleep_schedule_display }}</p>
+                        <small class="text-muted">Importance: {{ profile.get_sleep_schedule_importance_display }}</small>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Cleanliness</h5>
+                        <p>{{ profile.get_cleanliness_display }}</p>
+                        <small class="text-muted">Importance: {{ profile.get_cleanliness_importance_display }}</small>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <h5>Noise Level</h5>
+                        <p>{{ profile.get_noise_preference_display }}</p>
+                        <small class="text-muted">Importance: {{ profile.get_noise_importance_display }}</small>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Guest Preference</h5>
+                        <p>{{ profile.get_guest_preference_display }}</p>
+                        <small class="text-muted">Importance: {{ profile.get_guest_importance_display }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

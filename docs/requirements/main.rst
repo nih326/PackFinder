@@ -26,7 +26,7 @@ Third-party Requirements
 * Babel: 2.10.3
 * black: 21.12b0
 * brunette: 0.2.7
-* certifi: 2022.9.24
+* certifi: 2024.9.24
 * cfgv: 3.3.1
 * charset-normalizer: 2.1.1
 * click: 8.1.3
@@ -76,7 +76,7 @@ Third-party Requirements
 * PySocks: 1.7.1
 * python-dateutil: 2.8.2
 * python-dotenv: 0.21.0
-* pytz: 2022.4
+* pytz: 2024.4
 * PyYAML: 6.0
 * requests: 2.28.1
 * selenium: 4.5.0

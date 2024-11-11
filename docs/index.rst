@@ -1,5 +1,5 @@
 .. FindMyPack documentation master file, created by
-   sphinx-quickstart on Wed Oct  5 23:40:44 2022.
+   sphinx-quickstart on Wed Oct  5 23:40:44 2024.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
@@ -101,4 +101,4 @@ Rohit Geddam, Arun Kumar Ramesh, Kiron Jayesh, Shandler Mason, and Sai Krishna T
 
 **Version**: 
 
-v3.1 of 2022/10/08
+v3.1 of 2024/10/08

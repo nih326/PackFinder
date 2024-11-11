@@ -1,8 +1,8 @@
 #
-# Created on Sun Oct 09 2022
+# Created on Sun Oct 04 2024
 #
 # The MIT License (MIT)
-# Copyright (c) 2022 Rohit Geddam, Arun Kumar, Teja Varma, Kiron Jayesh, Shandler Mason
+# Copyright (c) 2024 Chaitralee Datar, Ananya Patankar, Yash Shah
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this software
 # and associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -25,7 +25,7 @@ from django.contrib.auth import get_user_model
 from .utils import check_ncsu_email
 
 # from django.contrib.admin.widgets import AdminDateWidget
-from .models import Profile
+from .models import Profile, Room
 
 
 class SignUpForm(UserCreationForm):
@@ -58,52 +58,41 @@ class ProfileForm(forms.ModelForm):
     # birth_date = forms.DateField(widget=AdminDateWidget)
 
     def __init__(self, *args, **kwargs):
-        super(ProfileForm, self).__init__(*args, **kwargs)
-        for bound_field in self:
-            if (
-                hasattr(bound_field, "field")
-                and bound_field.name in self.Meta.required_fields
-            ):
-                bound_field.field.widget.attrs["required"] = "required"
+        super().__init__(*args, **kwargs)
+        self.fields['name'].widget.attrs.update({'class': 'form-control'})
+        self.fields['bio'].widget.attrs.update({'class': 'form-control'})
+        self.fields['sleep_schedule'].widget.attrs.update({'class': 'form-control'})
+        self.fields['sleep_schedule_importance'].widget.attrs.update({'class': 'form-control'})
+        self.fields['cleanliness'].widget.attrs.update({'class': 'form-control'})
+        self.fields['cleanliness_importance'].widget.attrs.update({'class': 'form-control'})
+        self.fields['noise_preference'].widget.attrs.update({'class': 'form-control'})
+        self.fields['noise_importance'].widget.attrs.update({'class': 'form-control'})
+        self.fields['guest_preference'].widget.attrs.update({'class': 'form-control'})
+        self.fields['guest_importance'].widget.attrs.update({'class': 'form-control'})
+        self.fields['room_status'].widget.attrs.update({'class': 'form-control'})
 
     class Meta:
         model = Profile
-        fields = (
-            "name",
-            "bio",
-            "profile_photo",
-            "birth_date",
-            "gender",
-            "diet",
-            "degree",
-            "course",
-            "hometown",
-            "country",
-            "visibility",
-            "preference_gender",
-            "preference_degree",
-            "preference_diet",
-            "preference_country",
-            "preference_course",
-        )
-        required_fields = [
-            "name",
-            "bio",
-            "birth_date",
-            "gender",
-            "diet",
-            "degree",
-            "course",
-            "hometown",
-            "country",
+        fields = [
+            'name',
+            'profile_photo',
+            'bio',
+            'sleep_schedule',
+            'sleep_schedule_importance',
+            'cleanliness',
+            'cleanliness_importance',
+            'noise_preference',
+            'noise_importance',
+            'guest_preference',
+            'guest_importance',
+            'room_status',
         ]
+
+
+class RoomForm(forms.ModelForm):
+    class Meta:
+        model = Room
+        fields = ['address', 'rent', 'description', 'available_from']
         widgets = {
-            "birth_date": forms.DateInput(
-                format=("%Y-%m-%d"),
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "Select Date",
-                    "type": "date",
-                },
-            )
+            'available_from': forms.DateInput(attrs={'type': 'date'})
         }

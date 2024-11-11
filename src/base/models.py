@@ -1,8 +1,8 @@
 #
-# Created on Sun Oct 09 2022
+# Created on Sun Nov 04 2024
 #
 # The MIT License (MIT)
-# Copyright (c) 2022 Rohit Geddam, Arun Kumar, Teja Varma, Kiron Jayesh, Shandler Mason
+# Copyright (c) 2024 Chaitralee Datar, Ananya Patankar, Yash Shah
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this software
 # and associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -127,6 +127,49 @@ class Profile(models.Model):
         (COURSE_MEC, "Mechanical Engg."),
     )
 
+    PREFERENCE_CHOICES = [
+        (1, 'Early Bird (Before 10 PM)'),
+        (2, 'Night Owl (After 10 PM)'),
+        (3, 'Flexible'),
+    ]
+    
+    CLEANLINESS_CHOICES = [
+        (1, 'Very Neat'),
+        (2, 'Moderately Clean'),
+        (3, 'Relaxed'),
+    ]
+    
+    NOISE_CHOICES = [
+        (1, 'Very Quiet'),
+        (2, 'Moderate Noise'),
+        (3, 'Active/Social'),
+    ]
+    
+    GUEST_CHOICES = [
+        (1, 'Rarely/Never'),
+        (2, 'Occasionally'),
+        (3, 'Frequently'),
+    ]
+    
+    IMPORTANCE_CHOICES = [
+        (1, 'Not Important'),
+        (2, 'Somewhat Important'),
+        (3, 'Very Important'),
+    ]
+
+    # Add Room Status field
+    ROOM_STATUS = [
+        ('available', 'Looking for Room'),
+        ('occupied', 'Room Found'),
+        ('offering', 'Offering Room'),
+    ]
+
+    room_status = models.CharField(
+        max_length=20,
+        choices=ROOM_STATUS,
+        default='available'
+    )
+
     """User Profile Model"""
     name = models.CharField(max_length=100, default="")
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
@@ -172,6 +215,19 @@ class Profile(models.Model):
 
     email_confirmed = models.BooleanField(default=False)
 
+    # Preferences
+    sleep_schedule = models.IntegerField(choices=PREFERENCE_CHOICES, null=True)
+    sleep_schedule_importance = models.IntegerField(choices=IMPORTANCE_CHOICES, default=1)
+    
+    cleanliness = models.IntegerField(choices=CLEANLINESS_CHOICES, null=True)
+    cleanliness_importance = models.IntegerField(choices=IMPORTANCE_CHOICES, default=1)
+    
+    noise_preference = models.IntegerField(choices=NOISE_CHOICES, null=True)
+    noise_importance = models.IntegerField(choices=IMPORTANCE_CHOICES, default=1)
+    
+    guest_preference = models.IntegerField(choices=GUEST_CHOICES, null=True)
+    guest_importance = models.IntegerField(choices=IMPORTANCE_CHOICES, default=1)
+
     def __str__(self):
         return f"{self.user.email}-profile"
 
@@ -187,3 +243,17 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     """Save User Profile"""
     instance.profile.save()
+
+
+class Room(models.Model):
+    owner = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='owned_rooms')
+    interested_users = models.ManyToManyField(Profile, related_name='interested_rooms', blank=True)
+    address = models.CharField(max_length=200)
+    rent = models.DecimalField(max_digits=8, decimal_places=2)
+    description = models.TextField()
+    available_from = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_available = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"Room at {self.address} by {self.owner.name}"

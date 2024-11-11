@@ -1,8 +1,8 @@
 #
-# Created on Sun Oct 09 2022
+# Created on Sun Nov 04 2024
 #
 # The MIT License (MIT)
-# Copyright (c) 2022 Rohit Geddam, Arun Kumar, Teja Varma, Kiron Jayesh, Shandler Mason
+# Copyright (c) 2024 Chaitralee Datar, Ananya Patankar, Yash Shah
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this software
 # and associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -35,7 +35,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.template.loader import render_to_string
 from .filters import ProfileFilter
-from .matching import matchings
+from .matching import matchings, calculate_preference_match
 
 from django.contrib.auth import login
 from django.contrib.auth.models import User
@@ -43,6 +43,8 @@ from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 from base.tokens import account_activation_token
 from django.views import View
+from .models import Room
+from .forms import RoomForm
 
 
 class ActivateAccount(View):
@@ -119,14 +121,8 @@ def home(request):
 
 @login_required()
 def profile(request):
-    """Render profile page"""
-    if not request.user.profile.is_profile_complete:
-        messages.error(request, "Please complete your profile first!")
-        return redirect("profile_edit")
-
-    profile = Profile.objects.get(user=request.user)
-
-    return render(request, "pages/profile.html", {"profile": profile})
+    """Render Profile page"""
+    return render(request, "pages/profile.html", {"profile": request.user.profile})
 
 
 @login_required()
@@ -154,21 +150,61 @@ def profile_edit(request):
 @login_required()
 def findpeople(request):
     """Render findpeople page"""
-    qs = Profile.objects.filter(visibility=True).exclude(user=request.user)
-    f = ProfileFilter(request.GET, queryset=qs)
-    return render(request, "pages/findpeople.html", {"filter": f})
+    user_profile = request.user.profile
+    profiles = Profile.objects.exclude(user=request.user)
+    
+    # Calculate match percentages
+    profiles_with_match = []
+    for profile in profiles:
+        match_percentage = calculate_preference_match(user_profile, profile)
+        profiles_with_match.append({
+            'profile': profile,
+            'match_percentage': round(match_percentage, 1)
+        })
+    
+    # Sort by match percentage
+    profiles_with_match.sort(key=lambda x: x['match_percentage'], reverse=True)
+    
+    context = {
+        'profiles': profiles_with_match
+    }
+    return render(request, 'pages/findpeople.html', context)
 
 
-@login_required()
+@login_required
 def myroom(request):
-    """Render Myroom page based on Profile Completion"""
-    if not request.user.profile.is_profile_complete:
-        messages.error(request, "Please complete your profile first!")
-        return redirect("profile_edit")
+    """Handle My Room functionality"""
+    profile = request.user.profile
+    
+    # Get rooms where the user has shown interest
+    interested_rooms = Room.objects.filter(interested_users=profile)
+    
+    # Get rooms owned by the user
+    owned_rooms = Room.objects.filter(owner=profile)
+    
+    context = {
+        'interested_rooms': interested_rooms,
+        'owned_rooms': owned_rooms,
+        'profile': profile
+    }
+    
+    return render(request, "pages/myroom.html", context)
 
-    matches = matchings(request.user)
 
-    return render(request, "pages/myroom.html", {"matches": matches})
+@login_required
+def add_room(request):
+    """Add a new room listing"""
+    if request.method == 'POST':
+        form = RoomForm(request.POST)
+        if form.is_valid():
+            room = form.save(commit=False)
+            room.owner = request.user.profile
+            room.save()
+            return redirect('myroom')
+    else:
+        form = RoomForm()
+    
+    return render(request, 'pages/add_room.html', {'form': form})
 
 
 def user_logout(request):
@@ -176,3 +212,22 @@ def user_logout(request):
     logout(request)
     messages.success(request, "Logged out successfully!")
     return redirect("home")
+
+
+@login_required
+def toggle_room_interest(request, room_id):
+    try:
+        room = Room.objects.get(id=room_id)
+        profile = request.user.profile
+        
+        if profile in room.interested_users.all():
+            room.interested_users.remove(profile)
+            messages.success(request, "Removed interest in room.")
+        else:
+            room.interested_users.add(profile)
+            messages.success(request, "Added interest in room.")
+            
+        return redirect('myroom')
+    except Room.DoesNotExist:
+        messages.error(request, "Room not found.")
+        return redirect('myroom')
