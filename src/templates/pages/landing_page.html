@@ -1,34 +1,29 @@
-
 {% load static %}
 
 {% block content %}
 <div class="font-sans">
     <!-- Hero Section -->
-    <section class="text-center py-10 bg-gray-100">
-        <img src="{% static 'img/logo.png' %}" alt="PackFinder Logo" class="w-48 mx-auto mb-4"/>
-        <h1 class="text-4xl font-bold text-red-600">Welcome to PackFinder</h1>
-        <p class="mt-2 text-lg text-gray-700">Find the perfect roommate and create lasting connections!</p>
-        <a href="{% url 'signup' %}" class="mt-4 inline-block bg-red-600 text-white px-6 py-3 rounded-md hover:bg-red-700 transition">
-            Sign Up Now
-        </a>
+    <section class="text-center min-h-screen flex flex-col justify-center items-center bg-gray-100 hero-section">
+        <h1 class="text-6xl font-bold text-white mb-2">Welcome to PackFinder</h1>
+        <p class="text-2xl text-blue-100 mb-6">Find the perfect roommate and create lasting connections!</p>
     </section>
 
     <!-- Features Section -->
-    <section class="py-8">
+    <section class="py-16 bg-gray-50">
         <div class="max-w-5xl mx-auto text-center">
-            <h2 class="text-3xl font-bold text-red-600 mb-6">Why Choose PackFinder?</h2>
+            <h2 class="text-3xl font-bold text-blue-900 mb-10">Why Choose PackFinder?</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white rounded-lg p-6">
+                <div class="bg-white rounded-lg p-6 shadow-md">
                     <h3 class="text-xl font-semibold text-gray-800">Easy Search</h3>
-                    <p class="text-gray-600">Customize your roommate search with filters tailored to your lifestyle and preferences.</p>
+                    <p class="text-gray-600 mt-2">Customize your roommate search with filters tailored to your lifestyle and preferences.</p>
                 </div>
-                <div class="bg-white rounded-lg p-6">
+                <div class="bg-white rounded-lg p-6 shadow-md">
                     <h3 class="text-xl font-semibold text-gray-800">Connect Seamlessly</h3>
-                    <p class="text-gray-600">Easily browse profiles and connect with potential roommates who match your criteria.</p>
+                    <p class="text-gray-600 mt-2">Easily browse profiles and connect with potential roommates who match your criteria.</p>
                 </div>
-                <div class="bg-white rounded-lg p-6">
+                <div class="bg-white rounded-lg p-6 shadow-md">
                     <h3 class="text-xl font-semibold text-gray-800">Build Community</h3>
-                    <p class="text-gray-600">Join a network of NC State students and form friendships that last beyond your college years.</p>
+                    <p class="text-gray-600 mt-2">Join a network of NC State students and form friendships that last beyond your college years.</p>
                 </div>
             </div>
         </div>
@@ -37,17 +32,17 @@
     <!-- Testimonials Section -->
     <section class="py-16 bg-gray-100">
         <div class="max-w-5xl mx-auto text-center">
-            <h2 class="text-3xl font-bold text-red-600 mb-6">What Our Users Say</h2>
+            <h2 class="text-3xl font-bold text-blue-900 mb-6">What Our Users Say</h2>
             <div class="flex flex-col space-y-6 md:space-y-0 md:flex-row md:space-x-6">
-                <div class="bg-white rounded-lg p-6 flex-1">
+                <div class="bg-white rounded-lg p-6 flex-1 shadow-md">
                     <p class="text-gray-600 italic">"PackFinder made it so easy to find my ideal roommate! The filters helped me connect with someone who shares my study habits."</p>
                     <p class="mt-4 font-bold">- Yash, NC State Student</p>
                 </div>
-                <div class="bg-white rounded-lg p-6 flex-1">
+                <div class="bg-white rounded-lg p-6 flex-1 shadow-md">
                     <p class="text-gray-600 italic">"I never thought finding a roommate could be this straightforward. Thanks to PackFinder, I found a great match!"</p>
                     <p class="mt-4 font-bold">- Chaitralee, NC State Student</p>
                 </div>
-                <div class="bg-white rounded-lg p-6 flex-1">
+                <div class="bg-white rounded-lg p-6 flex-1 shadow-md">
                     <p class="text-gray-600 italic">"The community feel of PackFinder is incredible! I've made some great friends through this platform."</p>
                     <p class="mt-4 font-bold">- Ananya, NC State Student</p>
                 </div>
@@ -57,11 +52,77 @@
 
     <!-- Call to Action Section -->
     <section class="py-16 text-center">
-        <h2 class="text-3xl font-bold text-red-600 mb-4">Ready to Find Your Roommate?</h2>
+        <h2 class="text-3xl font-bold text-blue-900 mb-4">Ready to Find Your Roommate?</h2>
         <p class="text-lg text-gray-700 mb-4">Join thousands of NC State students who have found their perfect match!</p>
-        <a href="{% url 'signup' %}" class="bg-red-600 text-white px-6 py-3 rounded-md hover:bg-red-700 transition">
+        <a href="{% url 'signup' %}" class="bg-blue-900 text-white px-5 py-2 rounded-md hover:bg-blue-700 transition">
             Sign Up Today
         </a>
     </section>
+
+    <!-- FAQ Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-blue-900 text-center mb-10">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                    <button class="w-full text-left p-4 font-semibold text-gray-800 flex justify-between items-center hover:bg-gray-50" onclick="toggleFaq(1)">
+                        <span>What is PackFinder?</span>
+                        <span class="faq-icon transition-transform" id="icon1">+</span>
+                    </button>
+                    <div class="faq-content overflow-hidden" id="faq1">
+                        <p class="px-4 py-2 text-gray-700">PackFinder is a platform designed to help NC State students find compatible roommates and build meaningful connections.</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                    <button class="w-full text-left p-4 font-semibold text-gray-800 flex justify-between items-center hover:bg-gray-50" onclick="toggleFaq(2)">
+                        <span>How does PackFinder match me with roommates?</span>
+                        <span class="faq-icon transition-transform" id="icon2">+</span>
+                    </button>
+                    <div class="faq-content overflow-hidden" id="faq2">
+                        <p class="px-4 py-2 text-gray-700">PackFinder uses filters that take your lifestyle preferences, habits, and interests into account to help you find the ideal roommate.</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                    <button class="w-full text-left p-4 font-semibold text-gray-800 flex justify-between items-center hover:bg-gray-50" onclick="toggleFaq(3)">
+                        <span>Is PackFinder only for NC State students?</span>
+                        <span class="faq-icon transition-transform" id="icon3">+</span>
+                    </button>
+                    <div class="faq-content overflow-hidden" id="faq3">
+                        <p class="px-4 py-2 text-gray-700">Yes, PackFinder is specifically designed for NC State students to help them find suitable roommates within their community.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
+<!-- Styles and JavaScript for FAQ -->
+<style>
+    .faq-content {
+        max-height: 0;
+        transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+    }
+
+    .faq-content.open {
+        max-height: 500px; /* Adjust as needed */
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    /* Hero section background image */
+    .hero-section {
+        background-image: url('{% static "img/hero.png" %}');
+        background-size: cover;
+        background-position: center;
+    }
+</style>
+
+<script>
+    function toggleFaq(faqId) {
+        const faq = document.getElementById(`faq${faqId}`);
+        const icon = document.getElementById(`icon${faqId}`);
+
+        faq.classList.toggle('open');
+        icon.textContent = faq.classList.contains('open') ? '-' : '+';
+    }
+</script>
 {% endblock %}

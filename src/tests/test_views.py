@@ -31,7 +31,7 @@ class TestViews(TestCase):
         self.client = Client()
         response = self.client.get(reverse("home"))
 
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "index.html")
 
     def test_profile(self):
@@ -50,7 +50,7 @@ class TestViews(TestCase):
         self.client = Client()
         self.response = self.client.post(reverse("profile_edit"))
 
-        self.assertEquals(self.response.status_code, 302)
+        self.assertEqual(self.response.status_code, 302)
 
     def test_findpeople(self):
         self.client = Client()

@@ -29,5 +29,5 @@ class TestUrls(SimpleTestCase):
         valid_ncsu_email = "abcd@ncsu.edu"
         invalid_ncsu_email = "abcd@gmail.com"
 
-        self.assertEquals(utils.check_ncsu_email(valid_ncsu_email), True)
-        self.assertEquals(utils.check_ncsu_email(invalid_ncsu_email), False)
+        self.assertEqual(utils.check_ncsu_email(valid_ncsu_email), True)
+        self.assertEqual(utils.check_ncsu_email(invalid_ncsu_email), False)

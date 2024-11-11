@@ -65,7 +65,7 @@ class ActivateAccount(View):
             login(request, user)
             messages.success(
                 request,
-                ("Your account have been confirmed. We have logged you in."),
+                ("Your account has been confirmed. We have logged you in."),
             )
             return redirect("home")
         else:

@@ -1,46 +1,29 @@
-# Code of Conduct for Contributors
+# Code of Conduct 
 
-## Our Commitment
+## Pledge and Standards
 
-We strive to create a welcoming and inclusive environment for all participants in our community. As contributors and maintainers, we are dedicated to ensuring that everyone can engage in our project free from harassment and discrimination, regardless of their background or identity.
+In the interest of fostering an open and welcoming environment, we as contributors and maintainers pledge to making participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.
 
-## Positive Behavior
+Acceptable behaviour examples include:
+* Using welcoming and inclusive language
+* Being respectful of differing perspectives and experiences
+* Gracefully accepting constructive criticism
+* Showing empathy towards other community members
 
-We encourage behaviors that foster a respectful and constructive atmosphere, including:
+Unacceptable behavior examples include:
 
-- Utilizing inclusive and affirming language
-- Valuing diverse perspectives and experiences
-- Accepting feedback with an open mind
-- Prioritizing the collective well-being of the community
-- Demonstrating kindness and understanding towards others
+* The use of sexualized language or imagery
+* Personal attacks
+* Trolling or insulting/derogatory comments
+* Public or private harassment
+* Publishing others' private information without explicit permission
+* Other behaviour that is considered unacpetable in a professional environment
 
-## Unacceptable Behavior
+Project maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct. By adopting this Code of Conduct, project maintainers commit themselves to fairly and consistently applying these principles to every aspect of managing this project. Project maintainers who do not follow or enforce the Code of Conduct may be permanently removed from the project team.
 
-The following behaviors are considered harmful and are not tolerated within our community:
+## Attribution
 
-- Sexual language or imagery, or any form of unwanted attention
-- Insults, derogatory comments, and personal attacks
-- Harassment in any form, whether public or private
-- Sharing private information without consent
-- Any conduct that would be deemed unprofessional in a workplace setting
+This Code of Conduct is adapted from the [Contributor Covenant][homepage], version 1.4, available at [https://contributor-covenant.org/version/1/4][version]
 
-## Responsibilities of Maintainers
-
-Maintainers are tasked with defining acceptable behavior and are responsible for addressing any violations of this Code of Conduct. This includes:
-
-- The authority to remove or modify contributions that do not comply with our standards
-- The ability to issue warnings or ban contributors who engage in unacceptable behavior
-
-## Applicability
-
-This Code of Conduct applies in all project-related spaces, both online and offline, when representing the project. This includes using official communication channels, participating in discussions, or attending events.
-
-## Reporting Issues
-
-If you witness or experience any behavior that violates this Code of Conduct, please report it to the project team at {{ email }}. We will investigate all reports and take appropriate action to address the situation. Confidentiality will be maintained for those reporting incidents. Additional enforcement procedures may be outlined separately.
-
-Maintainers who fail to uphold this Code of Conduct may face consequences, including temporary or permanent removal from the project.
-
-## Acknowledgment
-
-This Code of Conduct is based on community-driven principles and aims to create a safe and inclusive space for all. By participating in this project, you agree to abide by these guidelines.
+[homepage]: https://contributor-covenant.org
+[version]: https://contributor-covenant.org/version/1/4/

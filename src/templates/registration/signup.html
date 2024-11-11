@@ -1,63 +1,43 @@
-<!--
- Created on Sun Oct 09 2022
-
- The MIT License (MIT)
- Copyright (c) 2022 Rohit Geddam, Arun Kumar, Teja Varma, Kiron Jayesh, Shandler Mason
-
- Permission is hereby granted, free of charge, to any person obtaining a copy of this software
- and associated documentation files (the "Software"), to deal in the Software without restriction,
- including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
- and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
- subject to the following conditions:
-
- The above copyright notice and this permission notice shall be included in all copies or substantial
- portions of the Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
- TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
- TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
--->
-
 {% extends 'base.html' %}
 {% load static %}
-
 {% load crispy_forms_tags %}
-
 
 {% block title %}Sign Up{% endblock %}
 
-
 {% block login %}
 
-<div id="signup-card-container">
-    <div class="card" style="width: 24rem; height: 100vh;">
-
-        <div class="card-body">
-            <h5 class="card-title">Sign Up</h5>
-
-            <form method="post">
-                {% csrf_token %}
-                {{ form|crispy }}
-                <button type="submit" class="btn w-100" style="background: #cc0000; color: white;">Sign Up</button>
-                <div style="margin-top: 16px; display: flex; justify-content: flex-end;">
-                    <a href="{% url 'login' %}">Login Instead!</a>
-
-
-                </div>
-            </form>
-        </div>
+<div class="flex items-center justify-center min-h-screen bg-cover bg-center relative custom-bg">
+    
+    <!-- Dark overlay -->
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    
+    <!-- Signup Card -->
+    <div class="relative z-10 max-w-md w-full px-8 py-10 bg-white rounded-lg shadow-2xl transition duration-300 ease-in-out transform hover:scale-105">
+        
+        <h2 class="text-3xl font-extrabold text-center text-blue-900 mb-6">Create an Account</h2>
+        
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+            {{ form|crispy }}
+            
+            <button type="submit" class="w-full py-2 bg-blue-900 hover:bg-blue-700 text-white text-lg font-semibold rounded-lg shadow-md transition duration-300">
+                Sign Up
+            </button>
+            
+            <p class="mt-4 text-center text-gray-700">
+                Already have an account? 
+                <a href="{% url 'login' %}" class="text-blue-900 font-semibold hover:underline">Login Instead</a>
+            </p>
+        </form>
+        
     </div>
 </div>
 
 <style>
-    #signup-card-container {
-        height: 100vh;
-        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-        url("{% static 'img/sign-in-background.jpg' %}");
+    .custom-bg {
+        background-image: url('{% static "img/image.png" %}');
         background-size: cover;
-        background-position: center center;
-
+        background-position: center;
     }
 </style>
 
