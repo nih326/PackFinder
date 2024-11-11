@@ -30,7 +30,7 @@ django.setup()
 # -- Project information -----------------------------------------------------
 
 project = "FindMyRoomie"
-copyright = "2022, Rohit Geddam"
+copyright = "2024, Rohit Geddam"
 author = "Rohit Geddam, Arun Kuma Ramesh, Kiron Jayesh, Shandler Mason and Sai Krishna Teja Varma Manthena"
 
 # The full version, including alpha/beta/rc tags

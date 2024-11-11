@@ -1,8 +1,8 @@
 <!--
- Created on Sun Oct 09 2022
+ Created on Sun Nov 04 2024
 
  The MIT License (MIT)
- Copyright (c) 2022 Rohit Geddam, Arun Kumar, Teja Varma, Kiron Jayesh, Shandler Mason
+ Copyright (c) 2024 Chaitralee Datar, Ananya Patankar, Yash Shah
 
  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  and associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -34,39 +34,89 @@ Edit Profile
 {% endblock %}
 
 {% block content %}
-<center>
-  <h4>Edit Profile</h4>
-</center>
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Edit Profile</h2>
 
-<div style="height: 95vh; overflow-y: scroll;">
-  <!-- <section class="home">
-    <center>
-      <font size="6">
-
-        <p>Edit Profile </p>
-
-      </font>
-      <img src="{% static 'img/profilepage.png' %}" width="200" height="200">
-      <font size="4">
-
-      </font>
-    </center>
-  </section> -->
-
-  <div>
-    {% load crispy_forms_tags %}
-
-    <br><br>
-
-    <div class="container">
-      <form method="post" enctype='multipart/form-data'>
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form|crispy }}
-        <br>
-        <button class="btn btn-danger" type="submit" id="submit_button">Submit</button>
-      </form>
-    </div>
-  </div>
-</div>
+        
+        <!-- Basic Information -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>Basic Information</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form.name|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.profile_photo|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        {{ form.bio|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+        </div>
 
-{% endblock%}
+        <!-- Room Status -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>Room Status</h4>
+            </div>
+            <div class="card-body">
+                {{ form.room_status|as_crispy_field }}
+            </div>
+        </div>
+
+        <!-- Preferences -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>Roommate Preferences</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <!-- Sleep Schedule -->
+                    <div class="col-md-6">
+                        {{ form.sleep_schedule|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.sleep_schedule_importance|as_crispy_field }}
+                    </div>
+                    
+                    <!-- Cleanliness -->
+                    <div class="col-md-6">
+                        {{ form.cleanliness|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.cleanliness_importance|as_crispy_field }}
+                    </div>
+                    
+                    <!-- Noise Level -->
+                    <div class="col-md-6">
+                        {{ form.noise_preference|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.noise_importance|as_crispy_field }}
+                    </div>
+                    
+                    <!-- Guest Preference -->
+                    <div class="col-md-6">
+                        {{ form.guest_preference|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.guest_importance|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mb-4">
+            <button type="submit" class="btn btn-danger" style="width: 200px;">Save Changes</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

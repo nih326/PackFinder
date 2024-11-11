@@ -1,8 +1,8 @@
 #
-# Created on Sun Oct 09 2022
+# Created on Sun Nov 04 2024
 #
 # The MIT License (MIT)
-# Copyright (c) 2022 Rohit Geddam, Arun Kumar, Teja Varma, Kiron Jayesh, Shandler Mason
+# Copyright (c) 2024 Chaitralee Datar, Ananya Patankar, Yash Shah
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this software
 # and associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -96,3 +96,49 @@ def matchings(current_user):
         matches.append(m[0])
 
     return matches
+
+
+def calculate_preference_match(user_profile, other_profile):
+    total_weight = 0
+    total_score = 0
+    
+    # Sleep Schedule
+    if user_profile.sleep_schedule and other_profile.sleep_schedule:
+        weight = max(user_profile.sleep_schedule_importance, 
+                    other_profile.sleep_schedule_importance)
+        diff = abs(user_profile.sleep_schedule - other_profile.sleep_schedule)
+        score = (3 - diff) * weight
+        total_score += score
+        total_weight += weight
+    
+    # Cleanliness
+    if user_profile.cleanliness and other_profile.cleanliness:
+        weight = max(user_profile.cleanliness_importance,
+                    other_profile.cleanliness_importance)
+        diff = abs(user_profile.cleanliness - other_profile.cleanliness)
+        score = (3 - diff) * weight
+        total_score += score
+        total_weight += weight
+    
+    # Noise
+    if user_profile.noise_preference and other_profile.noise_preference:
+        weight = max(user_profile.noise_importance,
+                    other_profile.noise_importance)
+        diff = abs(user_profile.noise_preference - other_profile.noise_preference)
+        score = (3 - diff) * weight
+        total_score += score
+        total_weight += weight
+    
+    # Guests
+    if user_profile.guest_preference and other_profile.guest_preference:
+        weight = max(user_profile.guest_importance,
+                    other_profile.guest_importance)
+        diff = abs(user_profile.guest_preference - other_profile.guest_preference)
+        score = (3 - diff) * weight
+        total_score += score
+        total_weight += weight
+    
+    if total_weight == 0:
+        return 0
+        
+    return (total_score / total_weight) * 100

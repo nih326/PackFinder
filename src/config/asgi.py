@@ -1,8 +1,8 @@
 #
-# Created on Sun Oct 09 2022
+# Created on Sun Nov 04 2024
 #
 # The MIT License (MIT)
-# Copyright (c) 2022 Rohit Geddam, Arun Kumar, Teja Varma, Kiron Jayesh, Shandler Mason
+# Copyright (c) 2024 Chaitralee Datar, Ananya Patankar, Yash Shah
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this software
 # and associated documentation files (the "Software"), to deal in the Software without restriction,
