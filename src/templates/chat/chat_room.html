@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Chat Room{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow">
+        <!-- Chat Header -->
+        <div class="card-header bg-danger text-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    {% for participant in room.participants.all %}
+                        {% if participant != user %}
+                            Chat with {{ participant.username }}
+                        {% endif %}
+                    {% endfor %}
+                </h5>
+                <div>
+                    <form method="post" action="{% url 'clear_chat' room.id %}" class="d-inline" 
+                          onsubmit="return confirm('Are you sure you want to clear all messages?');">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-light btn-sm">
+                            <i class="fas fa-trash-alt"></i> Clear Chat
+                        </button>
+                    </form>
+                    <a href="{% url 'chat_list' %}" class="btn btn-outline-light btn-sm ms-2">
+                        Back to Chats
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages Area -->
+        <div class="card-body chat-container" id="messages-container">
+            {% for message in messages %}
+                {% if message.sender %}
+                    <!-- User Messages -->
+                    <div class="message-wrapper {% if message.sender == user %}outgoing{% else %}incoming{% endif %}">
+                        <div class="message-bubble">
+                            {{ message.content }}
+                            <div class="message-info">
+                                {{ message.timestamp|time:"g:i A" }}
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <!-- System Messages -->
+                    <div class="message-wrapper system">
+                        <div class="message-bubble system">
+                            {{ message.content }}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <!-- Message Input -->
+        <div class="card-footer bg-light">
+            <form method="post" id="message-form" class="mb-0">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input type="text" 
+                           name="content" 
+                           class="form-control" 
+                           placeholder="Type your message..." 
+                           autocomplete="off"
+                           required>
+                    <button type="submit" class="btn btn-danger">
+                        Send
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .chat-container {
+        height: 500px;
+        overflow-y: auto;
+        padding: 20px;
+        background-color: #f8f9fa;
+    }
+
+    .message-wrapper {
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .message-bubble {
+        max-width: 70%;
+        padding: 10px 15px;
+        border-radius: 15px;
+        position: relative;
+        font-size: 0.95rem;
+    }
+
+    /* Outgoing Messages (Current User) */
+    .outgoing {
+        align-items: flex-end;
+    }
+
+    .outgoing .message-bubble {
+        background-color: #cc0000;
+        color: white;
+        border-bottom-right-radius: 5px;
+    }
+
+    /* Incoming Messages (Other User) */
+    .incoming {
+        align-items: flex-start;
+    }
+
+    .incoming .message-bubble {
+        background-color: white;
+        color: black;
+        border-bottom-left-radius: 5px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    /* System Messages */
+    .system {
+        align-items: center;
+    }
+
+    .message-bubble.system {
+        background-color: #e9ecef;
+        color: #666;
+        font-style: italic;
+        font-size: 0.9rem;
+        border-radius: 10px;
+        max-width: 80%;
+        text-align: center;
+    }
+
+    .message-info {
+        font-size: 0.75rem;
+        margin-top: 4px;
+        opacity: 0.8;
+    }
+
+    /* Custom Scrollbar */
+    .chat-container::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .chat-container::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    .chat-container::-webkit-scrollbar-thumb {
+        background: #cc0000;
+        border-radius: 3px;
+    }
+
+    /* Input Area */
+    .input-group .form-control {
+        border-radius: 20px 0 0 20px;
+        border: 1px solid #ced4da;
+    }
+
+    .input-group .btn {
+        border-radius: 0 20px 20px 0;
+    }
+
+    .btn-danger {
+        background-color: #cc0000;
+        border-color: #cc0000;
+    }
+
+    .btn-danger:hover {
+        background-color: #990000;
+        border-color: #990000;
+    }
+    .btn-outline-light {
+        border-width: 1px;
+        font-size: 0.875rem;
+        padding: 0.25rem 0.75rem;
+    }
+    
+    .btn-outline-light:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .card-header .btn-outline-light + .btn-outline-light {
+        margin-left: 0.5rem;
+    }
+    
+    /* Add Font Awesome if not already included */
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+</style>
+
+<script>
+    // Scroll to bottom of messages on load
+    document.addEventListener('DOMContentLoaded', function() {
+        const container = document.getElementById('messages-container');
+        container.scrollTop = container.scrollHeight;
+    });
+    document.querySelector('form[action*="clear"]').addEventListener('submit', function(e) {
+        if (!confirm('Are you sure you want to clear all messages? This cannot be undone.')) {
+            e.preventDefault();
+        }
+    });
+    // Auto scroll to bottom when new message is sent
+    const form = document.getElementById('message-form');
+    form.addEventListener('submit', function() {
+        setTimeout(() => {
+            const container = document.getElementById('messages-container');
+            container.scrollTop = container.scrollHeight;
+        }, 100);
+    });
+</script>
+{% endblock %}

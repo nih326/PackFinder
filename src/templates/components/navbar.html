@@ -105,6 +105,16 @@
                     Sign Up
                 </a>
                 {% endif %}
+                {% if user.is_authenticated %}
+              
+                    <a class="text-white hover:bg-blue-700 hover:text-gray-200 px-3 py-2 rounded-md {% if request.path == '/chats/' %}active{% endif %}" 
+                       href="{% url 'chat_list' %}">
+                        <i class="fas fa-comments"></i> Chats
+                        <!-- Optional: Add badge for unread messages -->
+                        <!-- <span class="badge bg-danger">2</span> -->
+                    </a>
+              
+                {% endif %}
             </div>
 
             <!-- Right-aligned Logout Button -->

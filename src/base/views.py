@@ -24,10 +24,16 @@ from django.views import generic
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .forms import ProfileForm, SignUpForm
 from .models import Profile
 from django.contrib.auth import get_user_model
 from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .models import ChatRoom, Message
+from django.contrib.auth import get_user_model
+from django.db.models import Q
 
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
@@ -176,3 +182,87 @@ def user_logout(request):
     logout(request)
     messages.success(request, "Logged out successfully!")
     return redirect("home")
+
+User = get_user_model()
+
+@login_required
+def chat_list(request):
+    """Show list of all chats for current user"""
+    chat_rooms = ChatRoom.objects.filter(participants=request.user)
+    return render(request, 'chat/chat_list.html', {'chat_rooms': chat_rooms})
+
+@login_required
+def chat_room(request, room_id):
+    """Show individual chat room and its messages"""
+    room = get_object_or_404(ChatRoom, id=room_id)
+    
+    # Check if user is participant
+    if request.user not in room.participants.all():
+        return redirect('chat_list')
+    
+    if request.method == 'POST':
+        content = request.POST.get('content')
+        if content:
+            Message.objects.create(
+                room=room,
+                sender=request.user,
+                content=content
+            )
+    
+    messages = room.messages.all()
+    return render(request, 'chat/chat_room.html', {
+        'room': room,
+        'messages': messages
+    })
+
+@login_required
+def create_chat_room(request, user_id):
+    """Create a new chat room with another user"""
+    other_user = get_object_or_404(User, id=user_id)
+    
+    # Check if chat room already exists
+    existing_room = ChatRoom.objects.filter(
+        participants=request.user
+    ).filter(
+        participants=other_user
+    ).first()
+    
+    if existing_room:
+        return redirect('chat_room', room_id=existing_room.id)
+    
+    # Create new room
+    room = ChatRoom.objects.create()
+    room.participants.add(request.user, other_user)
+    
+    return redirect('chat_room', room_id=room.id)
+
+
+
+@login_required
+def clear_chat(request, room_id):
+    """Clear all messages in a chat room"""
+    if request.method == 'POST':
+        room = get_object_or_404(ChatRoom, id=room_id)
+        
+        # Verify user is a participant
+        if request.user not in room.participants.all():
+            messages.error(request, "You don't have permission to clear this chat.")
+            return redirect('chat_list')
+        
+        try:
+            # Delete all messages except system welcome messages
+            room.messages.exclude(sender=None).delete()
+            
+            # Add system message about clearing
+            Message.objects.create(
+                room=room,
+                sender=None,  # System message
+                content="🧹 Chat history has been cleared."
+            )
+            
+            messages.success(request, "Chat history cleared successfully.")
+        except Exception as e:
+            print(f"Error clearing chat: {e}")  # Debug print
+            messages.error(request, "An error occurred while clearing the chat.")
+        
+    return redirect('chat_room', room_id=room_id)

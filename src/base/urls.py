@@ -36,6 +36,10 @@ urlpatterns = [
     path("findpeople/", views.findpeople, name="findpeople"),
     path("myroom/", views.myroom, name="myroom"),
     path("logout/", views.user_logout, name="user_logout"),
+    path('chats/', views.chat_list, name='chat_list'),
+    path('chat/<int:room_id>/', views.chat_room, name='chat_room'),
+    path('chat/create/<int:user_id>/', views.create_chat_room, name='create_chat_room'),
+    path('chat/<int:room_id>/clear/', views.clear_chat, name='clear_chat'),
     path(
         "about",
         TemplateView.as_view(template_name="pages/about.html"),

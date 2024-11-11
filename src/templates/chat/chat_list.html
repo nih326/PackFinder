@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}My Chats{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>My Conversations</h2>
+    <div class="list-group mt-3">
+        {% for room in chat_rooms %}
+            <a href="{% url 'chat_room' room.id %}" class="list-group-item list-group-item-action">
+                Chat with 
+                {% for participant in room.participants.all %}
+                    {% if participant != user %}
+                        {{ participant.username }}
+                    {% endif %}
+                {% endfor %}
+                <small class="text-muted float-end">
+                    {{ room.created_at|date:"M d, Y" }}
+                </small>
+            </a>
+        {% empty %}
+            <div class="text-center p-3">
+                <p>No conversations yet.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
