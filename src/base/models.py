@@ -281,3 +281,15 @@ class Message(models.Model):
 
     def __str__(self):
         return f'{self.sender.username}: {self.content[:50]}'
+
+rom django.db import models
+from django.contrib.auth.models import User
+from django.conf import settings  
+
+class Comment(models.Model):
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
