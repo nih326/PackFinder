@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Community Forum</h1>
+<p>Select a category to join the discussion:</p>
+<ul>
+    <li><a href="{% url 'housing_tips' %}">Housing Tips</a></li>
+    <li><a href="{% url 'roommate_issues' %}">Roommate Issues and Advice</a></li>
+    <li><a href="{% url 'campus_life' %}">General Campus Life Discussions</a></li>
+</ul>
+{% endblock %}
