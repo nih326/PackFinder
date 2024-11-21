@@ -500,3 +500,17 @@ def clear_chat(request, room_id):
             messages.error(request, "An error occurred while clearing the chat.")
         
     return redirect('chat_room', room_id=room_id)
+
+    from django.shortcuts import render
+
+def forum_home(request):
+    return render(request, 'forum/forum_home.html')
+
+def housing_tips(request):
+    return render(request, 'forum/housing_tips.html')
+
+def roommate_issues(request):
+    return render(request, 'forum/roommate_issues.html')
+
+def campus_life(request):
+    return render(request, 'forum/campus_life.html')
