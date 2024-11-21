@@ -4,42 +4,42 @@
 <h1>General Housing Tips</h1>
 <p>Discuss all things related to House Tips here.</p>
 
-<!-- Comments Section -->
+
 <div>
     <h2>Comments</h2>
 
-    <!-- Display existing comments -->
+
     <div id="comments">
-        <!-- This will be populated with comments dynamically -->
+    
     </div>
 
-    <!-- Form for adding a new comment -->
+
     <h3>Post a Comment</h3>
     <form id="comment-form">
         {% csrf_token %}
         <textarea id="comment-text" placeholder="Add a comment" required></textarea><br><br>
         
-        <!-- Optional Name Input -->
+     
         <input type="text" id="comment-name" placeholder="Your name (optional)" /><br><br>
         
         <button type="submit">Submit</button>
     </form>
 </div>
 
-<!-- JavaScript to handle comment submissions -->
+
 <script>
-    // Load comments from localStorage if they exist
+
     let comments = JSON.parse(localStorage.getItem('comments')) || [];
 
-    // Function to display all comments
+
     function displayComments() {
         const commentsContainer = document.getElementById('comments');
-        commentsContainer.innerHTML = ''; // Clear the comments display
+        commentsContainer.innerHTML = ''; 
         comments.forEach((comment, index) => {
             const commentDiv = document.createElement('div');
             commentDiv.classList.add('comment');
             
-            // Display only likes and dislikes if they are greater than 0
+      
             let voteDisplay = '';
             if (comment.likes > 0 || comment.dislikes > 0) {
                 voteDisplay = `Likes: ${comment.likes} | Dislikes: ${comment.dislikes}`;
@@ -57,20 +57,19 @@
         });
     }
 
-    // Handle form submission
-    document.getElementById('comment-form').addEventListener('submit', function(event) {
-        event.preventDefault();  // Prevent default form submission
 
-        // Get the comment text and name
+    document.getElementById('comment-form').addEventListener('submit', function(event) {
+        event.preventDefault();  
+
+  
         const commentText = document.getElementById('comment-text').value;
         const commentName = document.getElementById('comment-name').value.trim();
 
-        if (commentText.trim() === '') return;  // Do nothing if the comment is empty
+        if (commentText.trim() === '') return;  
 
-        // Use "Anonymous" if no name is provided
+    
         const author = commentName || 'Anonymous';
 
-        // Add the new comment to the array with initialized likes and dislikes as 0
         comments.push({ 
             author, 
             text: commentText, 
@@ -78,23 +77,22 @@
             dislikes: 0 
         });
 
-        // Save the comments back to localStorage
+  
         localStorage.setItem('comments', JSON.stringify(comments));
 
-        // Clear the input fields
+
         document.getElementById('comment-text').value = '';
         document.getElementById('comment-name').value = '';
 
-        // Re-display comments
+  
         displayComments();
     });
 
-    // Vote function for thumbs up and thumbs down
+
     function vote(index, type) {
-        // Ensure likes and dislikes are numbers before updating
+        
         const comment = comments[index];
 
-        // Initialize likes and dislikes as numbers if undefined
         comment.likes = comment.likes || 0;
         comment.dislikes = comment.dislikes || 0;
 
@@ -104,20 +102,19 @@
             comment.dislikes++;
         }
 
-        // Save the updated comments
+ 
         localStorage.setItem('comments', JSON.stringify(comments));
 
-        // Re-display comments to update the count
         displayComments();
     }
 
-    // Initially display comments (loaded from localStorage)
+  
     displayComments();
 </script>
 
 
 
-<!-- Enhanced CSS Styling -->
+
 <style>
     body {
         font-family: 'Arial', sans-serif;
