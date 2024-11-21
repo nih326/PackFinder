@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>General Housing Tips</h1>
+<p>Discuss all things related to House Tips here.</p>
+
+<!-- Comments Section -->
+<div>
+    <h2>Comments</h2>
+
+    <!-- Display existing comments -->
+    <div id="comments">
+        <!-- This will be populated with comments dynamically -->
+    </div>
+
+    <!-- Form for adding a new comment -->
+    <h3>Post a Comment</h3>
+    <form id="comment-form">
+        {% csrf_token %}
+        <textarea id="comment-text" placeholder="Add a comment" required></textarea><br><br>
+        
+        <!-- Optional Name Input -->
+        <input type="text" id="comment-name" placeholder="Your name (optional)" /><br><br>
+        
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<!-- JavaScript to handle comment submissions -->
+<script>
+    // Load comments from localStorage if they exist
+    let comments = JSON.parse(localStorage.getItem('comments')) || [];
+
+    // Function to display all comments
+    function displayComments() {
+        const commentsContainer = document.getElementById('comments');
+        commentsContainer.innerHTML = ''; // Clear the comments display
+        comments.forEach((comment, index) => {
+            const commentDiv = document.createElement('div');
+            commentDiv.classList.add('comment');
+            
+            // Display only likes and dislikes if they are greater than 0
+            let voteDisplay = '';
+            if (comment.likes > 0 || comment.dislikes > 0) {
+                voteDisplay = `Likes: ${comment.likes} | Dislikes: ${comment.dislikes}`;
+            }
+            
+            commentDiv.innerHTML = `
+                <p><strong>${comment.author}</strong>: ${comment.text}</p>
+                <div class="comment-actions">
+                    <button class="thumbs-up" onclick="vote(${index}, 'up')">👍</button>
+                    <button class="thumbs-down" onclick="vote(${index}, 'down')">👎</button>
+                    <span class="vote-count">${voteDisplay}</span>
+                </div>
+            `;
+            commentsContainer.appendChild(commentDiv);
+        });
+    }
+
+    // Handle form submission
+    document.getElementById('comment-form').addEventListener('submit', function(event) {
+        event.preventDefault();  // Prevent default form submission
+
+        // Get the comment text and name
+        const commentText = document.getElementById('comment-text').value;
+        const commentName = document.getElementById('comment-name').value.trim();
+
+        if (commentText.trim() === '') return;  // Do nothing if the comment is empty
+
+        // Use "Anonymous" if no name is provided
+        const author = commentName || 'Anonymous';
+
+        // Add the new comment to the array with initialized likes and dislikes as 0
+        comments.push({ 
+            author, 
+            text: commentText, 
+            likes: 0, 
+            dislikes: 0 
+        });
+
+        // Save the comments back to localStorage
+        localStorage.setItem('comments', JSON.stringify(comments));
+
+        // Clear the input fields
+        document.getElementById('comment-text').value = '';
+        document.getElementById('comment-name').value = '';
+
+        // Re-display comments
+        displayComments();
+    });
+
+    // Vote function for thumbs up and thumbs down
+    function vote(index, type) {
+        // Ensure likes and dislikes are numbers before updating
+        const comment = comments[index];
+
+        // Initialize likes and dislikes as numbers if undefined
+        comment.likes = comment.likes || 0;
+        comment.dislikes = comment.dislikes || 0;
+
+        if (type === 'up') {
+            comment.likes++;
+        } else if (type === 'down') {
+            comment.dislikes++;
+        }
+
+        // Save the updated comments
+        localStorage.setItem('comments', JSON.stringify(comments));
+
+        // Re-display comments to update the count
+        displayComments();
+    }
+
+    // Initially display comments (loaded from localStorage)
+    displayComments();
+</script>
+
+
+
+<!-- Enhanced CSS Styling -->
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        color: #333;
+    }
+
+    /* Main heading styling */
+    h1 {
+        font-size: 2.5em;
+        color: #4CAF50;
+        text-align: center;
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Subheading styling */
+    h2 {
+        font-size: 2em;
+        color: #333;
+        text-align: center;
+        margin-top: 30px;
+        font-weight: 600;
+    }
+
+    h3 {
+        font-size: 1.5em;
+        color: #444;
+        font-weight: bold;
+        margin-top: 30px;
+        text-align: left;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #ddd;
+    }
+
+    /* Styling the comment section */
+    #comments {
+        margin-top: 30px;
+        padding: 10px;
+    }
+
+    /* Individual comment styles */
+    .comment {
+        background-color: #fff;
+        padding: 15px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .comment p {
+        margin: 0;
+        padding: 0;
+        font-size: 1.1em;
+    }
+
+    /* Styling for comment buttons */
+    .thumbs-up, .thumbs-down {
+        background-color: transparent;
+        border: none;
+        font-size: 1.5em;
+        cursor: pointer;
+        color: #555;
+        margin-right: 10px;
+    }
+
+    .thumbs-up:hover, .thumbs-down:hover {
+        color: #4CAF50;
+    }
+
+    .vote-count {
+        font-size: 1em;
+        color: #777;
+    }
+
+    /* Comment form styling */
+    textarea, input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 1.1em;
+    }
+
+    textarea {
+        height: 120px;
+    }
+
+    /* Button styling for the submit button */
+    button {
+        padding: 12px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1.2em;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    /* Responsive design for smaller screens */
+    @media (max-width: 600px) {
+        h1 {
+            font-size: 2em;
+        }
+
+        h2 {
+            font-size: 1.5em;
+        }
+
+        .comment {
+            padding: 10px;
+            font-size: 1em;
+        }
+
+        .thumbs-up, .thumbs-down {
+            font-size: 1.2em;
+        }
+
+        textarea, input[type="text"], button {
+            font-size: 1em;
+        }
+    }
+</style>
+
+
+{% endblock %}
