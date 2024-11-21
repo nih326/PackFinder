@@ -450,9 +450,9 @@ def chat_room(request, room_id):
     })
 
 @login_required
-def create_chat_room(request, user_id):
+def create_chat_room(request, email):
     """Create a new chat room with another user"""
-    other_user = get_object_or_404(User, id=user_id)
+    other_user = get_object_or_404(User, email=email)
     
     # Check if chat room already exists
     existing_room = ChatRoom.objects.filter(
@@ -500,3 +500,12 @@ def clear_chat(request, room_id):
             messages.error(request, "An error occurred while clearing the chat.")
         
     return redirect('chat_room', room_id=room_id)
+
+@login_required
+def create_chat_redirect(request):
+    """Redirect to create_chat_room based on entered email."""
+    email = request.GET.get('email')
+    if email:
+        return redirect('create_chat_room', email=email)
+    messages.error(request, "Please provide a valid email.")
+    return redirect('chat_list')

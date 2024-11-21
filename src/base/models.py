@@ -280,4 +280,4 @@ class Message(models.Model):
         ordering = ['timestamp']
 
     def __str__(self):
-        return f'{self.sender.username}: {self.content[:50]}'
+        return f'{self.sender.email[:7]}: {self.content[:50]}'
