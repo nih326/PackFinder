@@ -53,6 +53,10 @@ urlpatterns = [
     path("", views.home, name="home"),
     path('add-room/', views.add_room, name='add_room'),
     path('toggle-interest/<int:room_id>/', views.toggle_room_interest, name='toggle_room_interest'),
+    path('forum/', views.forum_home, name='forum_home'),
+    path('forum/housing-tips/', views.housing_tips, name='housing_tips'),
+    path('forum/roommate-issues/', views.roommate_issues, name='roommate_issues'),
+    path('forum/campus-life/', views.campus_life, name='campus_life')
 ]
 
 # Only add this when we are in debug mode.
