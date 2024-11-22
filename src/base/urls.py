@@ -53,6 +53,14 @@ urlpatterns = [
     path("", views.home, name="home"),
     path('add-room/', views.add_room, name='add_room'),
     path('toggle-interest/<int:room_id>/', views.toggle_room_interest, name='toggle_room_interest'),
+    path('remove_interest/<int:room_id>/', views.remove_interest, name='remove_interest'),
+    
+    path('myroom/', views.myroom, name='myroom'),
+    path('roommate-compatibility/', views.roommate_compatibility, name='roommate_compatibility'),
+    
+    path('update-preferences/', views.update_preferences, name='update_preferences'),
+
+
 ]
 
 # Only add this when we are in debug mode.

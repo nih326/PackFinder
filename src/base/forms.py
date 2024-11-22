@@ -96,3 +96,66 @@ class RoomForm(forms.ModelForm):
         widgets = {
             'available_from': forms.DateInput(attrs={'type': 'date'})
         }
+        
+from django import forms
+from .models import MatchPreferences
+
+class MatchPreferencesForm(forms.ModelForm):
+    class Meta:
+        model = MatchPreferences
+        exclude = ['profile']
+        widgets = {
+            'cleanliness': forms.RadioSelect(attrs={'class': 'form-check-input'}),
+            'noise_level': forms.RadioSelect(attrs={'class': 'form-check-input'}),
+            'guests_frequency': forms.RadioSelect(attrs={'class': 'form-check-input'}),
+            'early_bird': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'night_owl': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'study_at_home': forms.RadioSelect(attrs={'class': 'form-check-input'}),
+            'study_quiet_needed': forms.RadioSelect(attrs={'class': 'form-check-input'}),
+            'smoking_tolerance': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'pet_friendly': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'shared_spaces_comfort': forms.RadioSelect(attrs={'class': 'form-check-input'})
+        }
+        
+from django import forms
+from .models import Profile
+
+class RoommatePreferenceForm(forms.ModelForm):
+    """Form for updating roommate preferences."""
+    class Meta:
+        model = Profile
+        fields = [
+            'sleep_schedule',
+            'sleep_schedule_importance',
+            'cleanliness',
+            'cleanliness_importance',
+            'noise_preference',
+            'noise_importance',
+            'guest_preference',
+            'guest_importance',
+        ]
+        widgets = {
+            'sleep_schedule': forms.Select(attrs={'class': 'form-control'}),
+            'sleep_schedule_importance': forms.Select(attrs={'class': 'form-control'}),
+            'cleanliness': forms.Select(attrs={'class': 'form-control'}),
+            'cleanliness_importance': forms.Select(attrs={'class': 'form-control'}),
+            'noise_preference': forms.Select(attrs={'class': 'form-control'}),
+            'noise_importance': forms.Select(attrs={'class': 'form-control'}),
+            'guest_preference': forms.Select(attrs={'class': 'form-control'}),
+            'guest_importance': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+from django import forms
+# Delay import to avoid circular dependency
+MatchPreferences = None
+
+def get_match_preferences_model():
+    global MatchPreferences
+    if MatchPreferences is None:
+        from .models import MatchPreferences
+    return MatchPreferences
+
+class MatchPreferencesForm(forms.ModelForm):
+    class Meta:
+        model = get_match_preferences_model()
+        fields = '__all__'

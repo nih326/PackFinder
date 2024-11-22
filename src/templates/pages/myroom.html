@@ -30,7 +30,17 @@
     <div class="row">
         <div class="col-md-12">
             <h2 class="mb-4">My Room Dashboard</h2>
-            
+            {% comment %} {% if rooms %}
+                <ul>
+                    {% for room in rooms %}
+                        <li>{{ room.name }} - {{ room.description }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No rooms found.</p>
+            {% endif %} {% endcomment %}
+            <a href="{% url 'roommate_compatibility' %}" class="btn btn-primary">Find Compatible Roommates</a>
+
             {% if profile.room_status == 'offering' %}
                 <div class="mb-4">
                     <h3>My Listed Rooms</h3>

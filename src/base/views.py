@@ -500,3 +500,167 @@ def clear_chat(request, room_id):
             messages.error(request, "An error occurred while clearing the chat.")
         
     return redirect('chat_room', room_id=room_id)
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .models import Room, UserProfile
+from .forms import RoomForm
+from django.shortcuts import render, get_object_or_404
+from base.models import UserProfile, Room
+
+
+import logging
+logger = logging.getLogger(__name__)
+
+@login_required
+
+def my_room(request):
+    
+    user_rooms = Room.objects.filter(user=request.user)
+    profile = get_object_or_404(UserProfile, user=request.user)
+
+    owned_rooms = None
+    interested_rooms = None
+
+    if profile.room_status == 'offering':
+        owned_rooms = Room.objects.filter(owner=profile)
+    elif profile.room_status == 'available':
+        interested_rooms = Room.objects.filter(interested_users=profile)
+
+    logger.info(f"Profile room_status: {profile.room_status}")
+    logger.info(f"Owned rooms: {owned_rooms}")
+    logger.info(f"Interested rooms: {interested_rooms}")
+
+    context = {
+        'profile': profile,
+        'owned_rooms': owned_rooms,
+        'interested_rooms': interested_rooms,
+    }
+    return render(request, 'my_room.html', {'rooms': user_rooms})
+
+@login_required
+def remove_interest(request, room_id):
+    room = get_object_or_404(Room, id=room_id)
+    profile = get_object_or_404(UserProfile, user=request.user)
+    
+    if profile in room.interested_users.all():
+        room.interested_users.remove(profile)
+        messages.success(request, 'Your interest in this room has been removed.')
+    else:
+        messages.error(request, 'You are not interested in this room.')
+
+    return redirect('my_room')
+
+from django.db.models import F
+
+def calculate_compatibility(user_profile, other_profile):
+    """Calculate compatibility score between two profiles."""
+    score = 0
+    max_score = 0
+
+    # Define weights for importance levels
+    importance_weights = {
+        1: 1,  # Not Important
+        2: 2,  # Somewhat Important
+        3: 3,  # Very Important
+    }
+
+    # Compare cleanliness
+    max_score += importance_weights[user_profile.cleanliness_importance]
+    if user_profile.cleanliness == other_profile.cleanliness:
+        score += importance_weights[user_profile.cleanliness_importance]
+
+    # Compare noise preference
+    max_score += importance_weights[user_profile.noise_importance]
+    if user_profile.noise_preference == other_profile.noise_preference:
+        score += importance_weights[user_profile.noise_importance]
+
+    # Compare guest preferences
+    max_score += importance_weights[user_profile.guest_importance]
+    if user_profile.guest_preference == other_profile.guest_preference:
+        score += importance_weights[user_profile.guest_importance]
+
+    # Compare sleep schedules
+    max_score += importance_weights[user_profile.sleep_schedule_importance]
+    if user_profile.sleep_schedule == other_profile.sleep_schedule:
+        score += importance_weights[user_profile.sleep_schedule_importance]
+
+    # Calculate compatibility percentage
+    compatibility_percentage = (score / max_score) * 100 if max_score > 0 else 0
+    return round(compatibility_percentage, 2)
+
+from django.shortcuts import render
+from .models import Profile
+
+@login_required
+def roommate_compatibility(request):
+    """View to find compatible roommates."""
+    user_profile = request.user.profile
+    if not user_profile.is_profile_complete:
+        messages.error(request, "Please complete your profile to access roommate compatibility.")
+        return redirect('profile_edit')
+    # Fetch other profiles
+    potential_roommates = Profile.objects.exclude(user=request.user)
+
+    # Calculate compatibility scores
+    matches = []
+    for profile in potential_roommates:
+        compatibility_score = calculate_compatibility(user_profile, profile)
+        if compatibility_score > 50:  # Only show matches above 50%
+            matches.append({
+                'profile': profile,
+                'compatibility': compatibility_score,
+            })
+
+    # Sort matches by compatibility score
+    matches.sort(key=lambda x: x['compatibility'], reverse=True)
+
+    return render(request, 'pages/roommate_compatibility.html', {
+        'matches': matches,
+        'user_profile': user_profile,
+    })
+@login_required
+def update_preferences(request):
+    user_profile = request.user.profile
+
+    if request.method == 'POST':
+        form = RoommatePreferenceForm(request.POST, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Preferences updated successfully!")
+            return redirect('roommate_compatibility')
+    else:
+        form = RoommatePreferenceForm(instance=user_profile)
+
+    return render(request, 'pages/update_preferences.html', {'form': form})
+
+from .services.compatibility import RoommateCompatibilityCalculator
+
+@login_required
+def roommate_compatibility(request):
+    """View to find compatible roommates."""
+    user_profile = request.user.profile
+    calculator = RoommateCompatibilityCalculator()
+
+    # Fetch other profiles
+    potential_roommates = Profile.objects.exclude(user=request.user)
+
+    # Calculate compatibility scores
+    matches = []
+    for profile in potential_roommates:
+        compatibility = calculator.calculate_match(user_profile, profile)
+        if compatibility['total_score'] > 50:  # Only show matches above 50%
+            matches.append({
+                'profile': profile,
+                'compatibility': compatibility['total_score'],
+                'breakdown': compatibility['breakdown'],
+            })
+
+    # Sort matches by compatibility score
+    matches.sort(key=lambda x: x['compatibility'], reverse=True)
+
+    return render(request, 'pages/roommate_compatibility.html', {
+        'matches': matches,
+        'user_profile': user_profile,
+    })

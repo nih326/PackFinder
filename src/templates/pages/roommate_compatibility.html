@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Roommate Compatibility{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Roommate Compatibility</h2>
+    <p>Find the best matches based on your preferences.</p>
+
+    {% if matches %}
+        <ul class="list-group">
+            {% for match in matches %}
+                <li class="list-group-item">
+                    <h5>{{ match.profile.name }} ({{ match.compatibility }}%)</h5>
+                    <p>Email: {{ match.profile.user.email }}</p>
+                    <p>Bio: {{ match.profile.bio }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No compatible roommates found.</p>
+    {% endif %}
+</div>
+{% endblock %}
