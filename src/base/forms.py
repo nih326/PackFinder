@@ -70,6 +70,11 @@ class ProfileForm(forms.ModelForm):
         self.fields['guest_preference'].widget.attrs.update({'class': 'form-control'})
         self.fields['guest_importance'].widget.attrs.update({'class': 'form-control'})
         self.fields['room_status'].widget.attrs.update({'class': 'form-control'})
+        self.fields['gender'].widget.attrs.update({'class': 'form-control'})
+        self.fields['degree'].widget.attrs.update({'class': 'form-control'})
+        self.fields['diet'].widget.attrs.update({'class': 'form-control'})
+        self.fields['country'].widget.attrs.update({'class': 'form-control'})
+        self.fields['course'].widget.attrs.update({'class': 'form-control'})
 
     class Meta:
         model = Profile
@@ -86,6 +91,11 @@ class ProfileForm(forms.ModelForm):
             'guest_preference',
             'guest_importance',
             'room_status',
+            'gender',
+            'degree',
+            'diet',
+            'country',
+            'course',
         ]
 
 

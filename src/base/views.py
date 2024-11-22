@@ -152,6 +152,14 @@ def findpeople(request):
     """Render findpeople page"""
     user_profile = request.user.profile
     profiles = Profile.objects.exclude(user=request.user)
+
+    if request.GET:
+        user_profile.preference_gender = request.GET.get('gender', user_profile.preference_gender)
+        user_profile.preference_degree = request.GET.get('degree', user_profile.preference_degree)
+        user_profile.preference_course = request.GET.get('course', user_profile.preference_course)
+        user_profile.preference_diet = request.GET.get('diet', user_profile.preference_diet)
+        user_profile.preference_country_id = request.GET.get('country', user_profile.preference_country_id)
+        user_profile.save()
     
     # Calculate match percentages
     profiles_with_match = []
@@ -396,6 +404,15 @@ def findpeople(request):
     """Render findpeople page"""
     qs = Profile.objects.filter(visibility=True).exclude(user=request.user)
     f = ProfileFilter(request.GET, queryset=qs)
+    user_profile = request.user.profile
+
+    if request.GET:
+        user_profile.preference_gender = request.GET.get('gender', user_profile.preference_gender)
+        user_profile.preference_degree = request.GET.get('degree', user_profile.preference_degree)
+        user_profile.preference_course = request.GET.get('course', user_profile.preference_course)
+        user_profile.preference_diet = request.GET.get('diet', user_profile.preference_diet)
+        user_profile.preference_country= request.GET.get('country', user_profile.preference_country)
+        user_profile.save()
     return render(request, "pages/findpeople.html", {"filter": f})
 
 
@@ -509,3 +526,36 @@ def create_chat_redirect(request):
         return redirect('create_chat_room', email=email)
     messages.error(request, "Please provide a valid email.")
     return redirect('chat_list')
+
+@login_required
+def roommate_agreement(request, email):
+    # Fetch the other user's profile
+    user = get_object_or_404(User, email=email)
+    other_profile = get_object_or_404(Profile, user=user)
+
+    # Fetch the current user's profile
+    user_profile = request.user.profile
+
+    # Fetch preferences
+    user_preferences = {
+        "Sleep Schedule": user_profile.get_sleep_schedule_display(),
+        "Cleanliness": user_profile.get_cleanliness_display(),
+        "Noise Level": user_profile.get_noise_preference_display(),
+        "Guest Preferences": user_profile.get_guest_preference_display(),
+    }
+
+    other_preferences = {
+        "Sleep Schedule": other_profile.get_sleep_schedule_display(),
+        "Cleanliness": other_profile.get_cleanliness_display(),
+        "Noise Level": other_profile.get_noise_preference_display(),
+        "Guest Preferences": other_profile.get_guest_preference_display(),
+    }
+
+    # Render the agreement template
+    context = {
+        "user_profile": user_profile,
+        "other_profile": other_profile,
+        "user_preferences": user_preferences,
+        "other_preferences": other_preferences,
+    }
+    return render(request, "pages/roommate_agreement.html", context)

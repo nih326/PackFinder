@@ -151,6 +151,9 @@
                                     <li class="list-group-item"><b>Country: </b>{{profile.preference_country.name}}
                                     </li>
                                 </ul>
+                                <a class="btn btn-primary w-100"  href ="{% url 'create_chat_room' profile.user.email %}">
+                                    Start Chat
+                                </a>
                             </div>
 
 

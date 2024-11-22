@@ -12,7 +12,7 @@
                 <h5 class="mb-0">
                     {% for participant in room.participants.all %}
                         {% if participant != user %}
-                            Chat with {{ participant.username }}
+                            Chat with {{ participant.email }}
                         {% endif %}
                     {% endfor %}
                 </h5>
@@ -27,6 +27,14 @@
                     <a href="{% url 'chat_list' %}" class="btn btn-outline-light btn-sm ms-2">
                         Back to Chats
                     </a>
+                    {% for participant in room.participants.all %}
+                        {% if participant != user %}
+                        <a href="{% url 'roommate_agreement' participant.email %}" class="btn btn-outline-light btn-sm ms-2">
+                            Generate Roommate Agreement
+                        </a>
+                        {% endif %}
+                    {% endfor %}
+                    
                 </div>
             </div>
         </div>

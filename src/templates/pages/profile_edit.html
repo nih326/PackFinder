@@ -61,6 +61,36 @@ Edit Profile
                 </div>
             </div>
         </div>
+        <!-- New Fields: Gender, Degree, Diet, Country, Course -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>Additional Information</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form.gender|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.degree|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        {{ form.diet|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.country|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        {{ form.course|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <!-- Room Status -->
         <div class="card mb-4">
