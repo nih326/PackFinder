@@ -229,15 +229,10 @@ If you prefer using Black in VSCode, you can add the below settings in your vsco
 
 ---
 
-## 📞 *Contact Us*
-Have questions? Reach out!
-
-<tr>
-    <td align="center"><a href="https://github.com/nih326"><img src="https://avatars.githubusercontent.com/u/43085656?v=4" width="75px;" alt=""/><br /><sub><b>Niharika Maruvanahalli Suresh</b></sub></a></td>
-    <td align="center"><a href="https://github.com/diya0603"><img src="https://avatars.githubusercontent.com/u/178948228?v=4" width="75px;" alt=""/><br /><sub><b>Diya Shetty</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/sanjana1399"><img src="https://avatars.githubusercontent.com/u/57448690?v=4" width="75px;" alt=""/><br /><sub><b>Sanjana Nanjangud Shreenivas</b></sub></a><br /></td>
-  </tr>
-</table>
+## Contributors:
+Niharika Maruvanahalli Suresh: nmaruva@ncsu.edu </br>
+Diya Shetty - dshetty@ncsu.edu </br> 
+Sanjana Nanjangud Shreenivas - sshreen@ncsu.edu </br>
 
 ---
 ## Acknowledgements
