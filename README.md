@@ -74,7 +74,7 @@ Browse other profiles and use our “Wolf Filter” to find roommates who match 
 
 #### 1. Clone the repository:
 
-   git clone https://github.com/rohitgeddam/FindMyRoomie.git
+   git clone https://github.com/nih326/PackFinder.git
 
 #### 2. Setup the virtual environment:
 
@@ -100,7 +100,7 @@ Browse other profiles and use our “Wolf Filter” to find roommates who match 
    </p>
    Paste this in the .env file.
 
-
+```
 SECRET_KEY=@dr11(7h4n=#@8juk63y(-#bqicdl$9f2okpr@#564=a+-f&*8
 DEBUG=True
 EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
@@ -109,23 +109,27 @@ EMAIL_USE_TLS=True
 EMAIL_PORT=587
 EMAIL_HOST_USER=
 EMAIL_HOST_PASSWORD=
+```
 
 Fill the above field and save.
 
 #### 5. Run the application:
 
-   
-   cd src
+  ```
+   cd src 
    python manage.py migrate
    python manage.py runserver
+   ```
    
 
 ## After adding another field to Model
 Django's way of propagating changes you make to your models (adding a field, deleting a model, etc.) into your database schema.
 
    
+    ```
    python manage.py makemigrations
    python manage.py migrate
+   ```
    
 
 ## Populate fake data for testing
