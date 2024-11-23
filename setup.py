@@ -9,7 +9,7 @@ setup(
     version="3.0",
     description="Django app to find roommates built for NCSU students",
     long_description=long_description,
-    author="Chaitralee Datar, Ananya Patankar, Yash Shah",
+    author="Niharika Maruvanahalli Suresh, Diya Shetty, Sanjana Nanjangud Shreenivas",
     license="MIT",
     keywords="PackFinder",
     packages=find_packages(),

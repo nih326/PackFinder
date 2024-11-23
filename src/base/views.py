@@ -500,3 +500,127 @@ def clear_chat(request, room_id):
             messages.error(request, "An error occurred while clearing the chat.")
         
     return redirect('chat_room', room_id=room_id)
+
+@login_required
+def remove_interest(request, room_id):
+    """Remove a user's interest in a specific room."""
+    room = get_object_or_404(Room, id=room_id)
+    profile = get_object_or_404(UserProfile, user=request.user)
+
+    if profile in room.interested_users.all():
+        room.interested_users.remove(profile)
+        messages.success(request, 'Your interest in this room has been removed.')
+    else:
+        messages.error(request, 'You are not interested in this room.')
+
+    return redirect('my_room')
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .models import UserProfile
+from .forms import RoommatePreferenceForm
+
+
+### Compatibility Calculations ###
+def calculate_compatibility(user_profile, other_profile):
+    """Calculate the compatibility score between two user profiles."""
+    score = 0
+    total_weight = 0  # Start at zero
+
+    # Check gender preference
+    if user_profile.gender_preference == other_profile.gender:
+        score += 1
+        total_weight += 1
+    elif user_profile.gender_preference == 'No Preference':
+        total_weight += 0.5  # Add partial weight if 'No Preference'
+
+    # Check diet preference
+    if user_profile.diet_preference == other_profile.diet:
+        score += 1
+        total_weight += 1
+    elif user_profile.diet_preference == 'No Preference':
+        total_weight += 0.5
+
+    # Check degree preference
+    if user_profile.degree_preference == other_profile.degree:
+        score += 1
+        total_weight += 1
+    elif user_profile.degree_preference == 'No Preference':
+        total_weight += 0.5
+
+    # Check course preference
+    if user_profile.course_preference == other_profile.course:
+        score += 1
+        total_weight += 1
+    elif user_profile.course_preference == 'No Preference':
+        total_weight += 0.5
+
+    # Check country preference
+    if user_profile.country_preference == other_profile.country:
+        score += 1
+        total_weight += 1
+    elif user_profile.country_preference == 'No Preference':
+        total_weight += 0.5
+
+    # Return percentage based on actual score and total weight
+    if total_weight == 0:  # Prevent division by zero if all preferences are 'No Preference'
+        return 0
+    
+    return (score / total_weight) * 100
+
+from django.shortcuts import render
+from base.models import Profile
+from base.views import calculate_compatibility
+
+def my_room(request):
+    user_profile = Profile.objects.get(user=request.user)
+    all_profiles = Profile.objects.exclude(user=user_profile.user)
+
+    compatible_users = []
+    for profile in all_profiles:
+        score = calculate_compatibility(user_profile, profile)
+        print(f"Comparing {user_profile.name} and {profile.name}: Score = {score}")  # Debugging line
+        if score >= 50:  # You can adjust the threshold if needed
+            compatible_users.append((profile, score))
+
+    #print(f"Compatible users: {compatible_users}")  # Debugging line
+
+    return render(request, 'pages/myroom.html', {'compatible_users': compatible_users})
+
+
+### Update Roommate Preferences ###
+@login_required
+def update_preferences(request):
+    """Update roommate preferences."""
+    user_profile = request.user.profile
+
+    if request.method == 'POST':
+        form = RoommatePreferenceForm(request.POST, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Preferences updated successfully!")
+            return redirect('roommate_compatibility')
+    else:
+        form = RoommatePreferenceForm(instance=user_profile)
+
+    return render(request, 'pages/update_preferences.html', {'form': form})
+
+
+### Edit Profile ###
+@login_required
+def edit_profile(request):
+    """Edit user profile."""
+    if request.method == "POST":
+        user = request.user
+        user_profile = user.profile
+        user_profile.gender = request.POST.get("gender")
+        user_profile.degree = request.POST.get("degree")
+        user_profile.course = request.POST.get("course")
+        user_profile.diet = request.POST.get("diet")
+        user_profile.country = request.POST.get("country")
+        user_profile.save()
+        messages.success(request, "Profile updated successfully!")
+        return redirect('profile_edit')
+
+    return render(request, 'pages/profile_edit.html', {'user_profile': request.user.profile})

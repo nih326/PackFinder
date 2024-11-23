@@ -35,6 +35,7 @@ class AboutPageTests(TestCase):
             'Shandler Mason', 'Teja Varma', 'Kiron Jayesh',
             'Arun Kumar', 'Saigirishwar Rohit Geddam',
             'Ananya Patankar', 'Chaitralee Datar', 'Yash Shah'
+            'Niharika Maruvanahalli Suresh ', 'Diya Shetty', 'Sanjana Nanjangud Shreenivas'
         ]
         for contributor in contributors:
             self.assertContains(response, contributor)

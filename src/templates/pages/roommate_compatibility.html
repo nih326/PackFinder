@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Roommate Compatibility{% endblock %}
+{% block content %}
+<h2>Compatible Roommates</h2>
+
+<p>Debugging Data:</p>
+<ul>
+    {% for profile, score in compatible_users %}
+        <li>{{ profile.name }} - {{ score }}%</li>
+    {% endfor %}
+</ul>
+
+{% if not compatible_users %}
+    <p>No compatible roommates found. Try updating your preferences.</p>
+{% endif %}
+{% endblock %}
