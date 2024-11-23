@@ -1,10 +1,18 @@
 # 🐺 *PackFinder* 🐺
-[![Test](https://github.com/SE-Alpha-Project/PackFinder/actions/workflows/Unit_Tests.yml/badge.svg)](https://github.com/SE-Alpha-Project/PackFinder/actions/workflows/Unit_Tests.yml)
-[![codecov](https://codecov.io/gh/SE-Alpha-Project/PackFinder/branch/main/graph/badge.svg?token=PCOHJETYCD)](https://codecov.io/gh/SE-Alpha-Project/PackFinder)
-[![Test](https://github.com/SE-Alpha-Project/PackFinder/actions/workflows/Linting.yml/badge.svg)](https://github.com/SE-Alpha-Project/PackFinder/actions/workflows/Linting.yml)
-[![code_size](https://img.shields.io/github/languages/code-size/nih326/PackFinder)](https://github.com/nih326/PackFinder)
-[![repo_size](https://img.shields.io/github/repo-size/nih326/PackFinder)](https://github.com/nih326/PackFinder) 
+
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14207615.svg)](https://doi.org/10.5281/zenodo.14207615) 
+
+[![codecov](https://codecov.io/gh/SE-Alpha-Project/PackFinder/branch/main/graph/badge.svg?token=PCOHJETYCD)](https://codecov.io/gh/SE-Alpha-Project/PackFinder)
+
+[![Test](https://github.com/nih326/PackFinder/actions/workflows/Unit_Tests.yml/badge.svg)](https://github.com/nih326/PackFinder/actions/workflows/Unit_Tests.yml)
+
+[![Test](https://github.com/nih326/PackFinder/actions/workflows/Linting.yml/badge.svg)](https://github.com/nih326/PackFinder/actions/workflows/Linting.yml)
+
+[![code_size](https://img.shields.io/github/languages/code-size/nih326/PackFinder)](https://github.com/nih326/PackFinder)
+
+
+[![repo_size](https://img.shields.io/github/repo-size/nih326/PackFinder)](https://github.com/nih326/PackFinder) 
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub issues-closed](https://img.shields.io/github/issues-closed/nih326/PackFinder.svg)](https://GitHub.com/nih326/PackFinder/issues?q=is%3Aissue+is%3Aclosed)
 [![GitHub version](https://img.shields.io/github/v/release/nih326/PackFinder)](https://github.com/nih326/PackFinder/releases)
@@ -14,7 +22,7 @@
 
 ## 🌟 *About PackFinder*
 *PackFinder* is a free and easy-to-use roommate-matching platform built for NC State students. Use PackFinder to find the perfect roommate match based on your preferences and get recommendations suited to your lifestyle!
-🧑‍💻 Want to contribute? Check out our [CONTRIBUTING.md](https://github.com/rohitgeddam/FindMyRoomie/blob/main/CONTRIBUTING.md).
+🧑‍💻 Want to contribute? Check out our [CONTRIBUTING.md](https://github.com/nih326/PackFinder/blob/feature/CONTRIBUTING.md).
 
 https://github.com/user-attachments/assets/a99a1c30-3c48-45e1-9a25-7526f895d86f
 
