@@ -126,7 +126,7 @@ Fill the above field and save.
 Django's way of propagating changes you make to your models (adding a field, deleting a model, etc.) into your database schema.
 
    
-    ```
+   ```
    python manage.py makemigrations
    python manage.py migrate
    ```
@@ -134,18 +134,16 @@ Django's way of propagating changes you make to your models (adding a field, del
 
 ## Populate fake data for testing
 
-
+```
 python manage.py seed_users <number of fake instances>
 
 # creates ten fake users
 python manage.py seed_users 10
-
-
----
+```
 
 ## Automatic tools - GitHub Actions
-
-We use GitHub actions to automate tasks of linting, code coverage, build, tests, and security checks. The codes that perform these actions are stored as .yml files in the .github/workflows directory. The GitHub actions are triggered whenever something is pushed (or pulled) into the remote repository. The results of these automated tasks are shown as badges at the top of this README.md file.
+ 
+We use GitHub actions to automate tasks of linting, code coverage, build, tests, and security checks. The codes that perform these actions are stored as `.yml` files in the `.github/workflows` directory. The GitHub actions are triggered whenever something is pushed (or pulled) into the remote repository. The results of these automated tasks are shown as badges at the top of this README.md file. 
 
 ### Unit tests:
 
@@ -154,19 +152,19 @@ Unit test are performed everytime there is a push or pull into the repository. F
 ### How to build docs
 `sphinx-build -b html docs/  docs/build `
 
-### Code Coverage:
+### Code Coverage: 
 
-Code Coverage is an important metric that allows us to understand how much of the codebase is tested. Code_Cov.yml performs this task. For more information about Code Coverage, please visit this [link](https://www.atlassian.com/continuous-delivery/software-testing/code-coverage).
+Code Coverage is an important metric that allows us to understand how much of the codebase is tested. `Code_Cov.yml` performs this task. For more information about Code Coverage, please visit this [link](https://www.atlassian.com/continuous-delivery/software-testing/code-coverage). 
 
 ### Flake8 - Code Linting:
 
-We are using Flake8 for linting and syntax checking, and it is performed by Linting.yml. For more information about Flake8, please visit this [link](https://medium.com/python-pandemonium/what-is-flake8-and-why-we-should-use-it-b89bd78073f2).
+We are using Flake8 for linting and syntax checking, and it is performed by `Linting.yml`. For more information about Flake8, please visit this [link](https://medium.com/python-pandemonium/what-is-flake8-and-why-we-should-use-it-b89bd78073f2).
 Use flake8 before you push code to GitHub. </br>
-Config file present in setup.cfg.
+Config file present in `setup.cfg`.
 
-
+```
 flake8 <directory>
-
+```
 
 ### Black - Code Formatter
 
@@ -174,23 +172,22 @@ We are using the Black code formatter to format our code before pushing it to Gi
 
 
 Run the line below everytime you push to GitHub.</br>
-Config file present in pyproject.toml
-
+Config file present in `pyproject.toml`
+```
 black --line-length 120 <filename>
-
+```
 
 If you prefer using Black in VSCode, you can add the below settings in your vscode settings:
 
-
+```
 {
     "python.formatting.provider": "black",
     "python.formatting.blackArgs": ["--line-length", "120"],
     "python.linting.enabled": true
 }
-
-
+```
 ### Pre Commit Hooks for Black Code formatting and Flake8 Linting
-* run  pre-commit install
+* run  `pre-commit install`
 * Now everytime you commit, Black and Flake8 will run automatically and will not allow you to push if the code standards are not met.
 <img width="694" alt="Screenshot 2022-10-07 at 11 35 40 AM" src="https://user-images.githubusercontent.com/48797475/194592802-e7d7c951-9694-4260-b537-fc017a5fd06c.png">
 
@@ -198,9 +195,7 @@ If you prefer using Black in VSCode, you can add the below settings in your vsco
 
 ### CodeQL
 
-CodeQL.yml performs automated security checks on the codebase and scans it for any vulnerabilities and bugs. For more information about CodeQL, please visit this [link](https://codeql.github.com/docs/codeql-overview/about-codeql/).
-
----
+`CodeQL.yml` performs automated security checks on the codebase and scans it for any vulnerabilities and bugs. For more information about CodeQL, please visit this [link](https://codeql.github.com/docs/codeql-overview/about-codeql/). 
 
 ## 🔒 *Privacy Policy*
 
@@ -210,15 +205,15 @@ CodeQL.yml performs automated security checks on the codebase and scans it for a
 4. *Data Retention*: Stored as long as you’re using the service.
 5. *Data Removal*: Email us from your registered account to remove data.
 
----
 
-## 🛠 *Technologies Used*
-- *Python 3.7+*
-- *Django 4.1.2*
-- *HTML5, CSS3, Bootstrap 5.2*
-- *TailwindCSS*
+## Technology Used
+-   `Python 3.7+`
+-   `Django 4.1.2`
+-   `HTML5`
+-   `CSS3`
+-   `BootStrap v5.2`
 
----
+
 
 ## 🛤️ *Roadmap*
 
@@ -237,13 +232,22 @@ CodeQL.yml performs automated security checks on the codebase and scans it for a
 ## 📞 *Contact Us*
 Have questions? Reach out!
 
-- *Yash Shah* - [yshah5@ncsu.edu](mailto:yshah5@ncsu.edu)
-- *Chaitralee Datar* - [cdatar@ncsu.edu](mailto:cdatar@ncsu.edu)
-- *Ananya Patankar* - [apatank@ncsu.edu](mailto:apatank@ncsu.edu)
+<tr>
+    <td align="center"><a href="https://github.com/nih326"><img src="https://avatars.githubusercontent.com/u/43085656?v=4" width="75px;" alt=""/><br /><sub><b>Niharika Maruvanahalli Suresh</b></sub></a></td>
+    <td align="center"><a href="https://github.com/diya0603"><img src="https://avatars.githubusercontent.com/u/178948228?v=4" width="75px;" alt=""/><br /><sub><b>Diya Shetty</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/sanjana1399"><img src="https://avatars.githubusercontent.com/u/57448690?v=4" width="75px;" alt=""/><br /><sub><b>Sanjana Nanjangud Shreenivas</b></sub></a><br /></td>
+  </tr>
+</table>
 
 ---
-## 📜 *License*
-Distributed under the *MIT License*. See the LICENSE file for more information.
+## Acknowledgements
+
+We want to express our gratitude and a big thank you to Prof. Dr Timothy Menzie for allowing us to get into the shoes of software building and learning new skills and development processes throughout the project building. It was a great opportunity to learn to work as a team.
+A big thank you to the Teaching Assistants for their support.
+Thank you to the previous team for a thorough ReadMe and detailed documentation that helped us easily understand the project.
+
+---
+
 
 ---
 
