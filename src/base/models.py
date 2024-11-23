@@ -203,19 +203,19 @@ class Profile(models.Model):
 
     # preferences
 
-    preference_gender = models.CharField(
+    gender_preference = models.CharField(
         max_length=128, choices=PREF_GENDER_CHOICES, default=NO_PREF
     )
-    preference_degree = models.CharField(
+    degree_preference = models.CharField(
         max_length=128, choices=PREF_DEGREE_CHOICES, default=NO_PREF
     )
-    preference_diet = models.CharField(
+    diet_preference = models.CharField(
         max_length=128, choices=PREF_DIET_CHOICES, default=NO_PREF
     )
-    preference_country = CountryField(
+    country_preference = CountryField(
         blank_label="No Preference", blank=True, default="No Preference"
     )
-    preference_course = models.CharField(
+    course_preference = models.CharField(
         max_length=128, choices=PREF_COURSE_CHOICES, default=NO_PREF
     )
 
@@ -335,3 +335,15 @@ class MatchPreferences(models.Model):
 
     def __str__(self):
         return f"Preferences of {self.profile.user.email}"
+from django.db import models
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    degree_preference = models.CharField(max_length=100, blank=True, null=True)
+    gender_preference = models.CharField(max_length=10, blank=True, null=True)
+    course_preference = models.CharField(max_length=100, blank=True, null=True)
+    country_preference = models.CharField(max_length=100, blank=True, null=True)
+    diet_preference = models.CharField(max_length=100, blank=True, null=True)
+    
+    def __str__(self):
+        return f"Profile of {self.user.username}"

@@ -501,49 +501,12 @@ def clear_chat(request, room_id):
         
     return redirect('chat_room', room_id=room_id)
 
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from .models import Room, UserProfile
-from .forms import RoomForm
-from django.shortcuts import render, get_object_or_404
-from base.models import UserProfile, Room
-
-
-import logging
-logger = logging.getLogger(__name__)
-
-@login_required
-
-def my_room(request):
-    
-    user_rooms = Room.objects.filter(user=request.user)
-    profile = get_object_or_404(UserProfile, user=request.user)
-
-    owned_rooms = None
-    interested_rooms = None
-
-    if profile.room_status == 'offering':
-        owned_rooms = Room.objects.filter(owner=profile)
-    elif profile.room_status == 'available':
-        interested_rooms = Room.objects.filter(interested_users=profile)
-
-    logger.info(f"Profile room_status: {profile.room_status}")
-    logger.info(f"Owned rooms: {owned_rooms}")
-    logger.info(f"Interested rooms: {interested_rooms}")
-
-    context = {
-        'profile': profile,
-        'owned_rooms': owned_rooms,
-        'interested_rooms': interested_rooms,
-    }
-    return render(request, 'my_room.html', {'rooms': user_rooms})
-
 @login_required
 def remove_interest(request, room_id):
+    """Remove a user's interest in a specific room."""
     room = get_object_or_404(Room, id=room_id)
     profile = get_object_or_404(UserProfile, user=request.user)
-    
+
     if profile in room.interested_users.all():
         room.interested_users.remove(profile)
         messages.success(request, 'Your interest in this room has been removed.')
@@ -552,76 +515,84 @@ def remove_interest(request, room_id):
 
     return redirect('my_room')
 
-from django.db.models import F
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .models import UserProfile
+from .forms import RoommatePreferenceForm
 
+
+### Compatibility Calculations ###
 def calculate_compatibility(user_profile, other_profile):
-    """Calculate compatibility score between two profiles."""
+    """Calculate the compatibility score between two user profiles."""
     score = 0
-    max_score = 0
+    total_weight = 0  # Start at zero
 
-    # Define weights for importance levels
-    importance_weights = {
-        1: 1,  # Not Important
-        2: 2,  # Somewhat Important
-        3: 3,  # Very Important
-    }
+    # Check gender preference
+    if user_profile.gender_preference == other_profile.gender:
+        score += 1
+        total_weight += 1
+    elif user_profile.gender_preference == 'No Preference':
+        total_weight += 0.5  # Add partial weight if 'No Preference'
 
-    # Compare cleanliness
-    max_score += importance_weights[user_profile.cleanliness_importance]
-    if user_profile.cleanliness == other_profile.cleanliness:
-        score += importance_weights[user_profile.cleanliness_importance]
+    # Check diet preference
+    if user_profile.diet_preference == other_profile.diet:
+        score += 1
+        total_weight += 1
+    elif user_profile.diet_preference == 'No Preference':
+        total_weight += 0.5
 
-    # Compare noise preference
-    max_score += importance_weights[user_profile.noise_importance]
-    if user_profile.noise_preference == other_profile.noise_preference:
-        score += importance_weights[user_profile.noise_importance]
+    # Check degree preference
+    if user_profile.degree_preference == other_profile.degree:
+        score += 1
+        total_weight += 1
+    elif user_profile.degree_preference == 'No Preference':
+        total_weight += 0.5
 
-    # Compare guest preferences
-    max_score += importance_weights[user_profile.guest_importance]
-    if user_profile.guest_preference == other_profile.guest_preference:
-        score += importance_weights[user_profile.guest_importance]
+    # Check course preference
+    if user_profile.course_preference == other_profile.course:
+        score += 1
+        total_weight += 1
+    elif user_profile.course_preference == 'No Preference':
+        total_weight += 0.5
 
-    # Compare sleep schedules
-    max_score += importance_weights[user_profile.sleep_schedule_importance]
-    if user_profile.sleep_schedule == other_profile.sleep_schedule:
-        score += importance_weights[user_profile.sleep_schedule_importance]
+    # Check country preference
+    if user_profile.country_preference == other_profile.country:
+        score += 1
+        total_weight += 1
+    elif user_profile.country_preference == 'No Preference':
+        total_weight += 0.5
 
-    # Calculate compatibility percentage
-    compatibility_percentage = (score / max_score) * 100 if max_score > 0 else 0
-    return round(compatibility_percentage, 2)
+    # Return percentage based on actual score and total weight
+    if total_weight == 0:  # Prevent division by zero if all preferences are 'No Preference'
+        return 0
+    
+    return (score / total_weight) * 100
 
 from django.shortcuts import render
-from .models import Profile
+from base.models import Profile
+from base.views import calculate_compatibility
 
-@login_required
-def roommate_compatibility(request):
-    """View to find compatible roommates."""
-    user_profile = request.user.profile
-    if not user_profile.is_profile_complete:
-        messages.error(request, "Please complete your profile to access roommate compatibility.")
-        return redirect('profile_edit')
-    # Fetch other profiles
-    potential_roommates = Profile.objects.exclude(user=request.user)
+def my_room(request):
+    user_profile = Profile.objects.get(user=request.user)
+    all_profiles = Profile.objects.exclude(user=user_profile.user)
 
-    # Calculate compatibility scores
-    matches = []
-    for profile in potential_roommates:
-        compatibility_score = calculate_compatibility(user_profile, profile)
-        if compatibility_score > 50:  # Only show matches above 50%
-            matches.append({
-                'profile': profile,
-                'compatibility': compatibility_score,
-            })
+    compatible_users = []
+    for profile in all_profiles:
+        score = calculate_compatibility(user_profile, profile)
+        print(f"Comparing {user_profile.name} and {profile.name}: Score = {score}")  # Debugging line
+        if score >= 50:  # You can adjust the threshold if needed
+            compatible_users.append((profile, score))
 
-    # Sort matches by compatibility score
-    matches.sort(key=lambda x: x['compatibility'], reverse=True)
+    #print(f"Compatible users: {compatible_users}")  # Debugging line
 
-    return render(request, 'pages/roommate_compatibility.html', {
-        'matches': matches,
-        'user_profile': user_profile,
-    })
+    return render(request, 'pages/myroom.html', {'compatible_users': compatible_users})
+
+
+### Update Roommate Preferences ###
 @login_required
 def update_preferences(request):
+    """Update roommate preferences."""
     user_profile = request.user.profile
 
     if request.method == 'POST':
@@ -635,32 +606,21 @@ def update_preferences(request):
 
     return render(request, 'pages/update_preferences.html', {'form': form})
 
-from .services.compatibility import RoommateCompatibilityCalculator
 
+### Edit Profile ###
 @login_required
-def roommate_compatibility(request):
-    """View to find compatible roommates."""
-    user_profile = request.user.profile
-    calculator = RoommateCompatibilityCalculator()
+def edit_profile(request):
+    """Edit user profile."""
+    if request.method == "POST":
+        user = request.user
+        user_profile = user.profile
+        user_profile.gender = request.POST.get("gender")
+        user_profile.degree = request.POST.get("degree")
+        user_profile.course = request.POST.get("course")
+        user_profile.diet = request.POST.get("diet")
+        user_profile.country = request.POST.get("country")
+        user_profile.save()
+        messages.success(request, "Profile updated successfully!")
+        return redirect('profile_edit')
 
-    # Fetch other profiles
-    potential_roommates = Profile.objects.exclude(user=request.user)
-
-    # Calculate compatibility scores
-    matches = []
-    for profile in potential_roommates:
-        compatibility = calculator.calculate_match(user_profile, profile)
-        if compatibility['total_score'] > 50:  # Only show matches above 50%
-            matches.append({
-                'profile': profile,
-                'compatibility': compatibility['total_score'],
-                'breakdown': compatibility['breakdown'],
-            })
-
-    # Sort matches by compatibility score
-    matches.sort(key=lambda x: x['compatibility'], reverse=True)
-
-    return render(request, 'pages/roommate_compatibility.html', {
-        'matches': matches,
-        'user_profile': user_profile,
-    })
+    return render(request, 'pages/profile_edit.html', {'user_profile': request.user.profile})

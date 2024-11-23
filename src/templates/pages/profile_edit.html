@@ -37,7 +37,7 @@ Edit Profile
 <div class="container mt-4">
     <h2 class="text-center mb-4">Edit Profile</h2>
 
-    <form method="post" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         
         <!-- Basic Information -->
@@ -57,6 +57,55 @@ Edit Profile
                 <div class="row mt-3">
                     <div class="col-12">
                         {{ form.bio|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Personal Preferences -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>Personal Preferences</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <!-- Gender -->
+                    <div class="col-md-6">
+                        {{ form.gender|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.gender_preference|as_crispy_field }}
+                    </div>
+                    <!-- Diet -->
+                    <div class="col-md-6">
+                        {{ form.diet|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.diet_preference|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <!-- Degree -->
+                    <div class="col-md-6">
+                        {{ form.degree|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.degree_preference|as_crispy_field }}
+                    </div>
+                    <!-- Course -->
+                    <div class="col-md-6">
+                        {{ form.course|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.course_preference|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <!-- Country -->
+                    <div class="col-12">
+                        {{ form.country|as_crispy_field }}
+                    </div>
+                    <div class="col-12">
+                        {{ form.country_preference|as_crispy_field }}
                     </div>
                 </div>
             </div>
