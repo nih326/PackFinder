@@ -32,7 +32,7 @@ class LandingPageTests(TestCase):
         """Test that testimonials section is present with user quotes"""
         response = self.client.get(self.landing_page_url)
         self.assertContains(response, 'What Our Users Say')
-        test_users = ['Yash', 'Chaitralee', 'Ananya']
+        test_users = ['Niharika', 'Diya', 'Sanjana']
         for user in test_users:
             self.assertContains(response, user)
 
