@@ -27,14 +27,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 from base.views import ActivateAccount
 from django.views.generic import TemplateView
-
+from django.urls import path
+from . import views
 
 urlpatterns = [
     path("signup/", SignUpView.as_view(), name="signup"),
     path("profile/", views.profile, name="profile"),
     path("profile/edit/", views.profile_edit, name="profile_edit"),
     path("findpeople/", views.findpeople, name="findpeople"),
-    path("myroom/", views.myroom, name="myroom"),
+    path("myroom/", views.my_room, name="my_room"),
     path("logout/", views.user_logout, name="user_logout"),
     path('chats/', views.chat_list, name='chat_list'),
     path('chat/<int:room_id>/', views.chat_room, name='chat_room'),
@@ -57,6 +58,8 @@ urlpatterns = [
     path('forum/housing-tips/', views.housing_tips, name='housing_tips'),
     path('forum/roommate-issues/', views.roommate_issues, name='roommate_issues'),
     path('forum/campus-life/', views.campus_life, name='campus_life')
+    path('remove_interest/<int:room_id>/', views.remove_interest, name='remove_interest'),
+ 
 ]
 
 # Only add this when we are in debug mode.
