@@ -7,22 +7,47 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('base', '0007_userprofile'),
+        ("base", "0007_userprofile"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Room_interested_users',
+            name="Room_interested_users",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('room', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='base.room')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='base.profile')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "room",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="base.room",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="base.profile",
+                    ),
+                ),
             ],
         ),
         migrations.AlterField(
-            model_name='room',
-            name='interested_users',
-            field=models.ManyToManyField(blank=True, related_name='interested_rooms', through='base.Room_interested_users', to='base.profile'),
+            model_name="room",
+            name="interested_users",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="interested_rooms",
+                through="base.Room_interested_users",
+                to="base.profile",
+            ),
         ),
     ]

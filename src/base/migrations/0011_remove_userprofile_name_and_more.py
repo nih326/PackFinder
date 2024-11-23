@@ -9,71 +9,112 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('base', '0010_remove_profile_preference_country_and_more'),
+        ("base", "0010_remove_profile_preference_country_and_more"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='userprofile',
-            name='name',
+            model_name="userprofile",
+            name="name",
         ),
         migrations.RemoveField(
-            model_name='userprofile',
-            name='room_status',
+            model_name="userprofile",
+            name="room_status",
         ),
         migrations.AddField(
-            model_name='userprofile',
-            name='country_preference',
+            model_name="userprofile",
+            name="country_preference",
             field=models.CharField(blank=True, max_length=100, null=True),
         ),
         migrations.AddField(
-            model_name='userprofile',
-            name='course_preference',
+            model_name="userprofile",
+            name="course_preference",
             field=models.CharField(blank=True, max_length=100, null=True),
         ),
         migrations.AddField(
-            model_name='userprofile',
-            name='degree_preference',
+            model_name="userprofile",
+            name="degree_preference",
             field=models.CharField(blank=True, max_length=100, null=True),
         ),
         migrations.AddField(
-            model_name='userprofile',
-            name='diet_preference',
+            model_name="userprofile",
+            name="diet_preference",
             field=models.CharField(blank=True, max_length=100, null=True),
         ),
         migrations.AddField(
-            model_name='userprofile',
-            name='gender_preference',
+            model_name="userprofile",
+            name="gender_preference",
             field=models.CharField(blank=True, max_length=10, null=True),
         ),
         migrations.AlterField(
-            model_name='profile',
-            name='country_preference',
-            field=django_countries.fields.CountryField(blank=True, default='No Preference', max_length=2),
+            model_name="profile",
+            name="country_preference",
+            field=django_countries.fields.CountryField(
+                blank=True, default="No Preference", max_length=2
+            ),
         ),
         migrations.AlterField(
-            model_name='profile',
-            name='course_preference',
-            field=models.CharField(choices=[('No Preference', 'No Preference'), ('Computer Science', 'Computer Science'), ('Computer Engineering', 'Computer Engg.'), ('Electrical Engineering', 'Electrical Engg.'), ('Mechanical Engineering', 'Mechanical Engg.')], default='No Preference', max_length=128),
+            model_name="profile",
+            name="course_preference",
+            field=models.CharField(
+                choices=[
+                    ("No Preference", "No Preference"),
+                    ("Computer Science", "Computer Science"),
+                    ("Computer Engineering", "Computer Engg."),
+                    ("Electrical Engineering", "Electrical Engg."),
+                    ("Mechanical Engineering", "Mechanical Engg."),
+                ],
+                default="No Preference",
+                max_length=128,
+            ),
         ),
         migrations.AlterField(
-            model_name='profile',
-            name='degree_preference',
-            field=models.CharField(choices=[('No Preference', 'No Preference'), ('Bachelors', 'Bachelors Program (BS)'), ('Masters', 'Masters Program (MS)'), ('Phd', 'Post Docterate (PHD)')], default='No Preference', max_length=128),
+            model_name="profile",
+            name="degree_preference",
+            field=models.CharField(
+                choices=[
+                    ("No Preference", "No Preference"),
+                    ("Bachelors", "Bachelors Program (BS)"),
+                    ("Masters", "Masters Program (MS)"),
+                    ("Phd", "Post Docterate (PHD)"),
+                ],
+                default="No Preference",
+                max_length=128,
+            ),
         ),
         migrations.AlterField(
-            model_name='profile',
-            name='diet_preference',
-            field=models.CharField(choices=[('No Preference', 'No Preference'), ('Vegetarian', 'Veg'), ('Non Vegetarian', 'Non Veg')], default='No Preference', max_length=128),
+            model_name="profile",
+            name="diet_preference",
+            field=models.CharField(
+                choices=[
+                    ("No Preference", "No Preference"),
+                    ("Vegetarian", "Veg"),
+                    ("Non Vegetarian", "Non Veg"),
+                ],
+                default="No Preference",
+                max_length=128,
+            ),
         ),
         migrations.AlterField(
-            model_name='profile',
-            name='gender_preference',
-            field=models.CharField(choices=[('No Preference', 'No Preference'), ('Male', 'Male'), ('Female', 'Female'), ('Other', 'Other')], default='No Preference', max_length=128),
+            model_name="profile",
+            name="gender_preference",
+            field=models.CharField(
+                choices=[
+                    ("No Preference", "No Preference"),
+                    ("Male", "Male"),
+                    ("Female", "Female"),
+                    ("Other", "Other"),
+                ],
+                default="No Preference",
+                max_length=128,
+            ),
         ),
         migrations.AlterField(
-            model_name='userprofile',
-            name='user',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="userprofile",
+            name="user",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

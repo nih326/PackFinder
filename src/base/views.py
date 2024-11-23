@@ -1,8 +1,8 @@
 #
-# Created on Sun Nov 04 2024
+# Created on Fri Nov 22 2024
 #
 # The MIT License (MIT)
-# Copyright (c) 2024 Chaitralee Datar, Ananya Patankar, Yash Shah
+# Copyright (c) 2024 Niharika Maruvanahalli Suresh , Diya Shetty, Sanjana Nanjangud Shreenivas
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this software
 # and associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -45,6 +45,49 @@ from base.tokens import account_activation_token
 from django.views import View
 from .models import Room
 from .forms import RoomForm
+
+from django.urls import reverse_lazy
+from django.views import generic
+from django.shortcuts import render, redirect
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .forms import ProfileForm, SignUpForm
+from .models import Profile
+from django.contrib.auth import get_user_model
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .models import ChatRoom, Message
+from django.contrib.auth import get_user_model
+from django.db.models import Q
+
+from django.contrib import messages
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
+from django.template.loader import render_to_string
+from .filters import ProfileFilter
+from .matching import matchings
+
+from django.contrib.auth import login
+from django.contrib.auth.models import User
+from django.utils.encoding import force_str
+from django.utils.http import urlsafe_base64_decode
+from base.tokens import account_activation_token
+from django.views import View
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .models import UserProfile
+from .forms import RoommatePreferenceForm
+
+from django.shortcuts import render
+from base.models import Profile
+#from base.views import calculate_compatibility
+# base/views.py
+from base.utils import calculate_compatibility
 
 
 class ActivateAccount(View):
@@ -122,7 +165,9 @@ def home(request):
 @login_required()
 def profile(request):
     """Render Profile page"""
-    return render(request, "pages/profile.html", {"profile": request.user.profile})
+    return render(
+        request, "pages/profile.html", {"profile": request.user.profile}
+    )
 
 
 @login_required()
@@ -152,59 +197,59 @@ def findpeople(request):
     """Render findpeople page"""
     user_profile = request.user.profile
     profiles = Profile.objects.exclude(user=request.user)
-    
+
     # Calculate match percentages
     profiles_with_match = []
     for profile in profiles:
         match_percentage = calculate_preference_match(user_profile, profile)
-        profiles_with_match.append({
-            'profile': profile,
-            'match_percentage': round(match_percentage, 1)
-        })
-    
+        profiles_with_match.append(
+            {
+                "profile": profile,
+                "match_percentage": round(match_percentage, 1),
+            }
+        )
+
     # Sort by match percentage
-    profiles_with_match.sort(key=lambda x: x['match_percentage'], reverse=True)
-    
-    context = {
-        'profiles': profiles_with_match
-    }
-    return render(request, 'pages/findpeople.html', context)
+    profiles_with_match.sort(key=lambda x: x["match_percentage"], reverse=True)
+
+    context = {"profiles": profiles_with_match}
+    return render(request, "pages/findpeople.html", context)
 
 
 @login_required
 def myroom(request):
     """Handle My Room functionality"""
     profile = request.user.profile
-    
+
     # Get rooms where the user has shown interest
     interested_rooms = Room.objects.filter(interested_users=profile)
-    
+
     # Get rooms owned by the user
     owned_rooms = Room.objects.filter(owner=profile)
-    
+
     context = {
-        'interested_rooms': interested_rooms,
-        'owned_rooms': owned_rooms,
-        'profile': profile
+        "interested_rooms": interested_rooms,
+        "owned_rooms": owned_rooms,
+        "profile": profile,
     }
-    
+
     return render(request, "pages/myroom.html", context)
 
 
 @login_required
 def add_room(request):
     """Add a new room listing"""
-    if request.method == 'POST':
+    if request.method == "POST":
         form = RoomForm(request.POST)
         if form.is_valid():
             room = form.save(commit=False)
             room.owner = request.user.profile
             room.save()
-            return redirect('myroom')
+            return redirect("myroom")
     else:
         form = RoomForm()
-    
-    return render(request, 'pages/add_room.html', {'form': form})
+
+    return render(request, "pages/add_room.html", {"form": form})
 
 
 def user_logout(request):
@@ -219,70 +264,18 @@ def toggle_room_interest(request, room_id):
     try:
         room = Room.objects.get(id=room_id)
         profile = request.user.profile
-        
+
         if profile in room.interested_users.all():
             room.interested_users.remove(profile)
             messages.success(request, "Removed interest in room.")
         else:
             room.interested_users.add(profile)
             messages.success(request, "Added interest in room.")
-            
-        return redirect('myroom')
+
+        return redirect("myroom")
     except Room.DoesNotExist:
         messages.error(request, "Room not found.")
-        return redirect('myroom')
-
-#
-# Created on Sun Oct 09 2022
-#
-# The MIT License (MIT)
-# Copyright (c) 2022 Rohit Geddam, Arun Kumar, Teja Varma, Kiron Jayesh, Shandler Mason
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy of this software
-# and associated documentation files (the "Software"), to deal in the Software without restriction,
-# including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
-# and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
-# subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in all copies or substantial
-# portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
-# TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-#
-
-from django.urls import reverse_lazy
-from django.views import generic
-from django.shortcuts import render, redirect
-from django.contrib.auth import logout
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from .forms import ProfileForm, SignUpForm
-from .models import Profile
-from django.contrib.auth import get_user_model
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from .models import ChatRoom, Message
-from django.contrib.auth import get_user_model
-from django.db.models import Q
-
-from django.contrib import messages
-from django.contrib.sites.shortcuts import get_current_site
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode
-from django.template.loader import render_to_string
-from .filters import ProfileFilter
-from .matching import matchings
-
-from django.contrib.auth import login
-from django.contrib.auth.models import User
-from django.utils.encoding import force_str
-from django.utils.http import urlsafe_base64_decode
-from base.tokens import account_activation_token
-from django.views import View
+        return redirect("myroom")
 
 
 class ActivateAccount(View):
@@ -417,89 +410,94 @@ def user_logout(request):
     messages.success(request, "Logged out successfully!")
     return redirect("home")
 
+
 User = get_user_model()
+
 
 @login_required
 def chat_list(request):
     """Show list of all chats for current user"""
     chat_rooms = ChatRoom.objects.filter(participants=request.user)
-    return render(request, 'chat/chat_list.html', {'chat_rooms': chat_rooms})
+    return render(request, "chat/chat_list.html", {"chat_rooms": chat_rooms})
+
 
 @login_required
 def chat_room(request, room_id):
     """Show individual chat room and its messages"""
     room = get_object_or_404(ChatRoom, id=room_id)
-    
+
     # Check if user is participant
     if request.user not in room.participants.all():
-        return redirect('chat_list')
-    
-    if request.method == 'POST':
-        content = request.POST.get('content')
+        return redirect("chat_list")
+
+    if request.method == "POST":
+        content = request.POST.get("content")
         if content:
             Message.objects.create(
-                room=room,
-                sender=request.user,
-                content=content
+                room=room, sender=request.user, content=content
             )
-    
+
     messages = room.messages.all()
-    return render(request, 'chat/chat_room.html', {
-        'room': room,
-        'messages': messages
-    })
+    return render(
+        request, "chat/chat_room.html", {"room": room, "messages": messages}
+    )
+
 
 @login_required
 def create_chat_room(request, user_id):
     """Create a new chat room with another user"""
     other_user = get_object_or_404(User, id=user_id)
-    
+
     # Check if chat room already exists
-    existing_room = ChatRoom.objects.filter(
-        participants=request.user
-    ).filter(
-        participants=other_user
-    ).first()
-    
+    existing_room = (
+        ChatRoom.objects.filter(participants=request.user)
+        .filter(participants=other_user)
+        .first()
+    )
+
     if existing_room:
-        return redirect('chat_room', room_id=existing_room.id)
-    
+        return redirect("chat_room", room_id=existing_room.id)
+
     # Create new room
     room = ChatRoom.objects.create()
     room.participants.add(request.user, other_user)
-    
-    return redirect('chat_room', room_id=room.id)
 
+    return redirect("chat_room", room_id=room.id)
 
 
 @login_required
 def clear_chat(request, room_id):
     """Clear all messages in a chat room"""
-    if request.method == 'POST':
+    if request.method == "POST":
         room = get_object_or_404(ChatRoom, id=room_id)
-        
+
         # Verify user is a participant
         if request.user not in room.participants.all():
-            messages.error(request, "You don't have permission to clear this chat.")
-            return redirect('chat_list')
-        
+            messages.error(
+                request, "You don't have permission to clear this chat."
+            )
+            return redirect("chat_list")
+
         try:
             # Delete all messages except system welcome messages
             room.messages.exclude(sender=None).delete()
-            
+
             # Add system message about clearing
             Message.objects.create(
                 room=room,
                 sender=None,  # System message
-                content="🧹 Chat history has been cleared."
+                content="🧹 Chat history has been cleared.",
             )
-            
+
             messages.success(request, "Chat history cleared successfully.")
         except Exception as e:
             print(f"Error clearing chat: {e}")  # Debug print
-            messages.error(request, "An error occurred while clearing the chat.")
-        
-    return redirect('chat_room', room_id=room_id)
+            messages.error(
+                request, "An error occurred while clearing the chat."
+            )
+
+    return redirect("chat_room", room_id=room_id)
+
 
 @login_required
 def remove_interest(request, room_id):
@@ -509,19 +507,17 @@ def remove_interest(request, room_id):
 
     if profile in room.interested_users.all():
         room.interested_users.remove(profile)
-        messages.success(request, 'Your interest in this room has been removed.')
+        messages.success(
+            request, "Your interest in this room has been removed."
+        )
     else:
-        messages.error(request, 'You are not interested in this room.')
+        messages.error(request, "You are not interested in this room.")
 
-    return redirect('my_room')
+    return redirect("my_room")
 
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from .models import UserProfile
-from .forms import RoommatePreferenceForm
-
-
+from django.shortcuts import render
+from base.models import Profile
+from base.views import calculate_compatibility
 ### Compatibility Calculations ###
 def calculate_compatibility(user_profile, other_profile):
     """Calculate the compatibility score between two user profiles."""
@@ -532,46 +528,45 @@ def calculate_compatibility(user_profile, other_profile):
     if user_profile.gender_preference == other_profile.gender:
         score += 1
         total_weight += 1
-    elif user_profile.gender_preference == 'No Preference':
+    elif user_profile.gender_preference == "No Preference":
         total_weight += 0.5  # Add partial weight if 'No Preference'
 
     # Check diet preference
     if user_profile.diet_preference == other_profile.diet:
         score += 1
         total_weight += 1
-    elif user_profile.diet_preference == 'No Preference':
+    elif user_profile.diet_preference == "No Preference":
         total_weight += 0.5
 
     # Check degree preference
     if user_profile.degree_preference == other_profile.degree:
         score += 1
         total_weight += 1
-    elif user_profile.degree_preference == 'No Preference':
+    elif user_profile.degree_preference == "No Preference":
         total_weight += 0.5
 
     # Check course preference
     if user_profile.course_preference == other_profile.course:
         score += 1
         total_weight += 1
-    elif user_profile.course_preference == 'No Preference':
+    elif user_profile.course_preference == "No Preference":
         total_weight += 0.5
 
     # Check country preference
     if user_profile.country_preference == other_profile.country:
         score += 1
         total_weight += 1
-    elif user_profile.country_preference == 'No Preference':
+    elif user_profile.country_preference == "No Preference":
         total_weight += 0.5
 
     # Return percentage based on actual score and total weight
-    if total_weight == 0:  # Prevent division by zero if all preferences are 'No Preference'
+    if (
+        total_weight == 0
+    ):  # Prevent division by zero if all preferences are 'No Preference'
         return 0
-    
+
     return (score / total_weight) * 100
 
-from django.shortcuts import render
-from base.models import Profile
-from base.views import calculate_compatibility
 
 def my_room(request):
     user_profile = Profile.objects.get(user=request.user)
@@ -580,13 +575,17 @@ def my_room(request):
     compatible_users = []
     for profile in all_profiles:
         score = calculate_compatibility(user_profile, profile)
-        print(f"Comparing {user_profile.name} and {profile.name}: Score = {score}")  # Debugging line
+        print(
+            f"Comparing {user_profile.name} and {profile.name}: Score = {score}"
+        )  # Debugging line
         if score >= 50:  # You can adjust the threshold if needed
             compatible_users.append((profile, score))
 
-    #print(f"Compatible users: {compatible_users}")  # Debugging line
+    # print(f"Compatible users: {compatible_users}")  # Debugging line
 
-    return render(request, 'pages/myroom.html', {'compatible_users': compatible_users})
+    return render(
+        request, "pages/myroom.html", {"compatible_users": compatible_users}
+    )
 
 
 ### Update Roommate Preferences ###
@@ -595,16 +594,16 @@ def update_preferences(request):
     """Update roommate preferences."""
     user_profile = request.user.profile
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = RoommatePreferenceForm(request.POST, instance=user_profile)
         if form.is_valid():
             form.save()
             messages.success(request, "Preferences updated successfully!")
-            return redirect('roommate_compatibility')
+            return redirect("roommate_compatibility")
     else:
         form = RoommatePreferenceForm(instance=user_profile)
 
-    return render(request, 'pages/update_preferences.html', {'form': form})
+    return render(request, "pages/update_preferences.html", {"form": form})
 
 
 ### Edit Profile ###
@@ -621,6 +620,10 @@ def edit_profile(request):
         user_profile.country = request.POST.get("country")
         user_profile.save()
         messages.success(request, "Profile updated successfully!")
-        return redirect('profile_edit')
+        return redirect("profile_edit")
 
-    return render(request, 'pages/profile_edit.html', {'user_profile': request.user.profile})
+    return render(
+        request,
+        "pages/profile_edit.html",
+        {"user_profile": request.user.profile},
+    )

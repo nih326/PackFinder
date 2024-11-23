@@ -6,53 +6,69 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('base', '0009_matchpreferences'),
+        ("base", "0009_matchpreferences"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='profile',
-            name='preference_country',
+            model_name="profile",
+            name="preference_country",
         ),
         migrations.RemoveField(
-            model_name='profile',
-            name='preference_course',
+            model_name="profile",
+            name="preference_course",
         ),
         migrations.RemoveField(
-            model_name='profile',
-            name='preference_degree',
+            model_name="profile",
+            name="preference_degree",
         ),
         migrations.RemoveField(
-            model_name='profile',
-            name='preference_diet',
+            model_name="profile",
+            name="preference_diet",
         ),
         migrations.RemoveField(
-            model_name='profile',
-            name='preference_gender',
+            model_name="profile",
+            name="preference_gender",
         ),
         migrations.AddField(
-            model_name='profile',
-            name='country_preference',
+            model_name="profile",
+            name="country_preference",
             field=models.CharField(blank=True, max_length=100, null=True),
         ),
         migrations.AddField(
-            model_name='profile',
-            name='course_preference',
+            model_name="profile",
+            name="course_preference",
             field=models.CharField(blank=True, max_length=100, null=True),
         ),
         migrations.AddField(
-            model_name='profile',
-            name='degree_preference',
+            model_name="profile",
+            name="degree_preference",
             field=models.CharField(blank=True, max_length=100, null=True),
         ),
         migrations.AddField(
-            model_name='profile',
-            name='diet_preference',
-            field=models.CharField(choices=[('Vegetarian', 'Vegetarian'), ('Non Vegetarian', 'Non Vegetarian'), ('No Preference', 'No Preference')], default='No Preference', max_length=50),
+            model_name="profile",
+            name="diet_preference",
+            field=models.CharField(
+                choices=[
+                    ("Vegetarian", "Vegetarian"),
+                    ("Non Vegetarian", "Non Vegetarian"),
+                    ("No Preference", "No Preference"),
+                ],
+                default="No Preference",
+                max_length=50,
+            ),
         ),
         migrations.AddField(
-            model_name='profile',
-            name='gender_preference',
-            field=models.CharField(choices=[('Male', 'Male'), ('Female', 'Female'), ('No Preference', 'No Preference')], default='No Preference', max_length=20),
+            model_name="profile",
+            name="gender_preference",
+            field=models.CharField(
+                choices=[
+                    ("Male", "Male"),
+                    ("Female", "Female"),
+                    ("No Preference", "No Preference"),
+                ],
+                default="No Preference",
+                max_length=20,
+            ),
         ),
     ]

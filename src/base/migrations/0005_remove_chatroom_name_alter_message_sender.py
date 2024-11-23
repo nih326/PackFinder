@@ -8,17 +8,20 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('base', '0004_chatroom_message'),
+        ("base", "0004_chatroom_message"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='chatroom',
-            name='name',
+            model_name="chatroom",
+            name="name",
         ),
         migrations.AlterField(
-            model_name='message',
-            name='sender',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="message",
+            name="sender",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]
