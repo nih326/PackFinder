@@ -258,7 +258,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tbody>
     <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/diya0603"><img src="https://avatars.githubusercontent.com/u/120095535?v=4?s=100" width="100px;" alt="Diya Shetty"/><br /><sub><b>Diya Shetty</b></sub></a><br /><a href="https://github.com/nih326/PackFinder/commits?author=diya0603" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/diya0603"><img src="https://avatars.githubusercontent.com/u/120095535?v=4?s=100" width="100px;" alt="Diya Shetty"/><br /><sub><b>Diya Shetty</b></sub></a><br /><a href="https://github.com/nih326/PackFinder/commits?author=diya0603" title="Code">💻</a> <a href="#design-diya0603" title="Design">🎨</a></td>
     </tr>
   </tbody>
 </table>
