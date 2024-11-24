@@ -265,8 +265,10 @@ User = get_user_model()
 class ChatRoom(models.Model):
     participants = models.ManyToManyField(User, related_name='chat_rooms')
     created_at = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
         return f"Chat {self.id}"
+
 
 class Message(models.Model):
     room = models.ForeignKey(ChatRoom, related_name='messages', on_delete=models.CASCADE)

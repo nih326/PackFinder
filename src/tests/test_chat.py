@@ -72,7 +72,7 @@ class ChatRoomTests(TestCase):
         # Try to create a chat room with the same participant
         Message.objects.create(room=chatroom, sender=self.user1, content="Hello!")
 
-         # Log in as the second user and check if the message is visible
+        # Log in as the second user and check if the message is visible
         self.client.logout()  # Logout first user
         self.client.login(email='user2@ncsu.edu', password='testpass123')
         response = self.client.post(reverse('chat_room', kwargs={'room_id': chatroom.id}))
@@ -89,7 +89,7 @@ class ChatRoomTests(TestCase):
         self.client.login(email='user1@ncsu.edu', password='testpass123')
 
         # Try to create a chat room with the same participant
-        Message.objects.create(room=chatroom, sender=self.user1, content ="Hello!")
+        Message.objects.create(room=chatroom, sender=self.user1, content="Hello!")
         response = self.client.post(reverse("clear_chat", kwargs={'room_id': chatroom.id}))
         self.assertEqual(response.status_code, 302)
         self.assertEqual(chatroom.messages.exclude(sender=None).count(), 0)

@@ -44,7 +44,6 @@ class FindPeopleTests(TestCase):
         cls.user3.profile.save()
         cls.findpeople_url = reverse('findpeople')
 
-
     def test_findpeople_page_loads(self):
         """Test that the findpeople page loads correctly."""
         self.client.login(email='user1@ncsu.edu', password='testpass123')
