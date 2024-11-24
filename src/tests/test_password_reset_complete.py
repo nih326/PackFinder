@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 from bs4 import BeautifulSoup
 
+
 class PasswordResetCompleteTests(TestCase):
     @classmethod
     def setUpTestData(cls):

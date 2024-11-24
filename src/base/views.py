@@ -65,7 +65,7 @@ from django.utils.http import urlsafe_base64_encode
 from django.template.loader import render_to_string
 from .filters import ProfileFilter
 from django.contrib.auth import login
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 from base.tokens import account_activation_token
@@ -211,7 +211,7 @@ from django.views import View
 #         'interested_rooms': interested_rooms,
 #         'owned_rooms': owned_rooms,
 #         'profile': profile
-#     } 
+#     }
 #     return render(request, "pages/myroom.html", context)
 
 @login_required
@@ -271,6 +271,7 @@ def toggle_room_interest(request, room_id):
 # THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
+
 
 class ActivateAccount(View):
     """Account activation"""
@@ -379,7 +380,7 @@ def findpeople(request):
         user_profile.preference_degree = request.GET.get('degree', user_profile.preference_degree)
         user_profile.preference_course = request.GET.get('course', user_profile.preference_course)
         user_profile.preference_diet = request.GET.get('diet', user_profile.preference_diet)
-        user_profile.preference_country= request.GET.get('country', user_profile.preference_country)
+        user_profile.preference_country = request.GET.get('country', user_profile.preference_country)
         user_profile.save()
     return render(request, "pages/findpeople.html", {"filter": f})
 
@@ -399,14 +400,15 @@ def user_logout(request):
     logout(request)
     messages.success(request, "Logged out successfully!")
     return redirect("home")
-
 User = get_user_model()
+
 
 @login_required
 def chat_list(request):
     """Show list of all chats for current user"""
     chat_rooms = ChatRoom.objects.filter(participants=request.user)
     return render(request, 'chat/chat_list.html', {'chat_rooms': chat_rooms})
+
 
 @login_required
 def chat_room(request, room_id):
@@ -429,6 +431,7 @@ def chat_room(request, room_id):
         'messages': messages
     })
 
+
 @login_required
 def create_chat_room(request, email):
     """Create a new chat room with another user"""
@@ -446,6 +449,7 @@ def create_chat_room(request, email):
     room.participants.add(request.user, other_user)
     return redirect('chat_room', room_id=room.id)
 
+
 @login_required
 def clear_chat(request, room_id):
     """Clear all messages in a chat room"""
@@ -458,7 +462,6 @@ def clear_chat(request, room_id):
         try:
             # Delete all messages except system welcome messages
             room.messages.exclude(sender=None).delete()
-            
             # Add system message about clearing
             Message.objects.create(
                 room=room,
@@ -471,6 +474,7 @@ def clear_chat(request, room_id):
             messages.error(request, "An error occurred while clearing the chat.")        
     return redirect('chat_room', room_id=room_id)
 
+
 @login_required
 def create_chat_redirect(request):
     """Redirect to create_chat_room based on entered email."""
@@ -479,6 +483,7 @@ def create_chat_redirect(request):
         return redirect('create_chat_room', email=email)
     messages.error(request, "Please provide a valid email.")
     return redirect('chat_list')
+
 
 @login_required
 def roommate_agreement(request, email):

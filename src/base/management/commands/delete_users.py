@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 from base.models import CustomUser  # Adjust the import based on your project structure
 
+
 class Command(BaseCommand):
     help = 'Delete specified users'
 

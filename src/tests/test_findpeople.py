@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from base.models import Profile
 
+
 class FindPeopleTests(TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -41,8 +42,8 @@ class FindPeopleTests(TestCase):
         cls.user3.profile.cleanliness = 2
         cls.user3.profile.diet = "Vegetarian"
         cls.user3.profile.save()
-
         cls.findpeople_url = reverse('findpeople')
+
 
     def test_findpeople_page_loads(self):
         """Test that the findpeople page loads correctly."""

@@ -1,8 +1,9 @@
 from django.shortcuts import redirect
 from django.test import TestCase
 from django.urls import reverse
-from django.contrib.auth import get_user_model  
+from django.contrib.auth import get_user_model
 from base.models import Profile
+
 
 class LoginPageTests(TestCase):
     @classmethod
@@ -42,8 +43,7 @@ class LoginPageTests(TestCase):
         """Test redirect for already authenticated users."""
         # First login
         self.client.login(username='test@ncsu.edu', password='testpass123')
-        
+  
         # Then test the redirect
         response = self.client.get(self.login_url)  # Remove follow=True
         self.assertEqual(response.status_code, 200)  # First check redirect status
-    

@@ -32,6 +32,8 @@ from django.contrib.auth.models import AbstractUser
 
 from .managers import CustomUserManager
 from .utils import check_ncsu_email
+from django.db import models
+from django.contrib.auth import get_user_model
 
 
 class CustomUser(AbstractUser):
@@ -132,25 +134,25 @@ class Profile(models.Model):
         (2, 'Night Owl (After 10 PM)'),
         (3, 'Flexible'),
     ]
-    
+
     CLEANLINESS_CHOICES = [
         (1, 'Very Neat'),
         (2, 'Moderately Clean'),
         (3, 'Relaxed'),
     ]
-    
+
     NOISE_CHOICES = [
         (1, 'Very Quiet'),
         (2, 'Moderate Noise'),
         (3, 'Active/Social'),
     ]
-    
+
     GUEST_CHOICES = [
         (1, 'Rarely/Never'),
         (2, 'Occasionally'),
         (3, 'Frequently'),
     ]
-    
+
     IMPORTANCE_CHOICES = [
         (1, 'Not Important'),
         (2, 'Somewhat Important'),
@@ -218,13 +220,13 @@ class Profile(models.Model):
     # Preferences
     sleep_schedule = models.IntegerField(choices=PREFERENCE_CHOICES, null=True)
     sleep_schedule_importance = models.IntegerField(choices=IMPORTANCE_CHOICES, default=1)
-    
+
     cleanliness = models.IntegerField(choices=CLEANLINESS_CHOICES, null=True)
     cleanliness_importance = models.IntegerField(choices=IMPORTANCE_CHOICES, default=1)
-    
+
     noise_preference = models.IntegerField(choices=NOISE_CHOICES, null=True)
     noise_importance = models.IntegerField(choices=IMPORTANCE_CHOICES, default=1)
-    
+
     guest_preference = models.IntegerField(choices=GUEST_CHOICES, null=True)
     guest_importance = models.IntegerField(choices=IMPORTANCE_CHOICES, default=1)
 
@@ -258,17 +260,18 @@ class Room(models.Model):
     def __str__(self):
         return f"Room at {self.address} by {self.owner.name}"
 
-from django.db import models
-from django.contrib.auth import get_user_model
 
 User = get_user_model()
+
 
 class ChatRoom(models.Model):
     participants = models.ManyToManyField(User, related_name='chat_rooms')
     created_at = models.DateTimeField(auto_now_add=True)
 
+
     def __str__(self):
         return f"Chat {self.id}"
+
 
 class Message(models.Model):
     room = models.ForeignKey(ChatRoom, related_name='messages', on_delete=models.CASCADE)
