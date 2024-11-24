@@ -2,9 +2,9 @@ name: Unit Tests
 
 on:
   push:
-    branches: [ "feature_nmaruva" ]
+    branches: [ "feature_main" ]
   pull_request:
-    branches: [ "feature_nmaruva" ]
+    branches: [ "feature_main" ]
 
 jobs:
   build:

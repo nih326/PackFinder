@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from base.models import Profile, ChatRoom, Message
 
+
 class AgreementTests(TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -49,7 +50,7 @@ class AgreementTests(TestCase):
 
         response = self.client.get(reverse('roommate_agreement', kwargs={'email': self.user2.email}))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'pages/roommate_agreement.html') 
+        self.assertTemplateUsed(response, 'pages/roommate_agreement.html')
 
     def test_preferences_user1(self):
         """Test that the preferences are getting displayed correctly for User 1"""
@@ -74,6 +75,3 @@ class AgreementTests(TestCase):
         self.assertContains(response, self.user2.profile.get_cleanliness_display())
         self.assertContains(response, self.user2.profile.get_noise_preference_display())
         self.assertContains(response, self.user2.profile.get_guest_preference_display())
-
-
-    

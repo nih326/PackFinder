@@ -228,19 +228,13 @@ class Profile(models.Model):
 
     # Preferences
     sleep_schedule = models.IntegerField(choices=PREFERENCE_CHOICES, null=True)
-    sleep_schedule_importance = models.IntegerField(
-        choices=IMPORTANCE_CHOICES, default=1
-    )
+    sleep_schedule_importance = models.IntegerField(choices=IMPORTANCE_CHOICES, default=1)
 
     cleanliness = models.IntegerField(choices=CLEANLINESS_CHOICES, null=True)
-    cleanliness_importance = models.IntegerField(
-        choices=IMPORTANCE_CHOICES, default=1
-    )
+    cleanliness_importance = models.IntegerField(choices=IMPORTANCE_CHOICES, default=1)
 
     noise_preference = models.IntegerField(choices=NOISE_CHOICES, null=True)
-    noise_importance = models.IntegerField(
-        choices=IMPORTANCE_CHOICES, default=1
-    )
+    noise_importance = models.IntegerField(choices=IMPORTANCE_CHOICES, default=1)
 
     guest_preference = models.IntegerField(choices=GUEST_CHOICES, null=True)
     guest_importance = models.IntegerField(
@@ -321,6 +315,7 @@ class Room_interested_users(models.Model):
 User = get_user_model()
 
 
+
 class ChatRoom(models.Model):
     participants = models.ManyToManyField(User, related_name="chat_rooms")
     created_at = models.DateTimeField(auto_now_add=True)
@@ -379,4 +374,4 @@ class UserProfile(models.Model):
     diet_preference = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f"Profile of {self.user.email[:7]}"
+        return f'{self.sender.email[:7]}: {self.content[:50]}'

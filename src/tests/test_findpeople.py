@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from base.models import Profile
 
+
 class FindPeopleTests(TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -41,7 +42,6 @@ class FindPeopleTests(TestCase):
         cls.user3.profile.cleanliness = 2
         cls.user3.profile.diet = "Vegetarian"
         cls.user3.profile.save()
-
         cls.findpeople_url = reverse('findpeople')
 
     def test_findpeople_page_loads(self):
@@ -141,7 +141,6 @@ class FindPeopleTests(TestCase):
         self.assertContains(response, self.user3.profile.name)
         self.assertContains(response, self.user3.profile.get_gender_display())
 
-
     def test_profile_display_user3(self):
         """Test various combinations of preferences."""
         self.client.login(email='user3@ncsu.edu', password='testpass123')
@@ -153,10 +152,3 @@ class FindPeopleTests(TestCase):
 
         self.assertContains(response, self.user2.profile.name)
         self.assertContains(response, self.user2.profile.get_gender_display())
-
-    
-
-
-
-    
-

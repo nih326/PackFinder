@@ -27,7 +27,6 @@ def check_ncsu_email(email):
         return False
     return True
 
-# base/utils.py
 def calculate_compatibility(user_profile, other_profile):
     """Calculate the compatibility score between two user profiles."""
     score = 0
@@ -75,5 +74,3 @@ def calculate_compatibility(user_profile, other_profile):
         return 0
 
     return (score / total_weight) * 100
-    pass
-
