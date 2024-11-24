@@ -1,8 +1,8 @@
 <!--
- Created on Sun Nov 04 2024
+ Created on Fri Nov 22 2024
 
  The MIT License (MIT)
- Copyright (c) 2024 Chaitralee Datar, Ananya Patankar, Yash Shah
+ Copyright (c) 2024 Niharika Maruvanahalli Suresh , Diya Shetty, Sanjana Nanjangud Shreenivas
 
  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  and associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -129,7 +129,7 @@
                                 <b>Hometown: </b>{{profile.hometown}}<br>
                             </div>
                             <div>
-                                <b>Country: </b>{{profile.country.name}}<br>
+                                <b>Country: </b>{{profile.country}}<br>
                             </div>
                             <div>
                                 <b>Degree: </b>{{profile.degree}}<br>
@@ -140,15 +140,15 @@
                             <div style="margin-top: 32px;">
                                 <div class="card-title"><b>Preferences</b></div>
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item"><b>Gender: </b>{{profile.preference_gender}}
+                                    <li class="list-group-item"><b>Gender: </b>{{profile.gender_preference}}
                                     </li>
 
-                                    <li class="list-group-item"><b>Degree: </b>{{profile.preference_degree}}
+                                    <li class="list-group-item"><b>Degree: </b>{{profile.degree_preference}}
                                     </li>
-                                    <li class="list-group-item"><b>Course: </b>{{profile.preference_course}}
+                                    <li class="list-group-item"><b>Course: </b>{{profile.course_preference}}
                                     </li>
-                                    <li class="list-group-item"><b>Diet: </b>{{profile.preference_diet}}</li>
-                                    <li class="list-group-item"><b>Country: </b>{{profile.preference_country.name}}
+                                    <li class="list-group-item"><b>Diet: </b>{{profile.diet_preference}}</li>
+                                    <li class="list-group-item"><b>Country: </b>{{profile.country_preference}}
                                     </li>
                                 </ul>
                                 <a class="btn btn-primary w-100"  href ="{% url 'create_chat_room' profile.user.email %}">

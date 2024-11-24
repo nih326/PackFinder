@@ -1,98 +1,119 @@
-<!--
- Created on Sun Nov 04 2024
-
- The MIT License (MIT)
- Copyright (c) 2024 Chaitralee Datar, Ananya Patankar, Yash Shah
-
- Permission is hereby granted, free of charge, to any person obtaining a copy of this software
- and associated documentation files (the "Software"), to deal in the Software without restriction,
- including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
- and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
- subject to the following conditions:
-
- The above copyright notice and this permission notice shall be included in all copies or substantial
- portions of the Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
- TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
- TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
--->
-
 {% extends 'base.html' %}
 {% include 'components/navbar.html' %}
 {% load static %}
+<link rel="stylesheet" href="{% static 'styles/style.css' %}">
 
 {% block title %}My Room{% endblock %}
-
 {% block content %}
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-12">
-            <h2 class="mb-4">My Room Dashboard</h2>
-            
-            {% if profile.room_status == 'offering' %}
-                <div class="mb-4">
-                    <h3>My Listed Rooms</h3>
-                    {% if owned_rooms %}
-                        {% for room in owned_rooms %}
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ room.address }}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">${{ room.rent }}/month</h6>
-                                    <p class="card-text">{{ room.description }}</p>
-                                    <p><strong>Available from:</strong> {{ room.available_from }}</p>
-                                    
-                                    {% if room.interested_users.exists %}
-                                        <h6>Interested Users:</h6>
-                                        <ul>
-                                        {% for user in room.interested_users.all %}
-                                            <li>{{ user.name }} - {{ user.user.email }}</li>
-                                        {% endfor %}
-                                        </ul>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        {% endfor %}
-                    {% else %}
-                        <p>You haven't listed any rooms yet.</p>
-                        <a href="{% url 'add_room' %}" class="btn btn-primary">Add Room Listing</a>
-                    {% endif %}
-                </div>
-            {% endif %}
 
-            {% if profile.room_status == 'available' %}
-                <div class="mb-4">
-                    <h3>Rooms I'm Interested In</h3>
-                    {% if interested_rooms %}
-                        {% for room in interested_rooms %}
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ room.address }}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">${{ room.rent }}/month</h6>
-                                    <p class="card-text">{{ room.description }}</p>
-                                    <p><strong>Owner:</strong> {{ room.owner.name }}</p>
-                                    <p><strong>Available from:</strong> {{ room.available_from }}</p>
-                                    <button class="btn btn-danger" onclick="removeInterest('{{ room.id }}')">Remove Interest</button>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    {% else %}
-                        <div class="alert alert-info">
-                            <p>You haven't shown interest in any rooms yet.</p>
-                            <a href="{% url 'findpeople' %}" class="btn btn-primary">Find Rooms</a>
+<div id="my-room-container">
+    <div id="right-section">
+        {% if compatible_users %}
+        <div class="cards-container">
+            {% for profile, score in compatible_users %} <!-- Unpacking profile and score -->
+            <div class="card shadow-sm bg-body rounded card-style" data-bs-toggle="modal"
+                data-bs-target="#profile-modal-{{profile.id}}" style="max-width: 540px;">
+                <div class="row g-0" style="padding: 0 16px">
+                    <div class="col-md-4"
+                        style="display:flex; flex-direction: column; justify-content:center; align-items:center; text-align: center; padding: 18px;">
+                        <img class="rounded-circle" alt="80x80" src="{{profile.profile_photo.url}}" width=150 height=150
+                            class="img-fluid rounded-start" alt="{{profile.name}}">
+                        <h5 class="card-title">{{ profile.name }}</h5>
+                        <p class="card-text"><b>Compatibility: </b>{{ score }}%</p> <!-- Displaying compatibility score -->
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text"><b>Gender:</b>{{ profile.gender }}</p>
+                            <p class="card-text"><b>Diet: </b>{{ profile.diet }}</p>
+                            <p class="card-text"><b>Hometown: </b>{{ profile.hometown }}</p>
+                            <p class="card-text"><b>Country: </b>{{ profile.country.name }}</p>
+                            <p class="card-text"><b>Degree: </b> {{ profile.degree }}</p>
+                            <p class="card-text"><b>Course: </b> {{ profile.course }}</p>
                         </div>
-                    {% endif %}
+                    </div>
                 </div>
-            {% endif %}
+            </div>
 
-            {% if profile.room_status == 'occupied' %}
-                <div class="alert alert-success">
-                    <h4>🎉 Congratulations!</h4>
-                    <p>You've found your room. We hope you're enjoying your new place!</p>
+            <!-- Modal -->
+            <div class="modal fade" id="profile-modal-{{profile.id}}" tabindex="-1"
+                aria-labelledby="profile-modal-{{profile.id}}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="display: flex; align-items: center;">
+                            <img class="rounded-circle" alt="80x80" src="{{profile.profile_photo.url}}"
+                                class="img-fluid rounded-start" alt="{{profile.name}}" width="200" height="200">
+                            <h5 class="modal-title">{{ profile.name }}</h5>
+                            <button type="button" class="btn-close" style="align-self: flex-start;"
+                                data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <b>Email: </b>{{ profile.user.email }}<br>
+                            </div>
+                            <div>
+                                <b>Bio: </b>{{ profile.bio }}<br>
+                            </div>
+                            <div>
+                                <b>Gender: </b>{{ profile.gender }}<br>
+                            </div>
+                            <div>
+                                <b>DOB: </b>{{ profile.birth_date }}<br>
+                            </div>
+                            <div>
+                                <b>Diet: </b>{{ profile.diet }}<br>
+                            </div>
+                            <div>
+                                <b>Hometown: </b>{{ profile.hometown }}<br>
+                            </div>
+                            <div>
+                                <b>Country: </b>{{ profile.country.name }}<br>
+                            </div>
+                            <div>
+                                <b>Degree: </b>{{ profile.degree }}<br>
+                            </div>
+                            <div>
+                                <b>Course: </b>{{ profile.course }}<br>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            {% endif %}
+            </div>
+            {% endfor %}
         </div>
+        {% else %}
+        <h4>No compatible profiles found.</h4>
+        {% endif %}
     </div>
 </div>
+
+<style>
+    #my-room-container {
+        padding: 16px;
+    }
+
+    #right-section {
+        width: 100%;
+        margin-left: 16px;
+        overflow-y: scroll;
+    }
+
+    .cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0;
+    }
+
+    .card-style {
+        margin: 8px;
+        border: 1px solid #cc0000;
+    }
+
+    .card:hover {
+        transform: rotate(0.002turn);
+        cursor: pointer;
+        background-color: #cc0000;
+        color: white;
+    }
+</style>
+
 {% endblock %}

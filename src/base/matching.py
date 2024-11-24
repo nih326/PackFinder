@@ -1,8 +1,8 @@
 #
-# Created on Sun Nov 04 2024
+# Created on Fri Nov 22 2024
 #
 # The MIT License (MIT)
-# Copyright (c) 2024 Chaitralee Datar, Ananya Patankar, Yash Shah
+# Copyright (c) 2024 Niharika Maruvanahalli Suresh , Diya Shetty, Sanjana Nanjangud Shreenivas
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this software
 # and associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -56,32 +56,32 @@ def matchings(current_user):
 
         gender = (
             1
-            if user_profile.preference_gender == profile.gender
-            or user_profile.preference_gender == profile.NO_PREF
+            if user_profile.gender_preference == profile.gender
+            or user_profile.gender_preference == profile.NO_PREF
             else 0
         )
         degree = (
             1
-            if user_profile.preference_degree == profile.degree
-            or user_profile.preference_degree == profile.NO_PREF
+            if user_profile.degree_preference == profile.degree
+            or user_profile.degree_preference == profile.NO_PREF
             else 0
         )
         diet = (
             1
-            if user_profile.preference_diet == profile.diet
-            or user_profile.preference_diet == profile.NO_PREF
+            if user_profile.diet_preference == profile.diet
+            or user_profile.diet_preference == profile.NO_PREF
             else 0
         )
         country = (
             1
-            if user_profile.preference_country == profile.country
-            or user_profile.preference_country == profile.NO_PREF
+            if user_profile.country_preference == profile.country
+            or user_profile.country_preference == profile.NO_PREF
             else 0
         )
         course = (
             1
-            if user_profile.preference_course == profile.course
-            or user_profile.preference_course == profile.NO_PREF
+            if user_profile.course_preference == profile.course
+            or user_profile.course_preference == profile.NO_PREF
             else 0
         )
 

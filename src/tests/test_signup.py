@@ -9,7 +9,7 @@ User = get_user_model()
 class SignUpPageTests(TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.url = reverse('signup')  # Adjust to your actual URL name
+        cls.url = reverse("signup")  # Adjust to your actual URL name
 
     def test_signup_page_loads(self):
         """Test that the signup page loads successfully."""

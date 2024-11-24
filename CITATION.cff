@@ -1,23 +1,13 @@
-cff-version: 1.2.0
-message: "If you use this software, please cite it as below."
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14207615.svg)](https://doi.org/10.5281/zenodo.14207615)
+
+Repository-code: https://github.com/nih326/PackFinder.git
+
+DOI: 10.5281/zenodo.14207615
+
+version: 2.1 
 authors:
-- family-names: "Geddam"
-  given-names: "Rohit"
-  orcid: "https://orcid.org/0000-0002-1010-1070"
-- family-names: "Ramesh"
-  given-names: "Arun Kumar"
-  orcid: "https://orcid.org/0000-0002-1949-5926"
-- family-names: "Jayesh"
-  given-names: "Kiron"
-  orcid: "https://orcid.org/0000-0003-4527-0568" 
-- family-names: "Manthena"
-  given-names: "Sai Krishna Teja Varma"
-  orcid: "https://orcid.org/0000-0002-4511-6934"
-- family-names: "Mason"
-  given-names: "Shandler"
-  orcid: "https://orcid.org/0000-0003-0587-4527"
-title: "FindMyRoomie"
-version: 3.0
-doi: 10.5281/zenodo.1234
-date-released: 2024-10-04
-url: "https://github.com/rohitgeddam/FindMyRoomie"
+  - Niharika Maruvanahalli Suresh
+  - Diya Shetty
+  - Sanjana Nanjungud Shreenivas
+
+License: MIT License

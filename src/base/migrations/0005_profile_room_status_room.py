@@ -7,27 +7,60 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('base', '0004_profile_cleanliness_profile_cleanliness_importance_and_more'),
+        (
+            "base",
+            "0004_profile_cleanliness_profile_cleanliness_importance_and_more",
+        ),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='profile',
-            name='room_status',
-            field=models.CharField(choices=[('available', 'Looking for Room'), ('occupied', 'Room Found'), ('offering', 'Offering Room')], default='available', max_length=20),
+            model_name="profile",
+            name="room_status",
+            field=models.CharField(
+                choices=[
+                    ("available", "Looking for Room"),
+                    ("occupied", "Room Found"),
+                    ("offering", "Offering Room"),
+                ],
+                default="available",
+                max_length=20,
+            ),
         ),
         migrations.CreateModel(
-            name='Room',
+            name="Room",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('address', models.CharField(max_length=200)),
-                ('rent', models.DecimalField(decimal_places=2, max_digits=8)),
-                ('description', models.TextField()),
-                ('available_from', models.DateField()),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('is_available', models.BooleanField(default=True)),
-                ('interested_users', models.ManyToManyField(blank=True, related_name='interested_rooms', to='base.profile')),
-                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='owned_rooms', to='base.profile')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("address", models.CharField(max_length=200)),
+                ("rent", models.DecimalField(decimal_places=2, max_digits=8)),
+                ("description", models.TextField()),
+                ("available_from", models.DateField()),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("is_available", models.BooleanField(default=True)),
+                (
+                    "interested_users",
+                    models.ManyToManyField(
+                        blank=True,
+                        related_name="interested_rooms",
+                        to="base.profile",
+                    ),
+                ),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="owned_rooms",
+                        to="base.profile",
+                    ),
+                ),
             ],
         ),
     ]

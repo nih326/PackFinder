@@ -1,10 +1,10 @@
 # 🐺 *PackFinder* 🐺
-[![Test](https://github.com/nih326/PackFinder/actions/workflows/Unit_Tests.yml/badge.svg?branch=feature_main)](https://github.com/nih326/PackFinder/actions/workflows/Unit_Tests.yml?query=branch:feature_main)
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14207615.svg)](https://doi.org/10.5281/zenodo.14207615) 
 [![codecov](https://codecov.io/gh/SE-Alpha-Project/PackFinder/branch/main/graph/badge.svg?token=PCOHJETYCD)](https://codecov.io/gh/SE-Alpha-Project/PackFinder)
 [![Test](https://github.com/nih326/PackFinder/actions/workflows/Linting.yml/badge.svg?branch=feature_main)](https://github.com/nih326/PackFinder/actions/workflows/Linting.yml?query=branch:feature_main)
 [![code_size](https://img.shields.io/github/languages/code-size/SE-Alpha-Project/PackFinder)](https://github.com/SE-Alpha-Project/PackFinder)
 [![repo_size](https://img.shields.io/github/repo-size/SE-Alpha-Project/PackFinder)](https://github.com/SE-Alpha-Project/PackFinder)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7155519.svg)](https://doi.org/10.5281/zenodo.7155519)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub issues-closed](https://img.shields.io/github/issues-closed/SE-Alpha-Project/PackFinder.svg)](https://GitHub.com/SE-Alpha-Project/PackFinder/issues?q=is%3Aissue+is%3Aclosed)
 [![GitHub version](https://img.shields.io/github/v/release/SE-Alpha-Project/PackFinder)](https://github.com/SE-Alpha-Project/PackFinder/releases)
@@ -14,7 +14,7 @@
 
 ## 🌟 *About PackFinder*
 *PackFinder* is a free and easy-to-use roommate-matching platform built for NC State students. Use PackFinder to find the perfect roommate match based on your preferences and get recommendations suited to your lifestyle!
-🧑‍💻 Want to contribute? Check out our [CONTRIBUTING.md](https://github.com/rohitgeddam/FindMyRoomie/blob/main/CONTRIBUTING.md).
+🧑‍💻 Want to contribute? Check out our [CONTRIBUTING.md](https://github.com/nih326/PackFinder/blob/feature/CONTRIBUTING.md).
 
 https://github.com/user-attachments/assets/a99a1c30-3c48-45e1-9a25-7526f895d86f
 
@@ -74,7 +74,7 @@ Browse other profiles and use our “Wolf Filter” to find roommates who match 
 
 #### 1. Clone the repository:
 
-   git clone https://github.com/rohitgeddam/FindMyRoomie.git
+   git clone https://github.com/nih326/PackFinder.git
 
 #### 2. Setup the virtual environment:
 
@@ -100,7 +100,7 @@ Browse other profiles and use our “Wolf Filter” to find roommates who match 
    </p>
    Paste this in the .env file.
 
-
+```
 SECRET_KEY=@dr11(7h4n=#@8juk63y(-#bqicdl$9f2okpr@#564=a+-f&*8
 DEBUG=True
 EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
@@ -109,39 +109,41 @@ EMAIL_USE_TLS=True
 EMAIL_PORT=587
 EMAIL_HOST_USER=
 EMAIL_HOST_PASSWORD=
+```
 
 Fill the above field and save.
 
 #### 5. Run the application:
 
-   
-   cd src
+  ```
+   cd src 
    python manage.py migrate
    python manage.py runserver
+   ```
    
 
 ## After adding another field to Model
 Django's way of propagating changes you make to your models (adding a field, deleting a model, etc.) into your database schema.
 
    
+   ```
    python manage.py makemigrations
    python manage.py migrate
+   ```
    
 
 ## Populate fake data for testing
 
-
+```
 python manage.py seed_users <number of fake instances>
 
 # creates ten fake users
 python manage.py seed_users 10
-
-
----
+```
 
 ## Automatic tools - GitHub Actions
-
-We use GitHub actions to automate tasks of linting, code coverage, build, tests, and security checks. The codes that perform these actions are stored as .yml files in the .github/workflows directory. The GitHub actions are triggered whenever something is pushed (or pulled) into the remote repository. The results of these automated tasks are shown as badges at the top of this README.md file.
+ 
+We use GitHub actions to automate tasks of linting, code coverage, build, tests, and security checks. The codes that perform these actions are stored as `.yml` files in the `.github/workflows` directory. The GitHub actions are triggered whenever something is pushed (or pulled) into the remote repository. The results of these automated tasks are shown as badges at the top of this README.md file. 
 
 ### Unit tests:
 
@@ -150,19 +152,19 @@ Unit test are performed everytime there is a push or pull into the repository. F
 ### How to build docs
 `sphinx-build -b html docs/  docs/build `
 
-### Code Coverage:
+### Code Coverage: 
 
-Code Coverage is an important metric that allows us to understand how much of the codebase is tested. Code_Cov.yml performs this task. For more information about Code Coverage, please visit this [link](https://www.atlassian.com/continuous-delivery/software-testing/code-coverage).
+Code Coverage is an important metric that allows us to understand how much of the codebase is tested. `Code_Cov.yml` performs this task. For more information about Code Coverage, please visit this [link](https://www.atlassian.com/continuous-delivery/software-testing/code-coverage). 
 
 ### Flake8 - Code Linting:
 
-We are using Flake8 for linting and syntax checking, and it is performed by Linting.yml. For more information about Flake8, please visit this [link](https://medium.com/python-pandemonium/what-is-flake8-and-why-we-should-use-it-b89bd78073f2).
+We are using Flake8 for linting and syntax checking, and it is performed by `Linting.yml`. For more information about Flake8, please visit this [link](https://medium.com/python-pandemonium/what-is-flake8-and-why-we-should-use-it-b89bd78073f2).
 Use flake8 before you push code to GitHub. </br>
-Config file present in setup.cfg.
+Config file present in `setup.cfg`.
 
-
+```
 flake8 <directory>
-
+```
 
 ### Black - Code Formatter
 
@@ -170,23 +172,22 @@ We are using the Black code formatter to format our code before pushing it to Gi
 
 
 Run the line below everytime you push to GitHub.</br>
-Config file present in pyproject.toml
-
+Config file present in `pyproject.toml`
+```
 black --line-length 120 <filename>
-
+```
 
 If you prefer using Black in VSCode, you can add the below settings in your vscode settings:
 
-
+```
 {
     "python.formatting.provider": "black",
     "python.formatting.blackArgs": ["--line-length", "120"],
     "python.linting.enabled": true
 }
-
-
+```
 ### Pre Commit Hooks for Black Code formatting and Flake8 Linting
-* run  pre-commit install
+* run  `pre-commit install`
 * Now everytime you commit, Black and Flake8 will run automatically and will not allow you to push if the code standards are not met.
 <img width="694" alt="Screenshot 2022-10-07 at 11 35 40 AM" src="https://user-images.githubusercontent.com/48797475/194592802-e7d7c951-9694-4260-b537-fc017a5fd06c.png">
 
@@ -194,9 +195,7 @@ If you prefer using Black in VSCode, you can add the below settings in your vsco
 
 ### CodeQL
 
-CodeQL.yml performs automated security checks on the codebase and scans it for any vulnerabilities and bugs. For more information about CodeQL, please visit this [link](https://codeql.github.com/docs/codeql-overview/about-codeql/).
-
----
+`CodeQL.yml` performs automated security checks on the codebase and scans it for any vulnerabilities and bugs. For more information about CodeQL, please visit this [link](https://codeql.github.com/docs/codeql-overview/about-codeql/). 
 
 ## 🔒 *Privacy Policy*
 
@@ -206,15 +205,15 @@ CodeQL.yml performs automated security checks on the codebase and scans it for a
 4. *Data Retention*: Stored as long as you’re using the service.
 5. *Data Removal*: Email us from your registered account to remove data.
 
----
 
-## 🛠 *Technologies Used*
-- *Python 3.7+*
-- *Django 4.1.2*
-- *HTML5, CSS3, Bootstrap 5.2*
-- *TailwindCSS*
+## Technology Used
+-   `Python 3.7+`
+-   `Django 4.1.2`
+-   `HTML5`
+-   `CSS3`
+-   `BootStrap v5.2`
 
----
+
 
 ## 🛤️ *Roadmap*
 
@@ -230,29 +229,20 @@ CodeQL.yml performs automated security checks on the codebase and scans it for a
 
 ---
 
-## 📞 *Contact Us*
-Have questions? Reach out!
+## Contributors:
+Niharika Maruvanahalli Suresh: nmaruva@ncsu.edu </br>
+Diya Shetty - dshetty@ncsu.edu </br> 
+Sanjana Nanjangud Shreenivas - sshreen@ncsu.edu </br>
 
-- *Yash Shah* - [yshah5@ncsu.edu](mailto:yshah5@ncsu.edu)
-- *Chaitralee Datar* - [cdatar@ncsu.edu](mailto:cdatar@ncsu.edu)
-- *Ananya Patankar* - [apatank@ncsu.edu](mailto:apatank@ncsu.edu)
+---
+## Acknowledgements
+
+We want to express our gratitude and a big thank you to Prof. Dr Timothy Menzie for allowing us to get into the shoes of software building and learning new skills and development processes throughout the project building. It was a great opportunity to learn to work as a team.
+A big thank you to the Teaching Assistants for their support.
+Thank you to the previous team for a thorough ReadMe and detailed documentation that helped us easily understand the project.
 
 ---
 
-## Contributors
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
----
-## 📜 *License*
-Distributed under the *MIT License*. See the LICENSE file for more information.
 
 ---
 

@@ -1,8 +1,8 @@
 #
-# Created on Mon Nov 04 2024
+# Created on Fri Nov 22 2024
 #
 # The MIT License (MIT)
-# Copyright (c) 2024 Chaitralee Datar, Ananya Patankar, Yash Shah
+# Copyright (c) 2024 Niharika Maruvanahalli Suresh , Diya Shetty, Sanjana Nanjangud Shreenivas
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this software
 # and associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -22,8 +22,15 @@
 from django.contrib import admin
 from base.models import Profile
 from django.contrib.auth import get_user_model
+from .models import UserProfile
+
 
 """Register Profile Model to Admin Panel"""
 admin.site.register(get_user_model())
 
 admin.site.register(Profile)
+
+
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    pass

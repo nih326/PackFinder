@@ -6,48 +6,104 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('base', '0003_profile_email_confirmed'),
+        ("base", "0003_profile_email_confirmed"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='profile',
-            name='cleanliness',
-            field=models.IntegerField(choices=[(1, 'Very Neat'), (2, 'Moderately Clean'), (3, 'Relaxed')], null=True),
+            model_name="profile",
+            name="cleanliness",
+            field=models.IntegerField(
+                choices=[
+                    (1, "Very Neat"),
+                    (2, "Moderately Clean"),
+                    (3, "Relaxed"),
+                ],
+                null=True,
+            ),
         ),
         migrations.AddField(
-            model_name='profile',
-            name='cleanliness_importance',
-            field=models.IntegerField(choices=[(1, 'Not Important'), (2, 'Somewhat Important'), (3, 'Very Important')], default=1),
+            model_name="profile",
+            name="cleanliness_importance",
+            field=models.IntegerField(
+                choices=[
+                    (1, "Not Important"),
+                    (2, "Somewhat Important"),
+                    (3, "Very Important"),
+                ],
+                default=1,
+            ),
         ),
         migrations.AddField(
-            model_name='profile',
-            name='guest_importance',
-            field=models.IntegerField(choices=[(1, 'Not Important'), (2, 'Somewhat Important'), (3, 'Very Important')], default=1),
+            model_name="profile",
+            name="guest_importance",
+            field=models.IntegerField(
+                choices=[
+                    (1, "Not Important"),
+                    (2, "Somewhat Important"),
+                    (3, "Very Important"),
+                ],
+                default=1,
+            ),
         ),
         migrations.AddField(
-            model_name='profile',
-            name='guest_preference',
-            field=models.IntegerField(choices=[(1, 'Rarely/Never'), (2, 'Occasionally'), (3, 'Frequently')], null=True),
+            model_name="profile",
+            name="guest_preference",
+            field=models.IntegerField(
+                choices=[
+                    (1, "Rarely/Never"),
+                    (2, "Occasionally"),
+                    (3, "Frequently"),
+                ],
+                null=True,
+            ),
         ),
         migrations.AddField(
-            model_name='profile',
-            name='noise_importance',
-            field=models.IntegerField(choices=[(1, 'Not Important'), (2, 'Somewhat Important'), (3, 'Very Important')], default=1),
+            model_name="profile",
+            name="noise_importance",
+            field=models.IntegerField(
+                choices=[
+                    (1, "Not Important"),
+                    (2, "Somewhat Important"),
+                    (3, "Very Important"),
+                ],
+                default=1,
+            ),
         ),
         migrations.AddField(
-            model_name='profile',
-            name='noise_preference',
-            field=models.IntegerField(choices=[(1, 'Very Quiet'), (2, 'Moderate Noise'), (3, 'Active/Social')], null=True),
+            model_name="profile",
+            name="noise_preference",
+            field=models.IntegerField(
+                choices=[
+                    (1, "Very Quiet"),
+                    (2, "Moderate Noise"),
+                    (3, "Active/Social"),
+                ],
+                null=True,
+            ),
         ),
         migrations.AddField(
-            model_name='profile',
-            name='sleep_schedule',
-            field=models.IntegerField(choices=[(1, 'Early Bird (Before 10 PM)'), (2, 'Night Owl (After 10 PM)'), (3, 'Flexible')], null=True),
+            model_name="profile",
+            name="sleep_schedule",
+            field=models.IntegerField(
+                choices=[
+                    (1, "Early Bird (Before 10 PM)"),
+                    (2, "Night Owl (After 10 PM)"),
+                    (3, "Flexible"),
+                ],
+                null=True,
+            ),
         ),
         migrations.AddField(
-            model_name='profile',
-            name='sleep_schedule_importance',
-            field=models.IntegerField(choices=[(1, 'Not Important'), (2, 'Somewhat Important'), (3, 'Very Important')], default=1),
+            model_name="profile",
+            name="sleep_schedule_importance",
+            field=models.IntegerField(
+                choices=[
+                    (1, "Not Important"),
+                    (2, "Somewhat Important"),
+                    (3, "Very Important"),
+                ],
+                default=1,
+            ),
         ),
     ]

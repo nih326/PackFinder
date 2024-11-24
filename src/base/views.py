@@ -1,8 +1,8 @@
 #
-# Created on Sun Nov 04 2024
+# Created on Fri Nov 22 2024
 #
 # The MIT License (MIT)
-# Copyright (c) 2024 Chaitralee Datar, Ananya Patankar, Yash Shah
+# Copyright (c) 2024 Niharika Maruvanahalli Suresh , Diya Shetty, Sanjana Nanjangud Shreenivas
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this software
 # and associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -44,8 +44,8 @@
 # from base.tokens import account_activation_token
 # from django.views import View
 from .matching import matchings
-from .models import Room
-from .forms import RoomForm
+from .models import Room, UserProfile
+from .forms import RoomForm, RoommatePreferenceForm
 from django.urls import reverse_lazy
 from django.views import generic
 from django.shortcuts import render, redirect
@@ -70,6 +70,7 @@ from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 from base.tokens import account_activation_token
 from django.views import View
+from base.utils import calculate_compatibility
 
 # class ActivateAccount(View):
 #     """Account activation"""
@@ -217,16 +218,17 @@ from django.views import View
 @login_required
 def add_room(request):
     """Add a new room listing"""
-    if request.method == 'POST':
+    if request.method == "POST":
         form = RoomForm(request.POST)
         if form.is_valid():
             room = form.save(commit=False)
             room.owner = request.user.profile
             room.save()
-            return redirect('myroom')
+            return redirect("myroom")
     else:
         form = RoomForm()
-    return render(request, 'pages/add_room.html', {'form': form})
+
+    return render(request, "pages/add_room.html", {"form": form})
 
 
 # def user_logout(request):
@@ -374,11 +376,11 @@ def findpeople(request):
     f = ProfileFilter(request.GET, queryset=qs)
     user_profile = request.user.profile
     if request.GET:
-        user_profile.preference_gender = request.GET.get('gender', user_profile.preference_gender)
-        user_profile.preference_degree = request.GET.get('degree', user_profile.preference_degree)
-        user_profile.preference_course = request.GET.get('course', user_profile.preference_course)
-        user_profile.preference_diet = request.GET.get('diet', user_profile.preference_diet)
-        user_profile.preference_country = request.GET.get('country', user_profile.preference_country)
+        user_profile.gender_preference = request.GET.get('gender', user_profile.gender_preference)
+        user_profile.degree_preference = request.GET.get('degree', user_profile.degree_preference)
+        user_profile.course_preference = request.GET.get('course', user_profile.course_preference)
+        user_profile.diet_preference = request.GET.get('diet', user_profile.diet_preference)
+        user_profile.country_preference = request.GET.get('country', user_profile.country_preference)
         user_profile.save()
     return render(request, "pages/findpeople.html", {"filter": f})
 
@@ -421,9 +423,7 @@ def chat_room(request, room_id):
         content = request.POST.get('content')
         if content:
             Message.objects.create(
-                room=room,
-                sender=request.user,
-                content=content
+                room=room, sender=request.user, content=content
             )
     messages = room.messages.all()
     return render(request, 'chat/chat_room.html', {
@@ -453,7 +453,7 @@ def create_chat_room(request, email):
 @login_required
 def clear_chat(request, room_id):
     """Clear all messages in a chat room"""
-    if request.method == 'POST':
+    if request.method == "POST":
         room = get_object_or_404(ChatRoom, id=room_id)
         # Verify user is a participant
         if request.user not in room.participants.all():
@@ -466,7 +466,7 @@ def clear_chat(request, room_id):
             Message.objects.create(
                 room=room,
                 sender=None,  # System message
-                content="🧹 Chat history has been cleared."
+                content="🧹 Chat history has been cleared.",
             )
             messages.success(request, "Chat history cleared successfully.")
         except Exception as e:
@@ -513,3 +513,80 @@ def roommate_agreement(request, email):
         "other_preferences": other_preferences,
     }
     return render(request, "pages/roommate_agreement.html", context)
+
+
+@login_required
+def remove_interest(request, room_id):
+    """Remove a user's interest in a specific room."""
+    room = get_object_or_404(Room, id=room_id)
+    profile = get_object_or_404(UserProfile, user=request.user)
+    if profile in room.interested_users.all():
+        room.interested_users.remove(profile)
+        messages.success(
+            request, "Your interest in this room has been removed."
+        )
+    else:
+        messages.error(request, "You are not interested in this room.")
+
+    return redirect("my_room")
+
+
+def my_room(request):
+    user_profile = Profile.objects.get(user=request.user)
+    all_profiles = Profile.objects.exclude(user=user_profile.user)
+
+    compatible_users = []
+    for profile in all_profiles:
+        score = calculate_compatibility(user_profile, profile)
+        print(
+            f"Comparing {user_profile.name} and {profile.name}: Score = {score}"
+        )  # Debugging line
+        if score >= 50:  # You can adjust the threshold if needed
+            compatible_users.append((profile, score))
+
+    # print(f"Compatible users: {compatible_users}")  # Debugging line
+
+    return render(
+        request, "pages/myroom.html", {"compatible_users": compatible_users}
+    )
+
+
+### Update Roommate Preferences ###
+@login_required
+def update_preferences(request):
+    """Update roommate preferences."""
+    user_profile = request.user.profile
+
+    if request.method == "POST":
+        form = RoommatePreferenceForm(request.POST, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Preferences updated successfully!")
+            return redirect("roommate_compatibility")
+    else:
+        form = RoommatePreferenceForm(instance=user_profile)
+
+    return render(request, "pages/update_preferences.html", {"form": form})
+
+
+### Edit Profile ###
+@login_required
+def edit_profile(request):
+    """Edit user profile."""
+    if request.method == "POST":
+        user = request.user
+        user_profile = user.profile
+        user_profile.gender = request.POST.get("gender")
+        user_profile.degree = request.POST.get("degree")
+        user_profile.course = request.POST.get("course")
+        user_profile.diet = request.POST.get("diet")
+        user_profile.country = request.POST.get("country")
+        user_profile.save()
+        messages.success(request, "Profile updated successfully!")
+        return redirect("profile_edit")
+
+    return render(
+        request,
+        "pages/profile_edit.html",
+        {"user_profile": request.user.profile},
+    )
