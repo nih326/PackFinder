@@ -19,15 +19,47 @@
 # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+# from django.urls import reverse_lazy
+# from django.views import generic
+# from django.shortcuts import render, redirect
+# from django.contrib.auth import logout
+# from django.contrib.auth.decorators import login_required
+# from .forms import ProfileForm, SignUpForm
+# from .models import Profile
+# from django.contrib.auth import get_user_model
+# from django.http import HttpResponseRedirect
+
+# from django.contrib import messages
+# from django.contrib.sites.shortcuts import get_current_site
+# from django.utils.encoding import force_bytes
+# from django.utils.http import urlsafe_base64_encode
+# from django.template.loader import render_to_string
+# from .filters import ProfileFilter
+# from .matching import matchings, calculate_preference_match
+
+# from django.contrib.auth import login
+# from django.contrib.auth.models import User
+# from django.utils.encoding import force_str
+# from django.utils.http import urlsafe_base64_decode
+# from base.tokens import account_activation_token
+# from django.views import View
+# from .models import Room
+# from .forms import RoomForm
 from django.urls import reverse_lazy
 from django.views import generic
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .forms import ProfileForm, SignUpForm
 from .models import Profile
 from django.contrib.auth import get_user_model
 from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .models import ChatRoom, Message
+from django.contrib.auth import get_user_model
+from django.db.models import Q
 
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
@@ -35,7 +67,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.template.loader import render_to_string
 from .filters import ProfileFilter
-from .matching import matchings, calculate_preference_match
+from .matching import matchings
 
 from django.contrib.auth import login
 from django.contrib.auth.models import User
@@ -43,8 +75,8 @@ from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 from base.tokens import account_activation_token
 from django.views import View
-from .models import Room
-from .forms import RoomForm
+
+
 
 
 class ActivateAccount(View):
@@ -160,8 +192,7 @@ def findpeople(request):
         user_profile.preference_diet = request.GET.get('diet', user_profile.preference_diet)
         user_profile.preference_country_id = request.GET.get('country', user_profile.preference_country_id)
         user_profile.save()
-    
-    # Calculate match percentages
+    #Calculate match percentages
     profiles_with_match = []
     for profile in profiles:
         match_percentage = calculate_preference_match(user_profile, profile)
@@ -170,9 +201,8 @@ def findpeople(request):
             'match_percentage': round(match_percentage, 1)
         })
     
-    # Sort by match percentage
+    #Sort by match percentage
     profiles_with_match.sort(key=lambda x: x['match_percentage'], reverse=True)
-    
     context = {
         'profiles': profiles_with_match
     }
@@ -263,7 +293,7 @@ def toggle_room_interest(request, room_id):
 
 from django.urls import reverse_lazy
 from django.views import generic
-from django.shortcuts import render, redirect
+#from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
