@@ -28,7 +28,6 @@ from django_countries.fields import CountryField
 from django.contrib.auth.models import AbstractUser
 from .managers import CustomUserManager
 from .utils import check_ncsu_email
-from django.contrib.auth.models import User
 from django.conf import settings
 
 
@@ -263,7 +262,13 @@ class UserProfile(models.Model):
         max_length=20, choices=ROOM_STATUS_CHOICES, default="available"
     )
     name = models.CharField(max_length=255)
-
+    degree_preference = models.CharField(max_length=100, blank=True, null=True)
+    gender_preference = models.CharField(max_length=10, blank=True, null=True)
+    course_preference = models.CharField(max_length=100, blank=True, null=True)
+    country_preference = models.CharField(
+        max_length=100, blank=True, null=True
+    )
+    diet_preference = models.CharField(max_length=100, blank=True, null=True)
     def __str__(self):
         return self.user.username
 
@@ -300,6 +305,8 @@ class Room_interested_users(models.Model):
 
     def __str__(self):
         return f"{self.user} interested in {self.room}"
+
+
 User = get_user_model()
 
 
@@ -350,15 +357,15 @@ class MatchPreferences(models.Model):
         return f"Preferences of {self.profile.user.email}"
 
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    degree_preference = models.CharField(max_length=100, blank=True, null=True)
-    gender_preference = models.CharField(max_length=10, blank=True, null=True)
-    course_preference = models.CharField(max_length=100, blank=True, null=True)
-    country_preference = models.CharField(
-        max_length=100, blank=True, null=True
-    )
-    diet_preference = models.CharField(max_length=100, blank=True, null=True)
+# class UserProfile(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     degree_preference = models.CharField(max_length=100, blank=True, null=True)
+#     gender_preference = models.CharField(max_length=10, blank=True, null=True)
+#     course_preference = models.CharField(max_length=100, blank=True, null=True)
+#     country_preference = models.CharField(
+#         max_length=100, blank=True, null=True
+#     )
+#     diet_preference = models.CharField(max_length=100, blank=True, null=True)
 
-    def __str__(self):
-        return self.user.username
+#     def __str__(self):
+#         return self.user.username
