@@ -31,6 +31,7 @@ from .utils import check_ncsu_email
 from django.contrib.auth.models import User
 from django.conf import settings
 
+
 class CustomUser(AbstractUser):
     """Custom User Model"""
 
@@ -299,8 +300,7 @@ class Room_interested_users(models.Model):
 
     def __str__(self):
         return f"{self.user} interested in {self.room}"
-    
-#User = get_user_model()
+User = get_user_model()
 
 
 class ChatRoom(models.Model):
@@ -361,4 +361,4 @@ class UserProfile(models.Model):
     diet_preference = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'{self.sender.email[:7]}: {self.content[:50]}'
+        return self.user.username

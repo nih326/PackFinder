@@ -380,7 +380,7 @@ def findpeople(request):
         user_profile.degree_preference = request.GET.get('degree', user_profile.degree_preference)
         user_profile.course_preference = request.GET.get('course', user_profile.course_preference)
         user_profile.diet_preference = request.GET.get('diet', user_profile.diet_preference)
-        user_profile.country_preference= request.GET.get('country', user_profile.country_preference)
+        user_profile.country_preference = request.GET.get('country', user_profile.country_preference)
         user_profile.save()
     return render(request, "pages/findpeople.html", {"filter": f})
 
@@ -400,6 +400,7 @@ def user_logout(request):
     logout(request)
     messages.success(request, "Logged out successfully!")
     return redirect("home")
+
 
 User = get_user_model()
 
@@ -548,6 +549,7 @@ def my_room(request):
     return render(
         request, "pages/myroom.html", {"compatible_users": compatible_users}
     )
+
 
 ### Update Roommate Preferences ###
 @login_required
