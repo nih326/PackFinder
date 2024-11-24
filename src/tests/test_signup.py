@@ -24,7 +24,7 @@ class SignUpPageTests(TestCase):
             'password2': 'password123',
             # Add other required fields from the form here if needed
         })
- 
+
         self.assertEqual(response.status_code, 200)  # Should redirect after successful signup
 
     def test_existing_user_redirects_to_login(self):
