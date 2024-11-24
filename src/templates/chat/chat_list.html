@@ -5,13 +5,14 @@
 {% block content %}
 <div class="container mt-4">
     <h2>My Conversations</h2>
+
     <div class="list-group mt-3">
         {% for room in chat_rooms %}
             <a href="{% url 'chat_room' room.id %}" class="list-group-item list-group-item-action">
                 Chat with 
                 {% for participant in room.participants.all %}
                     {% if participant != user %}
-                        {{ participant.username }}
+                        {{ participant.email }}
                     {% endif %}
                 {% endfor %}
                 <small class="text-muted float-end">
@@ -23,6 +24,30 @@
                 <p>No conversations yet.</p>
             </div>
         {% endfor %}
+    </div>
+    <!-- Add New Chat Button -->
+    <button class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#newChatModal" style="margin-bottom: 20px;">
+        + New Chat Room
+    </button>
+</div>
+<!-- Modal for Email Input -->
+<div class="modal fade" id="newChatModal" tabindex="-1" aria-labelledby="newChatModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newChatModalLabel">Start a New Chat</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="newChatForm" method="get" action="{% url 'create_chat_redirect' %}">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">User Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter user email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Chat Room</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

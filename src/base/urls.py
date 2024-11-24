@@ -40,11 +40,13 @@ urlpatterns = [
     path("chats/", views.chat_list, name="chat_list"),
     path("chat/<int:room_id>/", views.chat_room, name="chat_room"),
     path(
-        "chat/create/<int:user_id>/",
+        "chat/create/<str:email>/",
         views.create_chat_room,
         name="create_chat_room",
     ),
     path("chat/<int:room_id>/clear/", views.clear_chat, name="clear_chat"),
+    path('chat/create/', views.create_chat_redirect, name='create_chat_redirect'),
+    path('roommate-agreement/<str:email>/', views.roommate_agreement, name='roommate_agreement'),
     path(
         "about",
         TemplateView.as_view(template_name="pages/about.html"),
