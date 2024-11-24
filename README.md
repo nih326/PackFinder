@@ -1,4 +1,7 @@
 # 🐺 *PackFinder* 🐺
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![Test](https://github.com/SE-Alpha-Project/PackFinder/actions/workflows/Unit_Tests.yml/badge.svg)](https://github.com/SE-Alpha-Project/PackFinder/actions/workflows/Unit_Tests.yml)
 [![codecov](https://codecov.io/gh/SE-Alpha-Project/PackFinder/branch/main/graph/badge.svg?token=PCOHJETYCD)](https://codecov.io/gh/SE-Alpha-Project/PackFinder)
 [![Test](https://github.com/SE-Alpha-Project/PackFinder/actions/workflows/Linting.yml/badge.svg)](https://github.com/SE-Alpha-Project/PackFinder/actions/workflows/Linting.yml)
@@ -244,3 +247,25 @@ Distributed under the *MIT License*. See the LICENSE file for more information.
 ---
 
 Thank you for checking out *PackFinder*! We're here to make your roommate search stress-free and enjoyable. Happy searching! 🎉🐺
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/sanjana1399"><img src="https://avatars.githubusercontent.com/u/57448690?v=4?s=100" width="100px;" alt="sanjana1399"/><br /><sub><b>sanjana1399</b></sub></a><br /><a href="https://github.com/nih326/PackFinder/commits?author=sanjana1399" title="Code">💻</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
