@@ -2,7 +2,7 @@ name: Code Coverage
 
 on:
     push:
-        branches: ["main"]
+        branches: ["feature_main"]
 
 permissions:
     contents: read
