@@ -142,7 +142,6 @@ class FindPeopleTests(TestCase):
         self.assertContains(response, self.user3.profile.name)
         self.assertContains(response, self.user3.profile.get_gender_display())
 
-
     def test_profile_display_user3(self):
         """Test various combinations of preferences."""
         self.client.login(email='user3@ncsu.edu', password='testpass123')
@@ -154,10 +153,3 @@ class FindPeopleTests(TestCase):
 
         self.assertContains(response, self.user2.profile.name)
         self.assertContains(response, self.user2.profile.get_gender_display())
-
-    
-
-
-
-    
-

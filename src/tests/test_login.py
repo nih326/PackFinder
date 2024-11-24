@@ -43,7 +43,7 @@ class LoginPageTests(TestCase):
         """Test redirect for already authenticated users."""
         # First login
         self.client.login(username='test@ncsu.edu', password='testpass123')
-  
+
         # Then test the redirect
         response = self.client.get(self.login_url)  # Remove follow=True
         self.assertEqual(response.status_code, 200)  # First check redirect status

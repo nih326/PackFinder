@@ -65,7 +65,7 @@ from django.utils.http import urlsafe_base64_encode
 from django.template.loader import render_to_string
 from .filters import ProfileFilter
 from django.contrib.auth import login
-#from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 from base.tokens import account_activation_token
@@ -400,6 +400,8 @@ def user_logout(request):
     logout(request)
     messages.success(request, "Logged out successfully!")
     return redirect("home")
+
+
 User = get_user_model()
 
 
@@ -471,7 +473,7 @@ def clear_chat(request, room_id):
             messages.success(request, "Chat history cleared successfully.")
         except Exception as e:
             print(f"Error clearing chat: {e}")  # Debug print
-            messages.error(request, "An error occurred while clearing the chat.")        
+            messages.error(request, "An error occurred while clearing the chat.")    
     return redirect('chat_room', room_id=room_id)
 
 

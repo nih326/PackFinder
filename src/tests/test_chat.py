@@ -101,9 +101,9 @@ class ChatRoomTests(TestCase):
         chatroom.participants.add(self.user1, self.user2)
         self.client.login(email='user1@ncsu.edu', password='testpass123')
 
-         # Simulate clicking 'Back to Chats' button by sending a GET request
+        # Simulate clicking 'Back to Chats' button by sending a GET request
         response = self.client.get(reverse('chat_list'))
-     
+
         # Check that the user is redirected to the chat list page
         self.assertTemplateUsed(response, 'chat/chat_list.html')  # Update template name if different
 
@@ -112,9 +112,9 @@ class ChatRoomTests(TestCase):
         chatroom = ChatRoom.objects.create()
         chatroom.participants.add(self.user1, self.user2)
         self.client.login(email='user1@ncsu.edu', password='testpass123')
-    
+
         # Get the URL for the specific chat room
         response = self.client.get(reverse('chat_room', kwargs={'room_id': chatroom.id}))
-    
+
         # Check if the email of the other participant is correctly displayed
         self.assertContains(response, 'Chat with user2@ncsu.edu')  # Ensure user2's email is displayed

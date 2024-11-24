@@ -16,7 +16,6 @@ class SignUpPageTests(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
 
-    
     def test_signup_button_functionality(self):
         """Test that submitting the form with valid data creates a user."""
         response = self.client.post(self.url, {
@@ -28,11 +27,10 @@ class SignUpPageTests(TestCase):
     
         self.assertEqual(response.status_code, 200)  # Should redirect after successful signup
 
-
     def test_existing_user_redirects_to_login(self):
         """Test that an existing user cannot access the signup page after login."""
         # Create a user with a valid NCSU email
-        #user = User.objects.create_user(email='testuser@ncsu.edu', password='testpass')
+        # user = User.objects.create_user(email='testuser@ncsu.edu', password='testpass')
 
         # Log in the user
         self.client.login(email='testuser@ncsu.edu', password='testpass')
