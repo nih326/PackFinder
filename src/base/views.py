@@ -35,7 +35,7 @@
 # from django.utils.http import urlsafe_base64_encode
 # from django.template.loader import render_to_string
 # from .filters import ProfileFilter
-# from .matching import matchings, calculate_preference_match
+from .matching import matchings, calculate_preference_match
 
 # from django.contrib.auth import login
 # from django.contrib.auth.models import User
@@ -43,25 +43,23 @@
 # from django.utils.http import urlsafe_base64_decode
 # from base.tokens import account_activation_token
 # from django.views import View
-# from .models import Room
-# from .forms import RoomForm
+from .models import Room
+from .forms import RoomForm
 from django.urls import reverse_lazy
 from django.views import generic
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import ProfileForm, SignUpForm
 from .models import Profile
 from django.contrib.auth import get_user_model
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import ChatRoom, Message
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 
-from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
@@ -81,7 +79,6 @@ from django.views import View
 
 class ActivateAccount(View):
     """Account activation"""
-
     def get(self, request, uidb64, token, *args, **kwargs):
         """GET method for the Account activation."""
         try:
@@ -192,7 +189,7 @@ def findpeople(request):
         user_profile.preference_diet = request.GET.get('diet', user_profile.preference_diet)
         user_profile.preference_country_id = request.GET.get('country', user_profile.preference_country_id)
         user_profile.save()
-    #Calculate match percentages
+    # Calculate match percentages
     profiles_with_match = []
     for profile in profiles:
         match_percentage = calculate_preference_match(user_profile, profile)
@@ -200,8 +197,7 @@ def findpeople(request):
             'profile': profile,
             'match_percentage': round(match_percentage, 1)
         })
-    
-    #Sort by match percentage
+    # Sort by match percentage
     profiles_with_match.sort(key=lambda x: x['match_percentage'], reverse=True)
     context = {
         'profiles': profiles_with_match
@@ -213,19 +209,15 @@ def findpeople(request):
 def myroom(request):
     """Handle My Room functionality"""
     profile = request.user.profile
-    
     # Get rooms where the user has shown interest
     interested_rooms = Room.objects.filter(interested_users=profile)
-    
     # Get rooms owned by the user
     owned_rooms = Room.objects.filter(owner=profile)
-    
     context = {
         'interested_rooms': interested_rooms,
         'owned_rooms': owned_rooms,
         'profile': profile
-    }
-    
+    } 
     return render(request, "pages/myroom.html", context)
 
 
@@ -241,7 +233,6 @@ def add_room(request):
             return redirect('myroom')
     else:
         form = RoomForm()
-    
     return render(request, 'pages/add_room.html', {'form': form})
 
 
@@ -250,7 +241,6 @@ def user_logout(request):
     logout(request)
     messages.success(request, "Logged out successfully!")
     return redirect("home")
-
 
 @login_required
 def toggle_room_interest(request, room_id):
@@ -295,7 +285,7 @@ class ActivateAccount(View):
     """Account activation"""
 
     def get(self, request, uidb64, token, *args, **kwargs):
-        """GET method for the Account activation."""
+        # GET method for the Account activation.
         try:
             uid = force_str(urlsafe_base64_decode(uidb64))
             user = get_user_model().objects.get(pk=uid)
@@ -420,9 +410,7 @@ def myroom(request):
     if not request.user.profile.is_profile_complete:
         messages.error(request, "Please complete your profile first!")
         return redirect("profile_edit")
-
     matches = matchings(request.user)
-
     return render(request, "pages/myroom.html", {"matches": matches})
 
 
@@ -444,11 +432,9 @@ def chat_list(request):
 def chat_room(request, room_id):
     """Show individual chat room and its messages"""
     room = get_object_or_404(ChatRoom, id=room_id)
-    
     # Check if user is participant
     if request.user not in room.participants.all():
         return redirect('chat_list')
-    
     if request.method == 'POST':
         content = request.POST.get('content')
         if content:
@@ -457,7 +443,6 @@ def chat_room(request, room_id):
                 sender=request.user,
                 content=content
             )
-    
     messages = room.messages.all()
     return render(request, 'chat/chat_room.html', {
         'room': room,
@@ -468,36 +453,28 @@ def chat_room(request, room_id):
 def create_chat_room(request, email):
     """Create a new chat room with another user"""
     other_user = get_object_or_404(User, email=email)
-    
     # Check if chat room already exists
     existing_room = ChatRoom.objects.filter(
         participants=request.user
     ).filter(
         participants=other_user
     ).first()
-    
     if existing_room:
         return redirect('chat_room', room_id=existing_room.id)
-    
     # Create new room
     room = ChatRoom.objects.create()
     room.participants.add(request.user, other_user)
-    
     return redirect('chat_room', room_id=room.id)
-
-
 
 @login_required
 def clear_chat(request, room_id):
     """Clear all messages in a chat room"""
     if request.method == 'POST':
         room = get_object_or_404(ChatRoom, id=room_id)
-        
         # Verify user is a participant
         if request.user not in room.participants.all():
             messages.error(request, "You don't have permission to clear this chat.")
             return redirect('chat_list')
-        
         try:
             # Delete all messages except system welcome messages
             room.messages.exclude(sender=None).delete()
@@ -508,12 +485,10 @@ def clear_chat(request, room_id):
                 sender=None,  # System message
                 content="🧹 Chat history has been cleared."
             )
-            
             messages.success(request, "Chat history cleared successfully.")
         except Exception as e:
             print(f"Error clearing chat: {e}")  # Debug print
-            messages.error(request, "An error occurred while clearing the chat.")
-        
+            messages.error(request, "An error occurred while clearing the chat.")        
     return redirect('chat_room', room_id=room_id)
 
 @login_required
@@ -530,10 +505,8 @@ def roommate_agreement(request, email):
     # Fetch the other user's profile
     user = get_object_or_404(User, email=email)
     other_profile = get_object_or_404(Profile, user=user)
-
     # Fetch the current user's profile
     user_profile = request.user.profile
-
     # Fetch preferences
     user_preferences = {
         "Sleep Schedule": user_profile.get_sleep_schedule_display(),
@@ -541,14 +514,12 @@ def roommate_agreement(request, email):
         "Noise Level": user_profile.get_noise_preference_display(),
         "Guest Preferences": user_profile.get_guest_preference_display(),
     }
-
     other_preferences = {
         "Sleep Schedule": other_profile.get_sleep_schedule_display(),
         "Cleanliness": other_profile.get_cleanliness_display(),
         "Noise Level": other_profile.get_noise_preference_display(),
         "Guest Preferences": other_profile.get_guest_preference_display(),
     }
-
     # Render the agreement template
     context = {
         "user_profile": user_profile,
