@@ -44,8 +44,8 @@
 # from base.tokens import account_activation_token
 # from django.views import View
 from .matching import matchings
-from .models import Room
-from .forms import RoomForm
+from .models import Room, UserProfile
+from .forms import RoomForm, RoommatePreferenceForm
 from django.urls import reverse_lazy
 from django.views import generic
 from django.shortcuts import render, redirect
@@ -70,8 +70,6 @@ from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 from base.tokens import account_activation_token
 from django.views import View
-from django.shortcuts import render
-from base.models import Profile
 from base.utils import calculate_compatibility
 
 # class ActivateAccount(View):
@@ -405,11 +403,13 @@ def user_logout(request):
 
 User = get_user_model()
 
+
 @login_required
 def chat_list(request):
     """Show list of all chats for current user"""
     chat_rooms = ChatRoom.objects.filter(participants=request.user)
     return render(request, 'chat/chat_list.html', {'chat_rooms': chat_rooms})
+
 
 @login_required
 def chat_room(request, room_id):
@@ -429,6 +429,7 @@ def chat_room(request, room_id):
         'room': room,
         'messages': messages
     })
+
 
 @login_required
 def create_chat_room(request, email):
@@ -460,7 +461,6 @@ def clear_chat(request, room_id):
         try:
             # Delete all messages except system welcome messages
             room.messages.exclude(sender=None).delete()
-            
             # Add system message about clearing
             Message.objects.create(
                 room=room,
@@ -513,12 +513,12 @@ def roommate_agreement(request, email):
     }
     return render(request, "pages/roommate_agreement.html", context)
 
+
 @login_required
 def remove_interest(request, room_id):
     """Remove a user's interest in a specific room."""
     room = get_object_or_404(Room, id=room_id)
     profile = get_object_or_404(UserProfile, user=request.user)
-
     if profile in room.interested_users.all():
         room.interested_users.remove(profile)
         messages.success(
@@ -528,6 +528,7 @@ def remove_interest(request, room_id):
         messages.error(request, "You are not interested in this room.")
 
     return redirect("my_room")
+
 
 def my_room(request):
     user_profile = Profile.objects.get(user=request.user)

@@ -27,8 +27,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from base.views import ActivateAccount
 from django.views.generic import TemplateView
-from django.urls import path
-from . import views
 
 urlpatterns = [
     path("signup/", SignUpView.as_view(), name="signup"),

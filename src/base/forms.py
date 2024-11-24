@@ -23,17 +23,9 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from .utils import check_ncsu_email
-
 # from django.contrib.admin.widgets import AdminDateWidget
 from .models import Profile, Room
-
-from django import forms
 from .models import MatchPreferences
-
-from django import forms
-from .models import Profile
-
-from django import forms
 
 
 class SignUpForm(UserCreationForm):
@@ -221,18 +213,18 @@ class RoommatePreferenceForm(forms.ModelForm):
         }
 
 
-# Delay import to avoid circular dependency
-MatchPreferences = None
+# # Delay import to avoid circular dependency
+# MatchPreferences = None
 
 
-def get_match_preferences_model():
-    global MatchPreferences
-    if MatchPreferences is None:
-        from .models import MatchPreferences
-    return MatchPreferences
+# def get_match_preferences_model():
+#     global MatchPreferences
+#     if MatchPreferences is None:
+#         from .models import MatchPreferences
+#     return MatchPreferences
 
 
-class MatchPreferencesForm(forms.ModelForm):
-    class Meta:
-        model = get_match_preferences_model()
-        fields = "__all__"
+# class MatchPreferencesForm(forms.ModelForm):
+#     class Meta:
+#         model = get_match_preferences_model()
+#         fields = "__all__"

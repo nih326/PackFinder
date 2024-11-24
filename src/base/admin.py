@@ -22,7 +22,6 @@
 from django.contrib import admin
 from base.models import Profile
 from django.contrib.auth import get_user_model
-from django.contrib import admin
 from .models import UserProfile
 
 

@@ -4,7 +4,6 @@ from base.models import (
 )  # Adjust the import based on your project structure
 
 
-
 class Command(BaseCommand):
     help = "Delete specified users"
 

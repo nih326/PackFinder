@@ -24,23 +24,12 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth import get_user_model
-
 from django_countries.fields import CountryField
-
-
 from django.contrib.auth.models import AbstractUser
-
 from .managers import CustomUserManager
 from .utils import check_ncsu_email
 from django.contrib.auth.models import User
 from django.conf import settings
-from django.conf import settings
-from django.db import models
-
-from django.contrib.auth import get_user_model
-
-from django.conf import settings
-
 
 class CustomUser(AbstractUser):
     """Custom User Model"""
@@ -310,10 +299,8 @@ class Room_interested_users(models.Model):
 
     def __str__(self):
         return f"{self.user} interested in {self.room}"
-
-
-User = get_user_model()
-
+    
+#User = get_user_model()
 
 
 class ChatRoom(models.Model):

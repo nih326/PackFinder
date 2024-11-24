@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from base.models import Profile  # Replace `base` with your app name
 from base.forms import ProfileForm  # Replace with the actual form name
 
+
 class EditProfilePageTests(TestCase):
     def setUp(self):
         # Create a test user and profile

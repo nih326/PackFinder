@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from base.models import Profile
 
+
 class RoommateCompatibilityTests(TestCase):
     @classmethod
     def setUpTestData(cls):
