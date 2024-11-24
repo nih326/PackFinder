@@ -258,7 +258,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tbody>
     <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/sanjana1399"><img src="https://avatars.githubusercontent.com/u/57448690?v=4?s=100" width="100px;" alt="sanjana1399"/><br /><sub><b>sanjana1399</b></sub></a><br /><a href="https://github.com/nih326/PackFinder/commits?author=sanjana1399" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/sanjana1399"><img src="https://avatars.githubusercontent.com/u/57448690?v=4?s=100" width="100px;" alt="sanjana1399"/><br /><sub><b>sanjana1399</b></sub></a><br /><a href="https://github.com/nih326/PackFinder/commits?author=sanjana1399" title="Code">💻</a> <a href="#design-sanjana1399" title="Design">🎨</a></td>
     </tr>
   </tbody>
 </table>
