@@ -5,7 +5,6 @@
 [![Test](https://github.com/nih326/PackFinder/actions/workflows/Linting.yml/badge.svg?branch=feature_main)](https://github.com/nih326/PackFinder/actions/workflows/Linting.yml?query=branch:feature_main)
 [![code_size](https://img.shields.io/github/languages/code-size/SE-Alpha-Project/PackFinder)](https://github.com/SE-Alpha-Project/PackFinder)
 [![repo_size](https://img.shields.io/github/repo-size/SE-Alpha-Project/PackFinder)](https://github.com/SE-Alpha-Project/PackFinder)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7155519.svg)](https://doi.org/10.5281/zenodo.7155519)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub issues-closed](https://img.shields.io/github/issues-closed/SE-Alpha-Project/PackFinder.svg)](https://GitHub.com/SE-Alpha-Project/PackFinder/issues?q=is%3Aissue+is%3Aclosed)
 [![GitHub version](https://img.shields.io/github/v/release/SE-Alpha-Project/PackFinder)](https://github.com/SE-Alpha-Project/PackFinder/releases)
