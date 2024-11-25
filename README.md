@@ -4,10 +4,10 @@
 [![codecov](https://codecov.io/gh/SE-Alpha-Project/PackFinder/branch/main/graph/badge.svg?token=PCOHJETYCD)](https://codecov.io/gh/SE-Alpha-Project/PackFinder)
 [![Test](https://github.com/nih326/PackFinder/actions/workflows/Linting.yml/badge.svg?branch=feature_main)](https://github.com/nih326/PackFinder/actions/workflows/Linting.yml?query=branch:feature_main)
 [![code_size](https://img.shields.io/github/languages/code-size/SE-Alpha-Project/PackFinder)](https://github.com/SE-Alpha-Project/PackFinder)
-[![repo_size](https://img.shields.io/github/repo-size/SE-Alpha-Project/PackFinder)](https://github.com/SE-Alpha-Project/PackFinder)
+[![repo_size](https://img.shields.io/github/repo-size/nih326/PackFinder?branch=feature_main)](https://github.com/SE-Alpha-Project/PackFinder?query=branch:feature_main)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub issues-closed](https://img.shields.io/github/issues-closed/SE-Alpha-Project/PackFinder.svg)](https://GitHub.com/SE-Alpha-Project/PackFinder/issues?q=is%3Aissue+is%3Aclosed)
-[![GitHub version](https://img.shields.io/github/v/release/SE-Alpha-Project/PackFinder)](https://github.com/SE-Alpha-Project/PackFinder/releases)
+[![GitHub issues-closed](https://img.shields.io/github/issues-closed/nih326/PackFinder.svg)](https://GitHub.com/nih326/PackFinder/issues?q=is%3Aissue+is%3Aclosed)
+[![GitHub version](https://img.shields.io/github/v/release/nih326/PackFinder)](https://github.com/nih326/PackFinder/releases)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 ---
