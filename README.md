@@ -85,6 +85,17 @@ Start a conversation with potential roommates through their email IDs or directl
 ![image](https://github.com/user-attachments/assets/97587928-2501-483f-8c2e-eda1ae2fe18c)
 ![image](https://github.com/user-attachments/assets/8b93a3a1-b601-479c-96c7-daa238c36ec4)
 
+### 🗨 *Community Forum*
+Community forum is a space for users to share, discuss adnseek answere to different questions and tips on roommates, general housing and campus life. Users can share their experiences or reach out to the community for help.
+
+![Screenshot 2024-11-24 at 9 54 54 PM](https://github.com/user-attachments/assets/ec56024c-0b84-48b0-9310-e87f0790ef79)
+
+![Screenshot 2024-11-24 at 9 55 04 PM](https://github.com/user-attachments/assets/592ed644-118f-4390-94cf-db7238416cfd)
+
+![Screenshot 2024-11-24 at 9 55 01 PM](https://github.com/user-attachments/assets/ce685775-0f96-4268-ae52-4a22f4170341)
+
+![Screenshot 2024-11-24 at 9 55 08 PM](https://github.com/user-attachments/assets/fbf0ab44-c279-48f3-89b1-2db0923a8179)
+
 ---
 
 ## 🚀 *Getting Started*
