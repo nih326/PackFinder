@@ -14,8 +14,10 @@ CONVERSATION_STARTERS = [
     "🏟️ Random thought: Been to any good games this season?",
 ]
 
+
 def get_welcome_message():
     return random.choice(WELCOME_MESSAGES)
+
 
 def get_conversation_starter():
     return random.choice(CONVERSATION_STARTERS)

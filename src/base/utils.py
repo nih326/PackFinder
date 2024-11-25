@@ -1,8 +1,8 @@
 #
-# Created on Sun Nov 04 2024
+# Created on Fri Nov 22 2024
 #
 # The MIT License (MIT)
-# Copyright (c) 2024 Chaitralee Datar, Ananya Patankar, Yash Shah
+# Copyright (c) 2024 Niharika Maruvanahalli Suresh , Diya Shetty, Sanjana Nanjangud Shreenivas
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this software
 # and associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -26,3 +26,52 @@ def check_ncsu_email(email):
     if parts[-1] != "ncsu.edu":
         return False
     return True
+
+
+def calculate_compatibility(user_profile, other_profile):
+    """Calculate the compatibility score between two user profiles."""
+    score = 0
+    total_weight = 0  # Start at zero
+
+    # Check gender preference
+    if user_profile.gender_preference == other_profile.gender:
+        score += 1
+        total_weight += 1
+    elif user_profile.gender_preference == "No Preference":
+        total_weight += 0.5  # Add partial weight if 'No Preference'
+
+    # Check diet preference
+    if user_profile.diet_preference == other_profile.diet:
+        score += 1
+        total_weight += 1
+    elif user_profile.diet_preference == "No Preference":
+        total_weight += 0.5
+
+    # Check degree preference
+    if user_profile.degree_preference == other_profile.degree:
+        score += 1
+        total_weight += 1
+    elif user_profile.degree_preference == "No Preference":
+        total_weight += 0.5
+
+    # Check course preference
+    if user_profile.course_preference == other_profile.course:
+        score += 1
+        total_weight += 1
+    elif user_profile.course_preference == "No Preference":
+        total_weight += 0.5
+
+    # Check country preference
+    if user_profile.country_preference == other_profile.country:
+        score += 1
+        total_weight += 1
+    elif user_profile.country_preference == "No Preference":
+        total_weight += 0.5
+
+    # Return percentage based on actual score and total weight
+    if (
+        total_weight == 0
+    ):  # Prevent division by zero if all preferences are 'No Preference'
+        return 0
+    
+    return (score / total_weight) * 100
