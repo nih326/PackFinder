@@ -369,7 +369,7 @@ class UserProfile(models.Model):
         return f"Profile of {self.user.username}"
 
 
-rom django.db import models
+from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings  
 
