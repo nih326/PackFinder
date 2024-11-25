@@ -36,3 +36,14 @@ class CampusLifeTests(TestCase):
             self.assertIn(comment['author'], response.content.decode())
             self.assertIn(comment['text'], response.content.decode())
 
+
+    def test_empty_comment_submission(self):
+        """Test that empty comment submissions are not allowed."""
+        response = self.client.post(reverse('campus_life'), {
+            'comment-text': '',
+            'comment-name': 'Test User'
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Discuss all things related to Campus Life here!")
+
+
