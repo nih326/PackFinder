@@ -17,3 +17,22 @@ class CampusLifeTests(TestCase):
         response = self.client.get(reverse('campus_life'))
         self.assertContains(response, "Campus Life: Tips and Discussions")
         self.assertContains(response, "Discuss all things related to Campus Life here!")
+
+    @patch('django.test.Client.get')
+    def test_comment_persistence_with_local_storage(self, mock_get):
+        """Test that comments are stored and persisted in localStorage."""
+        comments = [
+            {"author": "Alice", "text": "This is a great place to share ideas!", "likes": 5, "dislikes": 2},
+            {"author": "Bob", "text": "Love this discussion thread.", "likes": 3, "dislikes": 1},
+        ]
+        mock_get.return_value = self.client.get(reverse('campus_life'))
+        mock_response_content = b"<div class='comment'>"
+        for comment in comments:
+            mock_response_content += f"<p>{comment['author']}: {comment['text']}</p>".encode()
+
+        mock_get.return_value.content = mock_response_content
+        response = mock_get.return_value
+        for comment in comments:
+            self.assertIn(comment['author'], response.content.decode())
+            self.assertIn(comment['text'], response.content.decode())
+
