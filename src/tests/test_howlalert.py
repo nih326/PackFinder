@@ -11,7 +11,6 @@ class UserSeedingCommandTests(TestCase):
     @patch('django.core.mail.send_mail')
     def test_user_seeding_success(self, mock_send_mail):
         """Test the user seeding command successfully creates users and sends email notification."""
-        # Mocking email sending
         mock_send_mail.return_value = 1  
 
 
