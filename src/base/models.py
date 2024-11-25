@@ -355,17 +355,28 @@ class MatchPreferences(models.Model):
 
     def __str__(self):
         return f"Preferences of {self.profile.user.email}"
+from django.db import models
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    degree_preference = models.CharField(max_length=100, blank=True, null=True)
+    gender_preference = models.CharField(max_length=10, blank=True, null=True)
+    course_preference = models.CharField(max_length=100, blank=True, null=True)
+    country_preference = models.CharField(max_length=100, blank=True, null=True)
+    diet_preference = models.CharField(max_length=100, blank=True, null=True)
+    
+    def __str__(self):
+        return f"Profile of {self.user.username}"
 
 
-# class UserProfile(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#     degree_preference = models.CharField(max_length=100, blank=True, null=True)
-#     gender_preference = models.CharField(max_length=10, blank=True, null=True)
-#     course_preference = models.CharField(max_length=100, blank=True, null=True)
-#     country_preference = models.CharField(
-#         max_length=100, blank=True, null=True
-#     )
-#     diet_preference = models.CharField(max_length=100, blank=True, null=True)
+rom django.db import models
+from django.contrib.auth.models import User
+from django.conf import settings  
 
-#     def __str__(self):
-#         return self.user.username
+class Comment(models.Model):
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)

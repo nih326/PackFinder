@@ -62,6 +62,10 @@ urlpatterns = [
         views.toggle_room_interest,
         name="toggle_room_interest",
     ),
+    path('forum/', views.forum_home, name='forum_home'),
+    path('forum/housing-tips/', views.housing_tips, name='housing_tips'),
+    path('forum/roommate-issues/', views.roommate_issues, name='roommate_issues'),
+    path('forum/campus-life/', views.campus_life, name='campus_life')
     path(
         "remove_interest/<int:room_id>/",
         views.remove_interest,
