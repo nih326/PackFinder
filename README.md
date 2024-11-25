@@ -96,6 +96,12 @@ Community forum is a space for users to share, discuss adnseek answere to differ
 
 ![Screenshot 2024-11-24 at 9 55 08 PM](https://github.com/user-attachments/assets/fbf0ab44-c279-48f3-89b1-2db0923a8179)
 
+### 🗨 *Howl Alert*
+Get notifications when new users join the platform with their details making it easier to reach out to potential roomates.
+
+![Screenshot 2024-11-24 at 10 03 05 PM](https://github.com/user-attachments/assets/70c5d3d9-2be7-48b5-89c9-20424f02803e)
+
+
 ---
 
 ## 🚀 *Getting Started*
