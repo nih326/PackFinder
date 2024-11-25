@@ -15,6 +15,7 @@
 ## 🌟 *About PackFinder*
 *PackFinder* is a free and easy-to-use roommate-matching platform built for NC State students. Use PackFinder to find the perfect roommate match based on your preferences and get recommendations suited to your lifestyle!
 🧑‍💻 Want to contribute? Check out our [CONTRIBUTING.md](https://github.com/rohitgeddam/FindMyRoomie/blob/main/CONTRIBUTING.md).
+Wondering if you want to contribute? [Click on this link to find out!](https://youtu.be/9zWpe7PSWEk)
 
 https://github.com/user-attachments/assets/a99a1c30-3c48-45e1-9a25-7526f895d86f
 
