@@ -5,8 +5,4 @@
 | **Howl Alerts** | No notification system to update users about new matches or potential roommates!| Real-time notifications alert you when new compatible roommates join the platform!|
 | **Fixed Send Profile feature** | Static "Send Profile" feature. This feature only allowed one pre-loaded document to be sent.| Now you can email your resume with one click! | 
 | **Roommate Agreement Builder** | No tools to help set roommate expectations or boundaries.| Create customized roommate agreements based on preferences and boundaries, reducing misunderstandings and ensuring clear expectations. |
-| **Community Forum
-![image](https://github.com/user-attachments/assets/23442580-98d5-4262-a5fc-62b997190064)
-** | No Community forum functionality![image](https://github.com/user-attachments/assets/7908d5cb-2a60-4f7c-a4ec-776943698140)
-| Drop your comments, tips, questions in our community forum to reach out to others for help, concerns and suggestions.![image](https://github.com/user-attachments/assets/faf3ead0-324e-48cb-9267-8f4123c0597e)
-|
+| **Community Forum** | No Community forum functionality | Drop your comments, tips, questions in our community forum to reach out to others for help, concerns and suggestions.|
