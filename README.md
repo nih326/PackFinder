@@ -52,21 +52,37 @@ Easily reset your password via an email link if you’ve forgotten it.
 
 ![image](https://github.com/user-attachments/assets/3df3e3db-d948-4a7e-a82b-08bf74fb468a)
 
+### 🐺 *HomePage*
+Welcome to PackFinder! Start your roommate search by exploring the 'Find People' page. Customize your profile and connect with compatible roommates today. Easily access your profile, chats, and room details directly from the top navigation bar for a seamless experience. Let's help you find the perfect roommate
+
+![image](https://github.com/user-attachments/assets/471990e3-d76b-4e96-bb76-3618198621ad)
+
 
 ### 👤 *My Profile*
 Customize your profile, set preferences, and share a bit about yourself. Make your profile visible to actively seek roommates or hide it if you’re already settled!
-
-![image](https://github.com/user-attachments/assets/5df59ee8-8a7f-4635-bf92-1a54419ece0f)
-
+![image](https://github.com/user-attachments/assets/3132a34c-3af7-4078-9096-82ba96db6821)
+![image](https://github.com/user-attachments/assets/1f90ba3f-44f6-4c7f-990e-32cfdc33c65d)
+![image](https://github.com/user-attachments/assets/7d5a6e31-914d-414d-b29b-e102ac8d405f)
+![image](https://github.com/user-attachments/assets/ee38668e-67dc-4e18-857b-7e7fa2f5344d)
 
 ### 🐺 *Find Roommates*
 Browse other profiles and use our “Wolf Filter” to find roommates who match your preferences!
 
-![image](https://github.com/user-attachments/assets/e1f61974-610f-4780-9ba9-b6427727790e)
-![image](https://github.com/user-attachments/assets/a2a389e8-82ce-4dc9-bfa1-b11a0545c65c)
-![image](https://github.com/user-attachments/assets/e3765814-8d99-4ef8-a4c1-379f192d8a46)
+![image](https://github.com/user-attachments/assets/cd0876a6-c761-4c60-99f3-e321b39c492a)
 
 
+### 🤝 *Roommate Compatibility*
+See how compatible you are with potential roommates based on shared preferences, lifestyle choices, and habits. The compatibility score shows a percentage to help you find the best match. Explore and connect with users who have similar interests and needs!
+![image](https://github.com/user-attachments/assets/ed70b29c-aca6-4e95-bbf3-544c130b4c95)
+![image](https://github.com/user-attachments/assets/62132008-d345-4b93-9cc3-5479ed9a9f3b)
+
+### 🗨 *Chat Tab*
+Start a conversation with potential roommates through their email IDs or directly from the 'Find People' tab. This is your space to discuss living arrangements, preferences, and anything else you’d like to know before making a decision. You can also generate a Roommate Agreement to ensure everyone is on the same page!
+
+![image](https://github.com/user-attachments/assets/f354793f-de32-48cb-acf9-ed8354883099)
+![image](https://github.com/user-attachments/assets/68b0b1ca-30f8-4244-b9b9-38bb3218e33a)
+![image](https://github.com/user-attachments/assets/97587928-2501-483f-8c2e-eda1ae2fe18c)
+![image](https://github.com/user-attachments/assets/8b93a3a1-b601-479c-96c7-daa238c36ec4)
 
 ---
 
