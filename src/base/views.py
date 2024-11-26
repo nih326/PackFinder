@@ -513,21 +513,24 @@ def roommate_agreement(request, email):
         "other_preferences": other_preferences,
     }
     return render(request, "pages/roommate_agreement.html", context)
-
-
-    from django.shortcuts import render
+    
+from django.shortcuts import render
 
 def forum_home(request):
     return render(request, 'forum/forum_home.html')
 
+
 def housing_tips(request):
     return render(request, 'forum/housing_tips.html')
+
 
 def roommate_issues(request):
     return render(request, 'forum/roommate_issues.html')
 
+
 def campus_life(request):
     return render(request, 'forum/campus_life.html')
+
 
 @login_required
 def remove_interest(request, room_id):
