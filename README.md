@@ -182,7 +182,7 @@ We use GitHub actions to automate tasks of linting, code coverage, build, tests,
 
 ### Unit tests:
 
-Unit test are performed everytime there is a push or pull into the repository. For more information about Unit test visit [Test README](https://github.com/rohitgeddam/FindMyRoomie/blob/main/src/tests/README.md)
+Unit test are performed everytime there is a push or pull into the repository. For more information about Unit test visit [Test README](https://github.com/nih326/PackFinder/blob/feature_main/src/tests/README.md)
 
 ### How to build docs
 `sphinx-build -b html docs/  docs/build `
@@ -253,16 +253,22 @@ If you prefer using Black in VSCode, you can add the below settings in your vsco
 ## 🛤️ *Roadmap*
 
 ### *3-Month Milestones*
-- Apartment details in profiles for easier roommate pairing
-- Integrated chat for in-app messaging
+- Expense Sharing Tools
+- Alumni Network Expansion
 
 ### *6-Month Milestones*
-- Mobile app launch on Google Play and App Store
+- AI-Powered Roommate Suggestions
 
 ### *9-Month Milestones*
-- Partnership with local property agents for seamless listings
+- Virtual Roommate Introductions
 
 ---
+
+## Developer Support and Updates
+
+For support and inquiries related to **PackFinder**, please contact us at **csc510group39@gmail.com**. We are here to assist you and address any questions or issues you may have.
+
+We appreciate your interest and look forward to providing you with the best possible support and updates.
 
 ## Contributors:
 Niharika Maruvanahalli Suresh: nmaruva@ncsu.edu </br>
