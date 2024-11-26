@@ -2,7 +2,11 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from base.models import Profile, ChatRoom, Message
+import os
+import django
 
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
+django.setup()
 
 class AgreementTests(TestCase):
     @classmethod
