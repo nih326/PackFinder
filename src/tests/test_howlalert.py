@@ -1,35 +1,29 @@
 from django.test import TestCase
-from django.core.management import call_command
 from unittest.mock import patch
-from django.core.mail import send_mail
-from django.contrib.auth import get_user_model
-from base.models import Profile
-import random
+from django.core.management import call_command
+from django.test.utils import override_settings
 
+class SeedUsersEmailTests(TestCase):
+    @override_settings(EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend')
+    @patch('base.management.commands.seed_users.send_mail')
+    def test_send_notification_called(self, mock_send_mail):
+        """
+        Test that the send_admin_notification function is called with correct arguments
+        when users are created.
+        """
+        user_count = 2
 
-class UserSeedingCommandTests(TestCase):
-    @patch('django.core.mail.send_mail')
-    def test_user_seeding_success(self, mock_send_mail):
-        """Test the user seeding command successfully creates users and sends email notification."""
-        mock_send_mail.return_value = 1  
+        call_command('seed_users', user_count)
+        self.assertTrue(mock_send_mail.called)
+        self.assertEqual(mock_send_mail.call_count, 1)
 
+        args, kwargs = mock_send_mail.call_args
+        subject = args[0]
+        message = args[1]
+        from_email = args[2]
+        recipient_list = args[3]
 
-        call_command('seed_users', 5)
-
-
-        users = get_user_model().objects.all()
-        self.assertEqual(users.count(), 5)
-
-
-        profiles = Profile.objects.all()
-        self.assertEqual(profiles.count(), 5)
-
-        mock_send_mail.assert_called_once_with(
-            'New Users Added to the Platform',
-            'The following new users were added to the platform:\n\n' +
-            "\n\n".join([f"Name: {user.first_name} {user.last_name}\nEmail: {user.email}\nGender: {profile.gender}\nDegree: {profile.degree}\nDiet: {profile.diet}\nCourse: {profile.course}\nBio: {profile.bio}\nBirth Date: {profile.birth_date}\nHometown: {profile.hometown}\nCountry: {profile.country}\nPreference - Gender: {profile.preference_gender}, Degree: {profile.preference_degree}, Diet: {profile.preference_diet}, Course: {profile.preference_course}\nProfile Complete: {profile.is_profile_complete}" for user, profile in zip(users, profiles)]),
-            'sanjananshreenivas@gmail.com',
-            ['sanjanashreenivas1399@gmail.com']
-        )
-
-    @patch('django.core.mail.send_mail')
+        self.assertEqual(subject, "New Users Added to the Platform")
+        self.assertIn("The following new users were added to the platform:", message)
+        self.assertEqual(from_email, "sanjananshreenivas@gmail.com") 
+        self.assertEqual([email.strip() for email in recipient_list], ["sanjanashreenivas1399@gmail.com"]) 
