@@ -29,7 +29,10 @@ from django.contrib.auth.models import AbstractUser
 from .managers import CustomUserManager
 from .utils import check_ncsu_email
 from django.conf import settings
-
+from django.db import models
+from django.db import models
+from django.contrib.auth.models import User
+from django.conf import settings  
 
 class CustomUser(AbstractUser):
     """Custom User Model"""
@@ -269,6 +272,8 @@ class UserProfile(models.Model):
         max_length=100, blank=True, null=True
     )
     diet_preference = models.CharField(max_length=100, blank=True, null=True)
+
+    
     def __str__(self):
         return self.user.username
 
@@ -355,7 +360,7 @@ class MatchPreferences(models.Model):
 
     def __str__(self):
         return f"Preferences of {self.profile.user.email}"
-from django.db import models
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -368,10 +373,6 @@ class UserProfile(models.Model):
     def __str__(self):
         return f"Profile of {self.user.username}"
 
-
-from django.db import models
-from django.contrib.auth.models import User
-from django.conf import settings  
 
 class Comment(models.Model):
     author = models.ForeignKey(
