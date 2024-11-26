@@ -29,10 +29,9 @@ from django.contrib.auth.models import AbstractUser
 from .managers import CustomUserManager
 from .utils import check_ncsu_email
 from django.conf import settings
-from django.db import models
-from django.db import models
 from django.contrib.auth.models import User
-from django.conf import settings  
+from django.conf import settings
+
 
 class CustomUser(AbstractUser):
     """Custom User Model"""
@@ -272,8 +271,6 @@ class UserProfile(models.Model):
         max_length=100, blank=True, null=True
     )
     diet_preference = models.CharField(max_length=100, blank=True, null=True)
-
-    
     def __str__(self):
         return self.user.username
 
