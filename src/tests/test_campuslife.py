@@ -3,6 +3,9 @@ from django.urls import reverse
 from django.template.loader import render_to_string
 from django.http import HttpRequest
 from unittest.mock import patch
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from selenium import webdriver
+from selenium.webdriver.common.by import By
 
 class CampusLifeTests(TestCase):
     
@@ -45,5 +48,30 @@ class CampusLifeTests(TestCase):
         })
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Discuss all things related to Campus Life here!")
+
+    
+
+class CampusLifeTests(StaticLiveServerTestCase):
+    def setUp(self):
+        self.driver = webdriver.Chrome()
+
+    def tearDown(self):
+        self.driver.quit()
+
+    def test_comment_submission(self):
+        self.driver.get(f'{self.live_server_url}/forum/campus-life/')
+        comment_input = self.driver.find_element(By.ID, 'comment-text')
+        name_input = self.driver.find_element(By.ID, 'comment-name')
+        submit_button = self.driver.find_element(By.CSS_SELECTOR, 'form button')
+
+        comment_input.send_keys('This is a test comment.')
+        name_input.send_keys('John Doe')
+        submit_button.click()
+        self.driver.implicitly_wait(3)
+        comments = self.driver.find_elements(By.CSS_SELECTOR, '#comments .comment')
+        self.assertTrue(
+            any('This is a test comment.' in c.text for c in comments),
+            "Comment not found in the displayed comments."
+        )
 
 
