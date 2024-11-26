@@ -32,6 +32,7 @@ from faker import Faker as RealFaker
 
 real_faker = RealFaker()
 
+
 @factory.django.mute_signals(post_save)
 class UserFactory(factory.django.DjangoModelFactory):
     """Faker Factory for User model"""
@@ -46,6 +47,7 @@ class UserFactory(factory.django.DjangoModelFactory):
     )
     is_staff = False
 
+
 class ProfileFactory(factory.django.DjangoModelFactory):
     """Faker Factory for Profile Model"""
 
@@ -57,6 +59,7 @@ class ProfileFactory(factory.django.DjangoModelFactory):
     hometown = factory.Faker("city")
     country = factory.Faker("country_code")
     preference_country = factory.Faker("country_code")
+
 
 class Command(BaseCommand):
     """Django manage.py command"""
@@ -73,7 +76,7 @@ class Command(BaseCommand):
             raise CommandError("Please provide the number of users to create.")
 
         count = number
-        users_created = []  
+        users_created = []
         for _ in range(number):
             try:
           
@@ -97,8 +100,6 @@ class Command(BaseCommand):
                 )[0][0]
                 profile.is_profile_complete = True
                 profile.save()
-
-        
                 users_created.append(self.format_user_details(user, profile))
 
             except OperationalError:
@@ -142,16 +143,13 @@ class Command(BaseCommand):
         """Send email notification to the admin about new users."""
         subject = "New Users Added to the Platform"
         message = (
-            "The following new users were added to the platform:\n\n" +
-            "\n\n".join(users_created) +
-            "\n\nThank you!"
+            "The following new users were added to the platform:\n\n" +"\n\n".join(users_created) +"\n\nThank you!"
         )
-        from_email = "sanjananshreenivas@gmail.com" 
-        recipient_list = ["	sanjanashreenivas1399@gmail.com"]  
+        from_email = "sanjananshreenivas@gmail.com"
+        recipient_list = ["	sanjanashreenivas1399@gmail.com"]
 
         try:
             send_mail(subject, message, from_email, recipient_list)
             self.stdout.write(self.style.SUCCESS("Notification email sent to user."))
         except Exception as e:
             self.stdout.write(self.style.ERROR(f"Failed to send email to user: {str(e)}"))
-
