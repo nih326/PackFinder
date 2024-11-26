@@ -1,6 +1,7 @@
 # 🐺 *PackFinder* 🐺
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14207615.svg)](https://doi.org/10.5281/zenodo.14207615) 
+[![Test](https://github.com/nih326/PackFinder/actions/workflows/Unit_Tests.yml/badge.svg?branch=feature_main)](https://github.com/nih326/PackFinder/actions/workflows/Unit_Tests.yml?query=branch:feature_main)
 [![codecov](https://codecov.io/gh/SE-Alpha-Project/PackFinder/branch/main/graph/badge.svg?token=PCOHJETYCD)](https://codecov.io/gh/SE-Alpha-Project/PackFinder)
 [![Test](https://github.com/nih326/PackFinder/actions/workflows/Linting.yml/badge.svg?branch=feature_main)](https://github.com/nih326/PackFinder/actions/workflows/Linting.yml?query=branch:feature_main)
 [![code_size](https://img.shields.io/github/languages/code-size/SE-Alpha-Project/PackFinder)](https://github.com/SE-Alpha-Project/PackFinder)
