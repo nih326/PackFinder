@@ -141,7 +141,7 @@ class Command(BaseCommand):
     def send_admin_notification(self, users_created):
         """Send email notification to the admin about new users."""
         subject = "New Users Added to the Platform"
-        message = ("The following new users were added to the platform:\n\n" +"\n\n".join(users_created) +"\n\nThank you!")
+        message = ("The following new users were added to the platform:\n\n" + "\n\n".join(users_created) + "\n\nThank you!")       
         from_email = "sanjananshreenivas@gmail.com"
         recipient_list = ["	sanjanashreenivas1399@gmail.com"]
 
