@@ -25,17 +25,14 @@ jobs:
                   pip install -r requirements.txt
             - name: Add folders to Python Path
               run: |
-                  echo "PYTHONPATH=tests:code:data" >> $GITHUB_ENV
+                  echo "PYTHONPATH=src:tests:code:data" >> $GITHUB_ENV
             - name: Generate Coverage
               run: |
                   export CI=GITHUB_ACTIONS
-                  coverage run -m src.manage
-                  coverage xml
-            - name: Upload to CodeCov
-              run: |
-                  curl -Os https://uploader.codecov.io/latest/linux/codecov
-                  chmod +x codecov
-                  ./codecov
+                  coverage run -m pytest  # Use pytest to run tests
+                  coverage xml  # Ensure the coverage report is generated
+            - name: List files for debugging (optional)
+              run: ls -alh
             - name: Upload coverage reports to Codecov
               uses: codecov/codecov-action@v3
               with:
