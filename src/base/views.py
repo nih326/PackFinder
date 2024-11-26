@@ -513,8 +513,7 @@ def roommate_agreement(request, email):
         "other_preferences": other_preferences,
     }
     return render(request, "pages/roommate_agreement.html", context)
-    
-from django.shortcuts import render
+
 
 def forum_home(request):
     return render(request, 'forum/forum_home.html')
