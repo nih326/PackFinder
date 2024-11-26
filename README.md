@@ -22,7 +22,7 @@ https://github.com/user-attachments/assets/a99a1c30-3c48-45e1-9a25-7526f895d86f
 ---
 
 ## 💡 *Features*
-
+Check out our Demo! [Link](https://youtu.be/4y3ndKHjCTg)
 ### 🏠 *Landing Page*
 The landing page is the first page that non-authenticated users get redirected to
 
