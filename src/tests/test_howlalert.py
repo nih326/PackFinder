@@ -3,6 +3,7 @@ from unittest.mock import patch
 from django.core.management import call_command
 from django.test.utils import override_settings
 
+
 class SeedUsersEmailTests(TestCase):
     @override_settings(EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend')
     @patch('base.management.commands.seed_users.send_mail')
@@ -25,5 +26,5 @@ class SeedUsersEmailTests(TestCase):
 
         self.assertEqual(subject, "New Users Added to the Platform")
         self.assertIn("The following new users were added to the platform:", message)
-        self.assertEqual(from_email, "sanjananshreenivas@gmail.com") 
-        self.assertEqual([email.strip() for email in recipient_list], ["sanjanashreenivas1399@gmail.com"]) 
+        self.assertEqual(from_email, "sanjananshreenivas@gmail.com")
+        self.assertEqual([email.strip() for email in recipient_list], ["sanjanashreenivas1399@gmail.com"])
