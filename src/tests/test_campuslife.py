@@ -1,17 +1,23 @@
 from django.test import TestCase
 from django.urls import reverse
-from django.template.loader import render_to_string
-from django.http import HttpRequest
 from unittest.mock import patch
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-class CampusLifeTests(TestCase):
-    
+
+class CampusLifeTests(StaticLiveServerTestCase):
+    """Consolidated class for Django and Selenium tests for Campus Life."""
+
+    def setUp(self):
+        self.driver = webdriver.Chrome()
+
+    def tearDown(self):
+        self.driver.quit()
+
     def test_campus_life_page_loads(self):
         """Test that the campus life page loads successfully and uses the correct template."""
-        response = self.client.get(reverse('campus_life')) 
+        response = self.client.get(reverse('campus_life'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'forum/campus_life.html')
 
@@ -39,7 +45,6 @@ class CampusLifeTests(TestCase):
             self.assertIn(comment['author'], response.content.decode())
             self.assertIn(comment['text'], response.content.decode())
 
-
     def test_empty_comment_submission(self):
         """Test that empty comment submissions are not allowed."""
         response = self.client.post(reverse('campus_life'), {
@@ -49,16 +54,8 @@ class CampusLifeTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Discuss all things related to Campus Life here!")
 
-    
-
-class CampusLifeTests(StaticLiveServerTestCase):
-    def setUp(self):
-        self.driver = webdriver.Chrome()
-
-    def tearDown(self):
-        self.driver.quit()
-
-    def test_comment_submission(self):
+    def test_comment_submission_with_selenium(self):
+        """Test comment submission using Selenium."""
         self.driver.get(f'{self.live_server_url}/forum/campus-life/')
         comment_input = self.driver.find_element(By.ID, 'comment-text')
         name_input = self.driver.find_element(By.ID, 'comment-name')
@@ -73,5 +70,3 @@ class CampusLifeTests(StaticLiveServerTestCase):
             any('This is a test comment.' in c.text for c in comments),
             "Comment not found in the displayed comments."
         )
-
-
