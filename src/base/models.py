@@ -30,7 +30,6 @@ from .managers import CustomUserManager
 from .utils import check_ncsu_email
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.conf import settings
 
 
 class CustomUser(AbstractUser):
@@ -271,6 +270,8 @@ class UserProfile(models.Model):
         max_length=100, blank=True, null=True
     )
     diet_preference = models.CharField(max_length=100, blank=True, null=True)
+
+
     def __str__(self):
         return self.user.username
 
@@ -366,7 +367,7 @@ class UserProfile(models.Model):
     course_preference = models.CharField(max_length=100, blank=True, null=True)
     country_preference = models.CharField(max_length=100, blank=True, null=True)
     diet_preference = models.CharField(max_length=100, blank=True, null=True)
-    
+
     def __str__(self):
         return f"Profile of {self.user.username}"
 
