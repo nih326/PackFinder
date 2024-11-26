@@ -74,4 +74,3 @@ def calculate_compatibility(user_profile, other_profile):
     ):  # Prevent division by zero if all preferences are 'No Preference'
         return 0
     return (score / total_weight) * 100
-    
