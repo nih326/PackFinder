@@ -8,6 +8,7 @@ import django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 django.setup()
 
+
 class AgreementTests(TestCase):
     @classmethod
     def setUpTestData(cls):
