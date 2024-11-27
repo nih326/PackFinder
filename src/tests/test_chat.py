@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth import get_user_model
-from base.models import Profile, ChatRoom, Message
+from base.models import ChatRoom, Message
 
 class ChatRoomTests(TestCase):
     @classmethod
