@@ -29,7 +29,6 @@ from django.contrib.auth.models import AbstractUser
 from .managers import CustomUserManager
 from .utils import check_ncsu_email
 from django.conf import settings
-#from django.contrib.auth.models import User
 
 
 class CustomUser(AbstractUser):
@@ -307,9 +306,6 @@ class Room_interested_users(models.Model):
 
     def __str__(self):
         return f"{self.user} interested in {self.room}"
-
-
-#User = get_user_model()
 
 
 class ChatRoom(models.Model):
