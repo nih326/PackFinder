@@ -31,6 +31,9 @@ from .utils import check_ncsu_email
 from django.conf import settings
 
 
+User = get_user_model()
+
+
 class CustomUser(AbstractUser):
     """Custom User Model"""
 
