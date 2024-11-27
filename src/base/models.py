@@ -29,7 +29,7 @@ from django.contrib.auth.models import AbstractUser
 from .managers import CustomUserManager
 from .utils import check_ncsu_email
 from django.conf import settings
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
 
 
 class CustomUser(AbstractUser):
@@ -309,7 +309,7 @@ class Room_interested_users(models.Model):
         return f"{self.user} interested in {self.room}"
 
 
-User = get_user_model()
+#User = get_user_model()
 
 
 class ChatRoom(models.Model):
@@ -359,16 +359,16 @@ class MatchPreferences(models.Model):
         return f"Preferences of {self.profile.user.email}"
 
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    degree_preference = models.CharField(max_length=100, blank=True, null=True)
-    gender_preference = models.CharField(max_length=10, blank=True, null=True)
-    course_preference = models.CharField(max_length=100, blank=True, null=True)
-    country_preference = models.CharField(max_length=100, blank=True, null=True)
-    diet_preference = models.CharField(max_length=100, blank=True, null=True)
+# class UserProfile(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     degree_preference = models.CharField(max_length=100, blank=True, null=True)
+#     gender_preference = models.CharField(max_length=10, blank=True, null=True)
+#     course_preference = models.CharField(max_length=100, blank=True, null=True)
+#     country_preference = models.CharField(max_length=100, blank=True, null=True)
+#     diet_preference = models.CharField(max_length=100, blank=True, null=True)
 
-    def __str__(self):
-        return f"Profile of {self.user.username}"
+#     def __str__(self):
+#         return f"Profile of {self.user.username}"
 
 
 class Comment(models.Model):
